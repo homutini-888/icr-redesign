@@ -772,25 +772,73 @@ dialog::backdrop{background:rgba(14,26,43,.35);-webkit-backdrop-filter:blur(6px)
 .dlg-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .dlg-head h2{font-size:1.8rem}
 .dlg .icon-btn{width:40px;height:40px}
-.palette{margin:12vh auto auto;width:min(640px,calc(100vw - 32px))}
+
+/* ---------- site search ---------- */
+.palette{margin:9vh auto auto;width:min(780px,calc(100vw - 32px))}
 .palette[open]{animation:pop .35s var(--ease)}
-.pal{background:rgba(255,255,255,.92);overflow:hidden;border-radius:24px}
-.pal-search{display:flex;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--hair)}
-.pal-search svg{width:20px;height:20px;color:var(--muted);flex-shrink:0}
-.pal-search input{flex:1;border:0;background:none;font-size:17px;outline:none;min-width:0}
-.pal-list{max-height:min(420px,56vh);overflow:auto;padding:8px}
-.pal-group{font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:14px 12px 8px}
-.pal-item{display:grid;grid-template-columns:32px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;cursor:pointer}
-.pal-item .pi{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;background:rgba(14,26,43,.05);color:var(--blue)}
-.pal-item .pi svg{width:16px;height:16px}
-.pal-item b{display:block;font-weight:500;color:var(--ink);font-size:15px;line-height:1.3}
-.pal-item small{font-size:13px;color:var(--muted)}
-.pal-item em{font:400 12px/1 var(--f-mono);font-style:normal;color:var(--muted)}
-.pal-item[aria-selected="true"]{background:rgba(4,153,221,.1)}
-.pal-item mark{background:rgba(4,153,221,.2);color:inherit;border-radius:3px}
-.pal-empty{padding:30px;text-align:center;color:var(--muted);font-size:15px}
-.pal-foot{display:flex;gap:18px;padding:12px 20px;border-top:1px solid var(--hair);font-size:12.5px;color:var(--muted);flex-wrap:wrap}
-.pal-foot span{display:flex;align-items:center;gap:6px}
+.pal{background:rgba(250,252,254,.9);border-radius:26px;display:flex;flex-direction:column;max-height:82svh;overflow:hidden}
+.pal-search{display:flex;align-items:center;gap:12px;padding:16px 16px 16px 22px;flex-shrink:0}
+.pal-search>svg{width:22px;height:22px;color:var(--blue);flex-shrink:0}
+.pal-search input{flex:1;border:0;background:none;font:400 19px/1.3 var(--f-body);color:var(--ink);outline:none;min-width:0;padding:4px 0}
+.pal-search input::placeholder{color:var(--muted)}
+.pal-clear{width:32px;height:32px;border-radius:50%;border:0;display:grid;place-items:center;background:rgba(14,26,43,.06);color:var(--ink-2);cursor:pointer;flex-shrink:0}
+.pal-clear[hidden]{display:none}
+.pal-clear svg{width:14px;height:14px}
+.pal-clear:hover{background:rgba(14,26,43,.1)}
+/* nothing below the field until there is something to show */
+.pal.idle .pal-body{display:none}
+.pal-body{border-top:1px solid var(--hair);overflow:auto;overscroll-behavior:contain;min-height:0}
+.pal-tools{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;padding:12px 16px 2px;flex-wrap:wrap}
+.pal-tools:empty{display:none}
+.pal-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding:2px;min-width:0}
+.pal-chips::-webkit-scrollbar{display:none}
+.pal-chips button,.pal-sort button{border:0;cursor:pointer;white-space:nowrap;font:500 13px/1 var(--f-body);color:var(--ink-2);padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.6);box-shadow:var(--bevel);transition:background .2s,color .2s}
+.pal-chips button b{font:500 11px/1 var(--f-mono);color:var(--muted);margin-left:6px}
+.pal-chips button:hover,.pal-sort button:hover{background:#fff}
+.pal-chips button[aria-pressed="true"]{background:var(--ink);color:#fff;box-shadow:var(--bevel-dark)}
+.pal-chips button[aria-pressed="true"] b{color:rgba(255,255,255,.6)}
+.pal-sort{display:flex;gap:2px;padding:3px;border-radius:999px;background:rgba(14,26,43,.05);flex-shrink:0}
+.pal-sort button{background:none;box-shadow:none;padding:6px 11px;font-size:12.5px;color:var(--muted)}
+.pal-sort button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(14,26,43,.12)}
+.pal-note{margin:0;padding:10px 22px 0;font-size:13.5px;color:var(--muted)}
+.pal-note b{color:var(--ink);font-weight:500}
+.pal-note button{border:0;background:none;padding:0;font:inherit;color:var(--blue);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.pal-list{padding:4px 10px 12px}
+.pal-group{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:16px 12px 8px}
+.pal-group button{border:0;background:none;padding:0;font:inherit;letter-spacing:.04em;text-transform:none;color:var(--blue);cursor:pointer}
+.pal-item{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:start;padding:12px;border-radius:16px;cursor:pointer;transition:background .15s}
+.pal-item .key{width:40px;height:40px;border-radius:12px}
+.pal-item .key .ico{width:26px;height:26px}
+.pal-item b{display:block;font-weight:500;color:var(--ink);font-size:15.5px;line-height:1.35}
+.pal-path{display:block;font:500 11px/1.45 var(--f-mono);letter-spacing:.03em;color:var(--indigo);opacity:.85;margin:3px 0 5px}
+.pal-snip{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.pal-side{display:grid;justify-items:end;gap:8px;padding-top:2px}
+.pal-date{font:500 11.5px/1 var(--f-mono);color:var(--ink-2);white-space:nowrap;padding:6px 9px;border-radius:999px;background:rgba(14,26,43,.05)}
+.pal-act{border:0;cursor:pointer;font:500 12px/1 var(--f-body);color:var(--blue);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:var(--bevel);white-space:nowrap}
+.pal-act:hover{background:#fff}
+.pal-item[aria-selected="true"]{background:rgba(4,153,221,.08);box-shadow:inset 0 0 0 1px rgba(4,153,221,.2)}
+.pal-item:hover .ico .ib{transform:translate(-1.2px,-1.2px)}
+.pal-item mark{background:linear-gradient(transparent 52%,rgba(4,153,221,.28) 52%);color:inherit;padding:0 1px;border-radius:2px}
+.pal-item b mark{color:var(--blue-deep,var(--blue))}
+.pal-empty{padding:30px 24px 26px;text-align:center;color:var(--muted);font-size:15px;line-height:1.55}
+.pal-empty b{color:var(--ink);font-weight:500}
+.pal-empty button{border:0;background:none;padding:0;font:inherit;color:var(--blue);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.pal-foot{display:flex;align-items:center;gap:8px 18px;padding:11px 20px;border-top:1px solid var(--hair);font-size:12.5px;color:var(--muted);flex-wrap:wrap;flex-shrink:0}
+.pal-foot .keys{display:flex;align-items:center;gap:6px}
+.pal-foot .stat{margin-left:auto;font:400 11.5px/1 var(--f-mono);letter-spacing:.03em}
+@media (max-width:600px){
+  .palette{margin:10px auto auto;width:calc(100vw - 20px)}
+  .pal{max-height:calc(100svh - 20px);border-radius:22px}
+  .pal-item{grid-template-columns:34px minmax(0,1fr);gap:12px;padding:12px 8px}
+  .pal-item .key{width:34px;height:34px;border-radius:10px}
+  .pal-item .key .ico{width:22px;height:22px}
+  .pal-side{grid-column:2;justify-items:start;grid-auto-flow:column;justify-content:start}
+  .pal-foot .keys,.pal:not(.idle) #palHint{display:none}
+}
+/* landing on a found block: a brief ring on the block, the found words stay highlighted for a while */
+::highlight(search-hit){background-color:rgba(4,153,221,.26);color:inherit}
+.search-target{outline:2px solid transparent;outline-offset:6px;animation:search-hit 2.6s var(--ease)}
+@keyframes search-hit{0%{outline-color:rgba(4,153,221,0);outline-offset:16px}18%{outline-color:rgba(4,153,221,.75);outline-offset:6px}70%{outline-color:rgba(4,153,221,.45)}100%{outline-color:rgba(4,153,221,0);outline-offset:6px}}
 
 /* ---------- footer ---------- */
 footer{padding:40px 0 48px}
@@ -1136,10 +1184,24 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 </dialog>
 
 <dialog class="palette" id="palette" aria-label="Поиск по сайту">
-  <div class="pal glass" data-lenis-prevent>
-    <div class="pal-search"><svg aria-hidden="true"><use href="#i-search"/></svg><input id="palInput" type="text" placeholder="Страницы, продукты, вакансии, документы, ИНН…" autocomplete="off" role="combobox" aria-expanded="true" aria-controls="palList" aria-autocomplete="list"><kbd>Esc</kbd></div>
-    <div class="pal-list" id="palList" role="listbox"></div>
-    <div class="pal-foot"><span><kbd>↑</kbd><kbd>↓</kbd> выбор</span><span><kbd>Enter</kbd> открыть</span><span><kbd>Esc</kbd> закрыть</span></div>
+  <div class="pal glass idle" data-lenis-prevent>
+    <div class="pal-search">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="palInput" type="text" placeholder="Поиск по сайту" autocomplete="off" spellcheck="false" enterkeyhint="search"
+        role="combobox" aria-expanded="false" aria-controls="palList" aria-autocomplete="list" aria-describedby="palHint">
+      <button class="pal-clear" type="button" aria-label="Очистить поле" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <kbd>Esc</kbd>
+    </div>
+    <div class="pal-body">
+      <div class="pal-tools" id="palTools"></div>
+      <p class="pal-note" id="palNote" hidden></p>
+      <div class="pal-list" id="palList" role="listbox" aria-label="Результаты поиска"></div>
+    </div>
+    <div class="pal-foot">
+      <span id="palHint">Поиск по всему сайту — от 3 символов</span>
+      <span class="keys"><kbd>↑</kbd><kbd>↓</kbd> выбор <kbd>Enter</kbd> открыть</span>
+      <span class="stat" id="palStat" aria-live="polite"></span>
+    </div>
   </div>
 </dialog>
 
@@ -2351,68 +2413,392 @@ document.addEventListener("DOMContentLoaded", () => {
     takeFile(d.closest("[data-file-field]"), f);
   });
 
-  /* ================= search palette ================= */
-  const pal = $("#palette"), palInput = $("#palInput"), palList = $("#palList");
-  const I = {
-    page: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
-    prod: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
-    news: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h13v14H6a2 2 0 0 1-2-2z"/><path d="M17 9h3v8a2 2 0 0 1-2 2M8 9h5M8 13h5"/></svg>',
-    job: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
-    doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>',
-    q: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/></svg>',
-    copy: '<svg><use href="#i-copy"/></svg>',
-    call: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>'
+  /* ================= site search =================
+     Full-text search over every block of the site, entirely in the browser: Russian stemming, matches from the
+     third letter as you type, typo tolerance, wrong-keyboard-layout fix (ljrevtyns → документы), domain synonyms
+     (ЭДО ↔ документооборот, ЦБ ↔ Банк России, ПОД/ФТ ↔ 115-ФЗ). BM25-style scoring with field weights.
+     Results are blocks grouped by section; inside a section dated blocks go newest first. Choosing one opens
+     the page, scrolls to that very block and highlights the words that matched. */
+  const pal = $("#palette"), palBox = $(".pal", pal), palInput = $("#palInput"), palList = $("#palList");
+  const palTools = $("#palTools"), palNote = $("#palNote"), palStat = $("#palStat"), palClear = $(".pal-clear", pal);
+  const MIN_CHARS = 3;
+
+  // ---- text → tokens → stems
+  const norm = s => String(s).toLowerCase().replace(/ё/g, "е").replace(/c#/g, " csharp ").replace(/\.net\b/g, " dotnet ");
+  const WORD = /[a-zа-я0-9]+/g;
+  const words = s => norm(s).match(WORD) || [];
+  // Snowball (Porter) stemmer for Russian
+  const stem = (() => {
+    const PERF = /(?:ив|ивши|ившись|ыв|ывши|ывшись|(?<=[ая])(?:в|вши|вшись))$/;
+    const REFL = /с[яь]$/;
+    const ADJ = /(?:ее|ие|ые|ое|ими|ыми|ей|ий|ый|ой|ем|им|ым|ом|его|ого|ему|ому|их|ых|ую|юю|ая|яя|ою|ею)$/;
+    const PART = /(?:ивш|ывш|ующ|(?<=[ая])(?:ем|нн|вш|ющ|щ))$/;
+    const VERB = /(?:ила|ыла|ена|ейте|уйте|ите|или|ыли|ей|уй|ил|ыл|им|ым|ен|ило|ыло|ено|ят|ует|уют|ит|ыт|ены|ить|ыть|ишь|ую|ю|(?<=[ая])(?:ла|на|ете|йте|ли|й|л|ем|н|ло|но|ет|ют|ны|ть|ешь|нно))$/;
+    const NOUN = /(?:а|ев|ов|ие|ье|е|иями|ями|ами|еи|ии|и|ией|ей|ой|ий|й|иям|ям|ием|ем|ам|ом|о|у|ах|иях|ях|ы|ь|ию|ью|ю|ия|ья|я)$/;
+    const R = s => { const m = /[аеиоуыэюя][^аеиоуыэюя]/.exec(s); return m ? m.index + 2 : s.length; };
+    const memo = new Map();
+    return w => {
+      let out = memo.get(w);
+      if (out !== undefined) return out;
+      out = w;
+      const v = w.search(/[аеиоуыэюя]/);
+      if (v >= 0 && w.length > 3 && !/[a-z0-9]/.test(w)) {
+        const pre = w.slice(0, v + 1); let rv = w.slice(v + 1), t = rv.replace(PERF, "");
+        if (t !== rv) rv = t;
+        else {
+          rv = rv.replace(REFL, "");
+          t = rv.replace(ADJ, "");
+          if (t !== rv) rv = t.replace(PART, "");
+          else { t = rv.replace(VERB, ""); rv = t !== rv ? t : rv.replace(NOUN, ""); }
+        }
+        let s = pre + rv.replace(/и$/, "");
+        const r1 = R(s), r2 = r1 + R(s.slice(r1)), d = /ость?$/.exec(s);
+        if (d && d.index >= r2) s = s.slice(0, d.index);
+        if (/нн$/.test(s)) s = s.slice(0, -1);
+        else { const u = s.replace(/ейше?$/, ""); s = u !== s ? u.replace(/нн$/, "н") : s.replace(/ь$/, ""); }
+        if (s.length >= 2) out = s;
+      }
+      memo.set(w, out);
+      return out;
+    };
+  })();
+  // keyboard layout: text typed with the English layout switched on
+  const EN = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`", RU = "йцукенгшщзхъфывапролджэячсмитьбюё";
+  const toRu = s => s.replace(/[a-z[\];',.`]/gi, ch => { const i = EN.indexOf(ch.toLowerCase()); return i < 0 ? ch : RU[i]; });
+  // optimal-string-alignment distance with an early exit once it exceeds k
+  const dist = (a, b, k) => {
+    if (Math.abs(a.length - b.length) > k) return k + 1;
+    let p2 = null, p = Array.from({ length: b.length + 1 }, (_, j) => j);
+    for (let i = 1; i <= a.length; i++) {
+      const c = [i]; let low = i;
+      for (let j = 1; j <= b.length; j++) {
+        let v = Math.min(p[j] + 1, c[j - 1] + 1, p[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+        if (p2 && i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) v = Math.min(v, p2[j - 2] + 1);
+        c.push(v); if (v < low) low = v;
+      }
+      if (low > k) return k + 1;
+      p2 = p; p = c;
+    }
+    return p[b.length];
   };
+  // domain vocabulary: each row is one concept; any word of a row also finds the others (word roots work as prefixes).
+  // "!word" only triggers the row and is never searched for itself — «цена» shares its stem with «ценные бумаги»
+  const SYN = [
+    "эдо документооборот", "цб цбр центробанк регулятор", "фт отмыван легализац 115", "сд спецдепозитар спецдеп депозитар",
+    "пиф паев пайщик", "нпф пенсион", "кэп эцп эп подпис квалифицирован", "пэп простой подпис",
+    "удаленк удаленн гибрид", "зп зарплат", "дмс страховк соцпакет социальн", "ml мл ии ai llm нейросет машинн",
+    "вакансия вакансии работа карьер резюме", "адрес офис метро шаболовск", "телефон позвон звонок", "почта email емейл имейл mail",
+    "инн кпп огрн бик", "соут условий труда", "xbrl отчетн", "есиа госуслуг", "!цена !цены !цену стоимост стоит лиценз прайс",
+    "директор руководител ковбасюк ceo", "инфинитум infinitum наименован", "csharp dotnet", "1с 1c", "голосован освип бюллетен",
+    "аккредитац минцифр", "сколков исследовательск"
+  ].map(r => r.split(" "));
+  // concepts the site writes as a phrase: the abbreviation finds blocks that contain the phrase
+  const PHR = [[["цб", "цбр", "центробанк"], / банк\S* росси/]];
+
+  // words that carry no meaning on their own; dropped when the query has other words
+  const STOP = new Set("и в во на с со по для о об от к ко из у за не ни или а но что как это при все так же бы ли то есть его ее их мы вы где когда чем сколько какой какая какие можно ли the and".split(" "));
+
+  // ---- the index: one document per block of content
   const fromTpl = (id, sel) => [...document.getElementById("tpl-" + id).content.querySelectorAll(sel)];
-  let INDEX = null;
-  function buildIndex() {
-    const pages = [["Главная", "/"], ["О компании", "/company/", "компания сколково аккредитация"], ["Сотрудники", "/company/staff/", "руководители"], ["Роман Ковбасюк", "/company/staff/roman-kovbasyuk/", "генеральный директор"], ["Вакансии", "/company/vacancy/", "работа карьера резюме"], ["Реквизиты", "/company/requisites/", "инн огрн кпп бик банк"], ["Документы", "/company/docs/", "соут pdf аккредитация политика"], ["Продукты и услуги", "/projects/"], ["Услуги", "/services/", "автоматизация разработка"], ["Новости", "/news/"], ["Контакты", "/contacts/", "адрес карта офис метро"], ["Вопросы и ответы", "/info/faq/", "faq"]];
-    INDEX = [
-      ...pages.map(([t, p, k = ""]) => ({ g: "Страницы", t, s: "i-digitaldev.ru" + p, k, i: I.page, run: () => go(p) })),
-      ...PRODUCTS.map(p => ({ g: "Продукты", t: p.title, s: `Программа для ЭВМ · ${p.price}`, k: { "digital-depo": "пиф нпф эдо xbrl нрд спецдепозитарий", "digital-investor": "есиа освип голосование пайщик", "digital-check": "115-фз под фт рфм мвк санкции" }[p.id], i: I.prod, run: () => go(`/projects/${p.id}/`) })),
-      ...fromTpl("depo", ".mod").map(m => ({ g: "Модули «Цифрового депозитария»", t: m.querySelector("b").textContent, s: m.querySelector("span:last-child").textContent, k: m.querySelector(".t").textContent, i: I.prod, run: () => go("/projects/digital-depo/", () => scrollToEl($("#modules"))) })),
-      ...SERVICES.map(s => ({ g: "Услуги", t: s.full, s: s.tag, k: s.short, i: I.page, run: () => go("/services/") })),
-      ...NEWS.map(n => ({ g: "Новости", t: n.title, s: fmtDate(n.date), k: n.tag || "", i: I.news, run: () => go(`/news/${n.id}/`) })),
-      ...VAC.map(v => ({ g: "Вакансии", t: v.title, s: `${v.exp} · ${v.fmt.map(f => FMT[f]).join(", ")}`, k: (v.stack || "") + " вакансия работа", i: I.job, run: () => go(`/company/vacancy/?open=${v.id}`) })),
-      ...FAQ.map(([q], i) => ({ g: "Вопросы и ответы", t: q, s: "Вопросы и ответы", k: "faq", i: I.q, run: () => go("/info/faq/", () => { const d = $$(".qa details")[i]; if (d) { d.open = true; scrollToEl(d); } }) })),
-      ...fromTpl("docs", ".doc").map(d => ({ g: "Документы", t: d.querySelector("b").textContent, s: "PDF · " + d.querySelector("small").textContent, k: "документ", i: I.doc, run: () => window.open(d.getAttribute("href"), "_blank", "noopener") })),
-      ...fromTpl("requisites", ".req").filter(r => r.querySelector("[data-v]")).map(r => ({ g: "Реквизиты — скопировать", t: r.querySelector("dt").textContent, s: r.querySelector("[data-v]").textContent.trim(), k: "реквизиты", i: I.copy, run: () => copy(r.querySelector("[data-v]").textContent.trim(), `${r.querySelector("dt").textContent} — скопировано`) })),
-      { g: "Связаться", t: "Позвонить", s: "+7 (495) 225-23-73", k: "телефон", i: I.call, run: () => location.href = "tel:+74952252373" },
-      { g: "Связаться", t: "Заказать звонок", s: "Перезвоним в рабочее время", k: "обратный звонок", i: I.call, run: () => openDialog($("#callback")) },
-      { g: "Связаться", t: "Подать заявку", s: "Продукты, разработка, вопросы", k: "заявка демонстрация", i: I.call, run: () => openDialog($("#order")) },
-      { g: "Связаться", t: "Скопировать почту", s: "info@i-digitaldev.ru", k: "email e-mail", i: I.copy, run: () => copy("info@i-digitaldev.ru", "Почта скопирована") }
-    ];
-  }
-  const norm = s => s.toLowerCase().replace(/ё/g, "е");
-  let palItems = [], palSel = 0;
-  function palRender() {
-    const q = norm(palInput.value.trim()), terms = q.split(/\s+/).filter(Boolean);
-    palItems = q ? INDEX.filter(x => { const hay = norm(`${x.t} ${x.s} ${x.k} ${x.g}`); return terms.every(t => hay.includes(t)); }).slice(0, 40) : INDEX.filter(x => ["Страницы", "Продукты", "Связаться"].includes(x.g));
-    palSel = 0;
-    if (!palItems.length) { palList.innerHTML = `<div class="pal-empty">Ничего не найдено по запросу «${esc(palInput.value)}». Попробуйте «вакансии», «ИНН» или «ЕСИА».</div>`; palInput.removeAttribute("aria-activedescendant"); return; }
-    const mark = s => { let out = esc(s); terms.forEach(t => { if (t.length > 1) out = out.replace(new RegExp("(" + t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "gi"), "<mark>$1</mark>"); }); return out; };
-    let html = "", last = "";
-    palItems.forEach((x, i) => {
-      if (x.g !== last) { html += `<div class="pal-group" role="presentation">${x.g}</div>`; last = x.g; }
-      html += `<div class="pal-item" role="option" id="pi-${i}" data-i="${i}" aria-selected="${i === 0}"><span class="pi">${x.i}</span><span><b>${mark(x.t)}</b><small>${mark(x.s)}</small></span><em>↵</em></div>`;
+  const txt = el => el ? el.textContent.replace(/\s+/g, " ").trim() : "";
+  const SI = {
+    news: ico(`<path class="ib" d="M6 9h28v31H10a4 4 0 0 1-4-4z"/><path class="if" d="M6 9h28v31H10a4 4 0 0 1-4-4zM34 17h6v19a4 4 0 0 1-8 0"/>
+      <path class="if" d="M12 17h16M12 24h16"/><path class="id" d="M12 31h10"/><circle class="in" cx="28.5" cy="31" r="3"/>`),
+    job: ico(`<rect class="ib" x="5" y="14" width="38" height="26" rx="4.5"/><rect class="if" x="5" y="14" width="38" height="26" rx="4.5"/>
+      <path class="if" d="M17 14v-3.5A3.5 3.5 0 0 1 20.5 7h7a3.5 3.5 0 0 1 3.5 3.5V14"/><path class="id" d="M5 26h38"/><circle class="in" cx="24" cy="26" r="3.4"/>`),
+    faq: ico(`<circle class="ib" cx="24" cy="24" r="18"/><circle class="if" cx="24" cy="24" r="18"/>
+      <path class="if" d="M18.6 18.8a5.6 5.6 0 1 1 7.8 5.1c-1.4.6-2.4 1.8-2.4 3.3v1.3"/><circle class="in" cx="24" cy="34.6" r="2.8"/>`),
+    pin: ico(`<path class="ib" d="M24 43s14-12.4 14-24a14 14 0 0 0-28 0c0 11.6 14 24 14 24z"/><path class="if" d="M24 43s14-12.4 14-24a14 14 0 0 0-28 0c0 11.6 14 24 14 24z"/>
+      <path class="id" d="M12 44h24"/><circle class="in" cx="24" cy="19" r="5"/>`)
+  };
+  let SX = null;
+  function buildSearch() {
+    const docs = [];
+    const add = d => docs.push({ boost: 1, date: null, path: "", keys: "", target: null, ...d });
+    const prodGroup = { "digital-depo": "«Цифровой депозитарий»", "digital-investor": "«Цифровой инвестор»", "digital-check": "«Цифровая проверка»" };
+    const prodTpl = { "digital-depo": "depo", "digital-investor": "investor", "digital-check": "check" };
+    // news — the whole article is the block
+    NEWS.forEach(n => add({ g: "Новости", icon: SI.news, t: n.title, path: `Новости${n.tag ? " · " + n.tag : ""}`, date: n.date,
+      text: n.body.flat().join(" "), keys: `новость новости ${fmtDate(n.date)}`, route: `/news/${n.id}/`, target: { sel: ".article-body" } }));
+    // products: the summary card, then every block of the product page
+    PRODUCTS.forEach(p => {
+      const g = prodGroup[p.id], route = `/projects/${p.id}/`, tp = prodTpl[p.id];
+      add({ g, icon: p.icon, t: p.title, path: `Программа для ЭВМ · ${p.price}`, text: p.text, keys: "продукт программа", route, boost: 1.25 });
+      fromTpl(tp, ".p-copy>p").forEach((el, n) => add({ g, icon: p.icon, t: n ? "О продукте" : p.title + " — что это", path: `${p.title} · обзор`, text: txt(el), route, target: { sel: ".p-copy>p", n } }));
+      fromTpl(tp, ".metric").forEach((el, n) => { const what = txt($(":scope>span", el));
+        add({ g, icon: p.icon, t: `${what[0].toUpperCase()}${what.slice(1)} — ${txt($("b", el))}`, path: `${p.title} · ключевые показатели`, text: "", route, target: { sel: ".metric", n } }); });
+      fromTpl(tp, ".mod").forEach((el, n) => add({ g, icon: ICONS.stack, t: txt($("b", el)), path: `${p.title} · ${txt($(".t", el))}`, text: txt($(":scope>span:last-child", el)), route, target: { sel: ".mod", n } }));
+      fromTpl(tp, ".cap").forEach((el, n) => add({ g, icon: ICONS.check, t: txt($("h3", el)), path: `${p.title} · функциональные возможности`, text: $$("li", el).map(txt).join(". "), route, target: { sel: ".cap", n } }));
+      fromTpl(tp, ".stack-chips").forEach(el => add({ g, icon: ICONS.stack, t: "Технологии", path: `${p.title} · стек`, text: $$("span", el).map(txt).join(", "), route, target: { sel: ".stack-chips" } }));
     });
-    palList.innerHTML = html; palInput.setAttribute("aria-activedescendant", "pi-0");
+    SERVICES.forEach((s, n) => add({ g: "Услуги", icon: s.icon, t: s.full, path: `Услуги · ${s.tag}`, text: `В продукте: ${s.note}.`, keys: s.short + " услуга услуги", route: "/services/", target: { sel: ".svc", n } }));
+    VAC.forEach(v => add({ g: "Вакансии", icon: SI.job, t: v.title, path: `Вакансии · ${v.exp.replace("Опыт работы: ", "опыт ")} · ${v.fmt.map(f => FMT[f]).join(", ")}`,
+      text: [v.intro, v.team || "", ...v.cols.map(([h, it]) => `${h}: ${it.join("; ")}`), v.stack ? "Стек: " + v.stack : ""].join(" "), keys: v.emp + " вакансия вакансии", route: `/company/vacancy/?open=${v.id}`, target: { sel: "#vac-" + v.id } }));
+    fromTpl("vacancy", ".vac-intro p").forEach(el => add({ g: "Вакансии", icon: SI.job, t: "Как мы нанимаем", path: "Вакансии", text: txt(el), route: "/company/vacancy/", target: { sel: ".vac-intro" } }));
+    FAQ.forEach(([q, a], n) => add({ g: "Вопросы и ответы", icon: SI.faq, t: q, path: "Вопросы и ответы", text: a, keys: "вопрос ответ", route: "/info/faq/", target: { sel: ".qa details", n } }));
+    // company
+    fromTpl("company", ".statement").forEach(el => add({ g: "О компании", icon: ICONS.flask, t: "О компании", path: "Компания", text: txt(el), route: "/company/", target: { sel: ".statement" } }));
+    fromTpl("company", ".note p").forEach(el => add({ g: "О компании", icon: ICONS.flask, t: "Резидент «Сколково»", path: "Компания", text: txt(el), route: "/company/", target: { sel: ".note" } }));
+    fromTpl("company", ".fact").forEach((el, n) => add({ g: "О компании", icon: ICONS.shield, t: `${txt($("dt", el))}: ${txt($("dd", el).firstChild)}`, path: "Компания · сведения", text: txt($("dd", el)), route: "/company/", target: { sel: ".fact", n } }));
+    fromTpl("kovbasyuk", ".leader").forEach(el => add({ g: "О компании", icon: ICONS.investor, t: "Роман Ковбасюк — генеральный директор", path: "Компания · сотрудники", text: txt($("blockquote", el)), route: "/company/staff/roman-kovbasyuk/", target: { sel: ".leader" } }));
+    // working at the company (home page)
+    fromTpl("home", ".perk").forEach((el, n) => add({ g: "Работа в ИЦР", icon: ICONS.community, t: txt($("h3", el)), path: "Главная · как мы работаем", text: txt($("p", el)), keys: "условия работа", route: "/", target: { sel: ".perk", n } }));
+    fromTpl("home", ".principles li").forEach((el, n) => add({ g: "Работа в ИЦР", icon: ICONS.community, t: txt($("b", el)), path: "Главная · как стать частью команды", text: txt($("span", el)), keys: "найм собеседование кандидат", route: "/", target: { sel: ".principles li", n } }));
+    // documents and requisites carry a second action right in the result
+    fromTpl("docs", ".doc").forEach((el, n) => {
+      const href = el.getAttribute("href"), name = txt($("b", el)), y = (name.match(/20\d\d/) || [])[0];
+      add({ g: "Документы", icon: ICONS.docsign, t: name, path: `Документы · ${txt($("small", el))}`, text: "", keys: "документ pdf", date: y ? `${y}-12-31` : null, route: "/company/docs/", target: { sel: ".doc", n },
+        act: { label: "Открыть PDF", run: () => window.open(href, "_blank", "noopener") } });
+    });
+    fromTpl("requisites", ".req").forEach((el, n) => {
+      const v = $("[data-v]", el), val = v ? txt(v) : txt($("dd", el)), label = txt($("dt", el));
+      add({ g: "Реквизиты", icon: ICONS.regulator, t: label, path: "Компания · реквизиты", text: v ? val : txt($("dd", el)), keys: "реквизиты", route: "/company/requisites/", target: { sel: ".req", n },
+        act: v ? { label: "Скопировать", run: () => copy(val, `${label} — скопировано`) } : null });
+    });
+    fromTpl("contacts", ".contact-list li").forEach((el, n) => add({ g: "Контакты", icon: SI.pin, t: txt($(".k", el)), path: "Контакты · центральный офис", text: txt($(".v, a", el)), keys: "контакты связаться", route: "/contacts/", target: { sel: ".contact-list li", n } }));
+    // sections of the site: found by their name
+    Object.entries(ROUTES).forEach(([p, r]) => { if (p !== "/") add({ g: "Разделы сайта", icon: ICONS.stack, t: r.title, path: "i-digitaldev.ru" + p, text: r.lead || "", route: p, boost: 1.15 }); });
+    // actions
+    [["Позвонить", "+7 (495) 225-23-73 · Пн–пт, 08:00–21:00", "телефон позвонить звонок", () => location.href = "tel:+74952252373"],
+     ["Заказать обратный звонок", "Перезвоним в рабочее время", "звонок перезвонить обратный", () => openDialog($("#callback"))],
+     ["Подать заявку", "Продукты, разработка, вопросы", "заявка демонстрация связаться", () => openDialog($("#order"))],
+     ["Скопировать почту", "info@i-digitaldev.ru", "почта email e-mail написать", () => copy("info@i-digitaldev.ru", "Почта скопирована")]]
+      .forEach(([t, s, k, run]) => add({ g: "Действия", icon: SI.pin, t, path: s, text: "", keys: k, run }));
+
+    // inverted index: token → (doc → weighted term frequency)
+    const vocab = new Map(); let total = 0;
+    docs.forEach((d, i) => {
+      d.i = i; d.title = new Set(words(d.t));
+      let len = 0;
+      [[d.t, 3], [d.keys, 1.6], [d.path, 1.2], [d.text, 1]].forEach(([s, w]) => words(s).forEach(tok => {
+        let e = vocab.get(tok);
+        if (!e) vocab.set(tok, e = { stem: stem(tok), post: new Map() });
+        e.post.set(i, (e.post.get(i) || 0) + w); len++;
+      }));
+      d.len = len; total += len;
+      d.flat = " " + words(`${d.t} ${d.text}`).join(" ") + " ";
+    });
+    const synOf = new Map();
+    SYN.forEach(row => {
+      const targets = row.filter(w => w[0] !== "!").map(stem);
+      row.forEach(w => { w = w.replace("!", ""); synOf.set(stem(w), targets); synOf.set(w, targets); });
+    });
+    SX = { docs, vocab, avg: total / docs.length, synOf };
   }
-  function palMove(d) {
-    if (!palItems.length) return;
-    palSel = (palSel + d + palItems.length) % palItems.length;
+
+  // ---- matching: every query word becomes a set of index tokens with a quality 0…1
+  function expand(q) {
+    const alts = new Map(), sq = stem(q), put = (tok, v) => { if (v > (alts.get(tok) || 0)) alts.set(tok, v); };
+    const k = q.length >= 8 ? 2 : 1, syn = SX.synOf.get(sq) || SX.synOf.get(q);
+    // quality: exact form 1 › word start .65–.9 › same root .8 › synonym .45 › typo .58/.46
+    let fix = null, direct = false;
+    for (const [tok, e] of SX.vocab) {
+      if (tok === q || e.stem === sq) { put(tok, 1); direct = true; continue; }
+      if (tok.startsWith(q)) { put(tok, .9 - Math.min(.25, (tok.length - q.length) * .02)); direct = true; continue; }
+      if (sq.length >= 4 && e.stem.startsWith(sq)) { put(tok, .8); direct = true; continue; }
+      if (syn && syn.some(s => s.length >= 2 && (e.stem === s || (s.length >= 4 && tok.startsWith(s))))) { put(tok, .45); direct = true; continue; }
+      if (q.length >= 4 && tok[0] === q[0] && !/^\d/.test(q)) {
+        const d = Math.min(dist(q, tok, k), tok.length > q.length ? dist(q, tok.slice(0, q.length), k) : k + 1);
+        if (d <= k) { put(tok, .58 - (d - 1) * .12); if (!fix || d < fix.d || (d === fix.d && e.post.size > fix.df)) fix = { tok, d, df: e.post.size }; }
+      }
+    }
+    // a correction is worth mentioning only when the word itself was found nowhere
+    return { q, alts, fix: direct ? null : fix };
+  }
+  function search(raw) {
+    const t0 = performance.now();
+    let qw = words(raw).filter(w => w.length >= 3 || /\d/.test(w) || SX.synOf.has(stem(w)) || SX.synOf.has(w));
+    if (qw.some(w => !STOP.has(w))) qw = qw.filter(w => !STOP.has(w));
+    if (!qw.length) return { hits: [], groups: [], ms: 0, partial: false, terms: [] };
+    const terms = qw.map(expand), N = SX.docs.length, k1 = 1.2, b = .4;
+    const acc = new Map();
+    const slot = di => { let a = acc.get(di); if (!a) acc.set(di, a = { best: new Array(terms.length).fill(0), qual: new Array(terms.length).fill(0), inTitle: new Array(terms.length).fill(false) }); return a; };
+    terms.forEach((tm, gi) => tm.alts.forEach((qv, tok) => {
+      const e = SX.vocab.get(tok), idf = Math.log(1 + (N - e.post.size + .5) / (e.post.size + .5));
+      e.post.forEach((tf, di) => {
+        const d = SX.docs[di], s = qv * idf * (tf * (k1 + 1)) / (tf + k1 * (1 - b + b * d.len / SX.avg)), a = slot(di);
+        if (s > a.best[gi]) a.best[gi] = s;
+        if (qv > a.qual[gi]) a.qual[gi] = qv;
+        if (d.title.has(tok)) a.inTitle[gi] = true;
+      });
+    }));
+    terms.forEach((tm, gi) => PHR.forEach(([on, re]) => {
+      if (!on.includes(tm.q)) return;
+      SX.docs.forEach((d, di) => { if (re.test(d.flat)) { const a = slot(di); a.best[gi] = Math.max(a.best[gi], 2.4); a.qual[gi] = Math.max(a.qual[gi], .7); } });
+    }));
+    const phrase = qw.length > 1 ? " " + qw.join(" ") : null;
+    const score = partial => {
+      const out = [];
+      acc.forEach((a, di) => {
+        const got = a.best.filter(v => v > 0).length;
+        if (!partial && got < terms.length) return;
+        const d = SX.docs[di];
+        let s = a.best.reduce((x, y) => x + y, 0) * d.boost;
+        if (partial) s *= got / terms.length;
+        // found only through a synonym or a typo for some word: it stays, but below the blocks that say it directly
+        if (Math.min(...a.qual.filter(v => v > 0)) < .6) s *= .5;
+        if (a.inTitle.every(Boolean)) s *= 1.3;
+        if (phrase && d.flat.includes(phrase)) s *= 1.4;
+        out.push({ d, s });
+      });
+      return out;
+    };
+    let hits = score(false), partial = false;
+    if (!hits.length) { hits = score(true); partial = hits.length > 0; }
+    // groups ordered by their best block; strong single matches keep weak noise out
+    const top = hits.reduce((m, h) => Math.max(m, h.s), 0);
+    hits = hits.filter(h => h.s >= top * .12);
+    const byG = new Map();
+    hits.forEach(h => { let g = byG.get(h.d.g); if (!g) byG.set(h.d.g, g = { name: h.d.g, items: [] }); g.items.push(h); });
+    // a section ranks by its best block plus a share of the next ones: many strong blocks beat one lucky title
+    byG.forEach(g => { const s = g.items.map(h => h.s).sort((x, y) => y - x); g.best = s[0] + .35 * (s[1] || 0) + .15 * (s[2] || 0); });
+    const groups = [...byG.values()].sort((a, b) => b.best - a.best);
+    return { hits, groups, ms: performance.now() - t0, partial, terms };
+  }
+
+  // ---- highlighting: a word is marked when it is one of the index tokens the query matched
+  const markSet = terms => { const s = new Set(); terms.forEach(t => t.alts.forEach((v, tok) => v >= .55 && s.add(tok))); return s; };
+  const WORD_RAW = /[A-Za-zА-Яа-яЁё0-9#]+/g;
+  const hl = (s, ms) => esc(s).replace(WORD_RAW, w => { const n = words(w)[0]; return n && ms.has(n) ? `<mark>${w}</mark>` : w; });
+  function snippet(d, ms) {
+    const src = d.text || d.path; if (!src) return "";
+    const parts = src.split(/(?<=[.!?;:])\s+(?=[А-ЯЁA-Z0-9«"(])/);
+    let best = parts[0], bs = -1;
+    parts.forEach(p => { const n = (norm(p).match(WORD) || []).filter(w => ms.has(w)).length; if (n > bs) { bs = n; best = p; } });
+    if (best.length > 190) {
+      const w = (norm(best).match(WORD) || []).find(x => ms.has(x)), at = w ? norm(best).indexOf(w) : 0, from = Math.max(0, at - 60);
+      best = (from ? "…" : "") + best.slice(from, from + 180).replace(/\s\S*$/, "") + "…";
+    }
+    return hl(best, ms);
+  }
+  const fmtShort = iso => new Date(iso + "T12:00:00").toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric" }).replace(" г.", "");
+
+  // ---- rendering
+  let palRes = null, palView = [], palSel = 0, palGroup = "all", palSort = "date", palForce = null;
+  const orderItems = items => {
+    const by = palSort === "date" && items.some(h => h.d.date);
+    return items.slice().sort((a, b) => by ? (b.d.date || "").localeCompare(a.d.date || "") || b.s - a.s : b.s - a.s);
+  };
+  function palRender() {
+    const raw = palInput.value, q = raw.trim();
+    palClear.hidden = !raw;
+    const chars = q.replace(/\s+/g, "").length;
+    if (chars < MIN_CHARS) {
+      palRes = null; palView = [];
+      palBox.classList.toggle("idle", true);
+      palInput.setAttribute("aria-expanded", "false"); palInput.removeAttribute("aria-activedescendant");
+      $("#palHint").textContent = chars ? `Ещё ${MIN_CHARS - chars} ${MIN_CHARS - chars === 1 ? "символ" : "символа"} — и начнём искать` : "Поиск по всему сайту — от 3 символов";
+      palStat.textContent = "";
+      return;
+    }
+    if (!SX) buildSearch();
+    let res = search(palForce ?? q), note = "";
+    // nothing found and the query looks like it was typed in the English layout — try it as Russian
+    if (!res.hits.length && palForce === null && /[a-z[\];',.`]/i.test(q)) {
+      const ru = toRu(q), alt = search(ru);
+      if (alt.hits.length) { res = alt; note = `Исправили раскладку: <b>${esc(ru)}</b> · <button type="button" data-raw>искать «${esc(q)}»</button>`; }
+    }
+    const fixes = res.terms.map(t => t.fix && t.fix.tok).filter(Boolean);
+    if (!note && fixes.length && res.hits.length) note = `С учётом опечатки: <b>${esc(fixes.join(" "))}</b>`;
+    if (!note && res.partial) note = "Точных совпадений нет — показываем блоки, где есть часть слов запроса";
+    palRes = res;
+    if (palGroup !== "all" && !res.groups.some(g => g.name === palGroup)) palGroup = "all";
+    palBox.classList.remove("idle");
+    $("#palHint").textContent = "Найденное открывается на своей странице с подсветкой";
+    palNote.hidden = !note; palNote.innerHTML = note;
+    const dated = res.hits.some(h => h.d.date);
+    palTools.innerHTML = res.hits.length ? `<div class="pal-chips" role="group" aria-label="Разделы">${[["all", "Все", res.hits.length], ...res.groups.map(g => [g.name, g.name.replace(/[«»]/g, ""), g.items.length])]
+      .map(([v, l, c]) => `<button type="button" data-g="${esc(v)}" aria-pressed="${v === palGroup}">${esc(l)}<b>${c}</b></button>`).join("")}</div>
+      ${dated ? `<div class="pal-sort" role="group" aria-label="Порядок"><button type="button" data-sort="date" aria-pressed="${palSort === "date"}">Сначала новые</button><button type="button" data-sort="rel" aria-pressed="${palSort === "rel"}">По релевантности</button></div>` : ""}` : "";
+    if (!res.hits.length) {
+      const sug = res.terms.map(t => t.fix && t.fix.tok).filter(Boolean);
+      palList.innerHTML = `<div class="pal-empty">По запросу <b>«${esc(q)}»</b> ничего не нашлось.${sug.length ? `<br>Возможно, вы искали <button type="button" data-suggest="${esc(sug.join(" "))}">${esc(sug.join(" "))}</button>` : "<br>Попробуйте другое слово или его начало: «депоз», «вакан», «ИНН»."}</div>`;
+      palView = []; palStat.textContent = "Ничего не найдено";
+      palInput.setAttribute("aria-expanded", "false"); palInput.removeAttribute("aria-activedescendant");
+      return;
+    }
+    const ms = markSet(res.terms);
+    let html = ""; palView = [];
+    const groups = palGroup === "all" ? res.groups : res.groups.filter(g => g.name === palGroup);
+    groups.forEach(g => {
+      const items = orderItems(g.items), cap = palGroup === "all" ? 4 : items.length, more = items.length - cap;
+      html += `<div class="pal-group" role="presentation"><span>${esc(g.name)}</span>${more > 0 ? `<button type="button" data-g="${esc(g.name)}">ещё ${more}</button>` : ""}</div>`;
+      items.slice(0, cap).forEach(h => {
+        const i = palView.push(h) - 1, d = h.d;
+        html += `<div class="pal-item" role="option" id="pi-${i}" data-i="${i}" aria-selected="${i === 0}">
+          <span class="key" aria-hidden="true">${d.icon || ""}</span>
+          <span><b>${hl(d.t, ms)}</b><span class="pal-path">${esc(d.path)}</span>${d.text ? `<span class="pal-snip">${snippet(d, ms)}</span>` : ""}</span>
+          <span class="pal-side">${d.date && d.g === "Новости" ? `<span class="pal-date">${fmtShort(d.date)}</span>` : ""}${d.act ? `<button class="pal-act" type="button" data-act="${i}">${d.act.label}</button>` : ""}</span>
+        </div>`;
+      });
+    });
+    palList.innerHTML = html; palSel = 0;
+    palInput.setAttribute("aria-expanded", "true"); palInput.setAttribute("aria-activedescendant", "pi-0");
+    const n = res.hits.length;
+    palStat.textContent = `${n} ${n % 10 === 1 && n % 100 !== 11 ? "результат" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "результата" : "результатов"} · ${Math.max(1, Math.round(res.ms))} мс`;
+  }
+  function palMove(dlt) {
+    if (!palView.length) return;
+    palSel = (palSel + dlt + palView.length) % palView.length;
     $$(".pal-item", palList).forEach(el => el.setAttribute("aria-selected", +el.dataset.i === palSel));
     const cur = $("#pi-" + palSel); palInput.setAttribute("aria-activedescendant", "pi-" + palSel); cur && cur.scrollIntoView({ block: "nearest" });
   }
-  function palRun(i) { const x = palItems[i]; if (!x) return; pal.close(); setTimeout(x.run, 60); }
-  function openPalette() { if (!INDEX) buildIndex(); palInput.value = ""; palRender(); openDialog(pal); palInput.focus(); }
-  palInput.addEventListener("input", palRender);
+
+  // ---- landing: open the page, bring the block into view, mark the words that matched
+  let hitT = 0;
+  function clearHits() { clearTimeout(hitT); if (window.CSS && CSS.highlights) CSS.highlights.delete("search-hit"); }
+  function landOn(d, ms) {
+    if (!d.target) return;
+    const scope = $(".page-main", view) || view;
+    const el = d.target.sel.startsWith("#") ? $(d.target.sel, view) : $$(d.target.sel, scope)[d.target.n || 0];
+    if (!el) return;
+    // reveal blocks the page keeps folded or filtered out
+    if (el.matches("details")) el.open = true;
+    const fold = el.closest(".expand"); if (fold && !$(".fade-bottom", fold).classList.contains("open")) $("[data-expand]", fold).click();
+    if (el.classList.contains("hide")) { const all = $('[data-mod="all"]', view); all && all.click(); }
+    setTimeout(() => {
+      // a short block lands mid-screen, a tall one just under the header with room to breathe
+      const r = el.getBoundingClientRect(), navH = parseInt(getComputedStyle(root).getPropertyValue("--nav-h")) || 90;
+      const room = innerHeight - navH, off = r.height < room - 80 ? -(navH + (room - r.height) / 2) : -(navH + 24);
+      lenis ? lenis.scrollTo(el, { offset: off, duration: 1.1 }) : scrollTo({ top: scrollY + r.top + off, behavior: reduce ? "auto" : "smooth" });
+      el.classList.remove("search-target"); void el.offsetWidth; el.classList.add("search-target");
+      setTimeout(() => el.classList.remove("search-target"), 2700);
+      if (!(window.CSS && CSS.highlights && window.Highlight)) return;
+      const ranges = [], walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      for (let node; (node = walk.nextNode());) {
+        const s = node.nodeValue; WORD_RAW.lastIndex = 0;
+        for (let m; (m = WORD_RAW.exec(s));) { const n = words(m[0])[0]; if (n && ms.has(n)) { const r = new Range(); r.setStart(node, m.index); r.setEnd(node, m.index + m[0].length); ranges.push(r); } }
+      }
+      clearHits();
+      if (ranges.length) { CSS.highlights.set("search-hit", new Highlight(...ranges)); hitT = setTimeout(clearHits, 9000); }
+    }, 140);
+  }
+  function palRun(i) {
+    const h = palView[i]; if (!h) return;
+    const d = h.d, ms = markSet(palRes.terms);
+    pal.close();
+    setTimeout(() => d.run ? d.run() : go(d.route, () => landOn(d, ms)), 60);
+  }
+  function openPalette() {
+    palInput.value = ""; palGroup = "all"; palForce = null;
+    palRender(); openDialog(pal); palInput.focus();
+  }
+  palInput.addEventListener("input", () => { palForce = null; palGroup = "all"; palRender(); });
   palInput.addEventListener("keydown", e => {
     if (e.key === "ArrowDown") { e.preventDefault(); palMove(1); }
     if (e.key === "ArrowUp") { e.preventDefault(); palMove(-1); }
     if (e.key === "Enter") { e.preventDefault(); palRun(palSel); }
   });
-  palList.addEventListener("click", e => { const it = e.target.closest(".pal-item"); if (it) palRun(+it.dataset.i); });
+  palClear.addEventListener("click", () => { palInput.value = ""; palForce = null; palRender(); palInput.focus(); });
+  pal.addEventListener("click", e => {
+    const t = e.target;
+    const act = t.closest("[data-act]"); if (act) { e.stopPropagation(); const d = palView[+act.dataset.act].d; d.act.run(); return; }
+    const g = t.closest("[data-g]"); if (g) { palGroup = g.dataset.g; palRender(); palInput.focus(); return; }
+    const so = t.closest("[data-sort]"); if (so) { palSort = so.dataset.sort; palRender(); palInput.focus(); return; }
+    const sg = t.closest("[data-suggest]"); if (sg) { palInput.value = sg.dataset.suggest; palForce = null; palRender(); palInput.focus(); return; }
+    if (t.closest("[data-raw]")) { palForce = palInput.value.trim(); palRender(); palInput.focus(); return; }
+    const it = t.closest(".pal-item"); if (it) palRun(+it.dataset.i);
+  });
   palList.addEventListener("pointermove", e => { const it = e.target.closest(".pal-item"); if (it && +it.dataset.i !== palSel) palMove(+it.dataset.i - palSel); });
   if (/Mac|iPhone|iPad/.test(navigator.platform)) $$("[data-kbd]").forEach(k => k.textContent = "⌘K");
   addEventListener("keydown", e => {
