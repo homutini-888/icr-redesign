@@ -803,7 +803,7 @@ dialog::backdrop{background:rgba(14,26,43,.35);-webkit-backdrop-filter:blur(6px)
 .pal-note{margin:0;padding:10px 22px 0;font-size:13.5px;color:var(--muted)}
 .pal-note b{color:var(--ink);font-weight:500}
 .pal-note button{border:0;background:none;padding:0;font:inherit;color:var(--blue);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.pal-list{padding:4px 10px 12px}
+.pal-list{padding:4px 10px 12px;outline:none}
 .pal-group{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:16px 12px 8px}
 .pal-group button{border:0;background:none;padding:0;font:inherit;letter-spacing:.04em;text-transform:none;color:var(--blue);cursor:pointer}
 .pal-item{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:14px;align-items:start;padding:12px;border-radius:16px;cursor:pointer;transition:background .15s}
@@ -816,6 +816,7 @@ dialog::backdrop{background:rgba(14,26,43,.35);-webkit-backdrop-filter:blur(6px)
 .pal-date{font:500 11.5px/1 var(--f-mono);color:var(--ink-2);white-space:nowrap;padding:6px 9px;border-radius:999px;background:rgba(14,26,43,.05)}
 .pal-act{border:0;cursor:pointer;font:500 12px/1 var(--f-body);color:var(--blue);padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.75);box-shadow:var(--bevel);white-space:nowrap}
 .pal-act:hover{background:#fff}
+.pal-item:hover{background:rgba(4,153,221,.05)}
 .pal-item[aria-selected="true"]{background:rgba(4,153,221,.08);box-shadow:inset 0 0 0 1px rgba(4,153,221,.2)}
 .pal-item:hover .ico .ib{transform:translate(-1.2px,-1.2px)}
 .pal-item mark{background:linear-gradient(transparent 52%,rgba(4,153,221,.28) 52%);color:inherit;padding:0 1px;border-radius:2px}
@@ -1195,11 +1196,11 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     <div class="pal-body">
       <div class="pal-tools" id="palTools"></div>
       <p class="pal-note" id="palNote" hidden></p>
-      <div class="pal-list" id="palList" role="listbox" aria-label="Результаты поиска"></div>
+      <div class="pal-list" id="palList" role="listbox" aria-label="Результаты поиска" tabindex="-1"></div>
     </div>
     <div class="pal-foot">
       <span id="palHint">Поиск по всему сайту — от 3 символов</span>
-      <span class="keys"><kbd>↑</kbd><kbd>↓</kbd> выбор <kbd>Enter</kbd> открыть</span>
+      <span class="keys"><kbd>↑</kbd><kbd>↓</kbd> выбрать <kbd>Enter</kbd> открыть выбранное</span>
       <span class="stat" id="palStat" aria-live="polite"></span>
     </div>
   </div>
@@ -2674,7 +2675,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const fmtShort = iso => new Date(iso + "T12:00:00").toLocaleDateString("ru-RU", { day: "numeric", month: "short", year: "numeric" }).replace(" г.", "");
 
   // ---- rendering
-  let palRes = null, palView = [], palSel = 0, palGroup = "all", palSort = "date", palForce = null;
+  let palRes = null, palView = [], palSel = -1, palGroup = "all", palSort = "date", palForce = null;
   const orderItems = items => {
     const by = palSort === "date" && items.some(h => h.d.date);
     return items.slice().sort((a, b) => by ? (b.d.date || "").localeCompare(a.d.date || "") || b.s - a.s : b.s - a.s);
@@ -2725,21 +2726,22 @@ document.addEventListener("DOMContentLoaded", () => {
       html += `<div class="pal-group" role="presentation"><span>${esc(g.name)}</span>${more > 0 ? `<button type="button" data-g="${esc(g.name)}">ещё ${more}</button>` : ""}</div>`;
       items.slice(0, cap).forEach(h => {
         const i = palView.push(h) - 1, d = h.d;
-        html += `<div class="pal-item" role="option" id="pi-${i}" data-i="${i}" aria-selected="${i === 0}">
+        html += `<div class="pal-item" role="option" id="pi-${i}" data-i="${i}" aria-selected="false">
           <span class="key" aria-hidden="true">${d.icon || ""}</span>
           <span><b>${hl(d.t, ms)}</b><span class="pal-path">${esc(d.path)}</span>${d.text ? `<span class="pal-snip">${snippet(d, ms)}</span>` : ""}</span>
           <span class="pal-side">${d.date && d.g === "Новости" ? `<span class="pal-date">${fmtShort(d.date)}</span>` : ""}${d.act ? `<button class="pal-act" type="button" data-act="${i}">${d.act.label}</button>` : ""}</span>
         </div>`;
       });
     });
-    palList.innerHTML = html; palSel = 0;
-    palInput.setAttribute("aria-expanded", "true"); palInput.setAttribute("aria-activedescendant", "pi-0");
+    // nothing is preselected: Enter in the field only shows the results, arrows pick one to open
+    palList.innerHTML = html; palSel = -1;
+    palInput.setAttribute("aria-expanded", "true"); palInput.removeAttribute("aria-activedescendant");
     const n = res.hits.length;
     palStat.textContent = `${n} ${n % 10 === 1 && n % 100 !== 11 ? "результат" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "результата" : "результатов"} · ${Math.max(1, Math.round(res.ms))} мс`;
   }
   function palMove(dlt) {
     if (!palView.length) return;
-    palSel = (palSel + dlt + palView.length) % palView.length;
+    palSel = palSel < 0 ? (dlt > 0 ? 0 : palView.length - 1) : (palSel + dlt + palView.length) % palView.length;
     $$(".pal-item", palList).forEach(el => el.setAttribute("aria-selected", +el.dataset.i === palSel));
     const cur = $("#pi-" + palSel); palInput.setAttribute("aria-activedescendant", "pi-" + palSel); cur && cur.scrollIntoView({ block: "nearest" });
   }
@@ -2787,7 +2789,9 @@ document.addEventListener("DOMContentLoaded", () => {
   palInput.addEventListener("keydown", e => {
     if (e.key === "ArrowDown") { e.preventDefault(); palMove(1); }
     if (e.key === "ArrowUp") { e.preventDefault(); palMove(-1); }
-    if (e.key === "Enter") { e.preventDefault(); palRun(palSel); }
+    // Enter opens a result only after it was picked with the arrows; otherwise it just shows the results
+    // (on a phone it also folds the keyboard away so the list is visible)
+    if (e.key === "Enter") { e.preventDefault(); if (palSel >= 0) palRun(palSel); else { palRender(); if (!fine && palView.length) palList.focus({ preventScroll: true }); } }
   });
   palClear.addEventListener("click", () => { palInput.value = ""; palForce = null; palRender(); palInput.focus(); });
   pal.addEventListener("click", e => {
@@ -2799,7 +2803,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (t.closest("[data-raw]")) { palForce = palInput.value.trim(); palRender(); palInput.focus(); return; }
     const it = t.closest(".pal-item"); if (it) palRun(+it.dataset.i);
   });
-  palList.addEventListener("pointermove", e => { const it = e.target.closest(".pal-item"); if (it && +it.dataset.i !== palSel) palMove(+it.dataset.i - palSel); });
   if (/Mac|iPhone|iPad/.test(navigator.platform)) $$("[data-kbd]").forEach(k => k.textContent = "⌘K");
   addEventListener("keydown", e => {
     const typing = /input|textarea|select/i.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
