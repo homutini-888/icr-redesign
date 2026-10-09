@@ -2423,12 +2423,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ================= nav ================= */
   const nav = $("#nav"), burger = $(".burger", nav), subs = $$(".has-sub", nav);
-  const closeSubs = except => subs.forEach(li => { if (li !== except) { li.classList.remove("open"); $("button", li).setAttribute("aria-expanded", "false"); } });
+  const leaveT = new Map();   // pending hover-out closes, one per item
+  const closeSubs = except => subs.forEach(li => { if (li !== except) { clearTimeout(leaveT.get(li)); li.classList.remove("open"); $("button", li).setAttribute("aria-expanded", "false"); } });
   subs.forEach(li => {
     const btn = $("button", li);
-    const set = open => { closeSubs(li); li.classList.toggle("open", open); btn.setAttribute("aria-expanded", open); };
-    btn.addEventListener("click", () => set(!li.classList.contains("open")));
-    if (fine) { let t; li.addEventListener("mouseenter", () => { clearTimeout(t); set(true); }); li.addEventListener("mouseleave", () => { t = setTimeout(() => set(false), 160); }); }
+    // opening closes the others; closing touches only this item — otherwise the delayed close of the item
+    // just left would also shut the one the pointer has moved on to
+    const set = open => { if (open) closeSubs(li); li.classList.toggle("open", open); btn.setAttribute("aria-expanded", open); };
+    // with a mouse, hover already opened it — a click means "open", never "shut it again" (it closes on leave,
+    // Esc or a click outside); keyboard activation (detail 0) and touch keep the toggle
+    btn.addEventListener("click", e => set(fine && e.detail > 0 ? true : !li.classList.contains("open")));
+    if (fine) {
+      li.addEventListener("mouseenter", () => { clearTimeout(leaveT.get(li)); set(true); });
+      li.addEventListener("mouseleave", () => leaveT.set(li, setTimeout(() => set(false), 160)));
+    }
   });
   document.addEventListener("click", e => {
     if (!e.target.closest(".has-sub") || e.target.closest(".sub a, .sub button")) closeSubs();
