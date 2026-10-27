@@ -184,18 +184,16 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .toast svg{width:18px;height:18px;color:#6FD3A9}
 
 /* ---------- cursor ---------- */
-.cursor{display:none}
-html.has-cursor .cursor{display:block}
-html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,html.has-cursor summary,html.has-cursor label{cursor:none}
-.cursor-dot,.cursor-ring{position:fixed;left:0;top:0;z-index:1000;pointer-events:none;border-radius:50%}
-.cursor-dot{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--blue);transition:opacity .2s}
-.cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid rgba(28,105,180,.45);display:grid;place-items:center;transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),background .3s,border-color .3s,opacity .2s}
-.cursor-ring span{font:500 12px/1 var(--f-body);color:#fff;opacity:0;transition:opacity .2s;white-space:nowrap}
-.cursor.hover .cursor-ring{width:54px;height:54px;margin:-27px 0 0 -27px;background:rgba(4,153,221,.1);border-color:rgba(28,105,180,.3)}
-.cursor.label .cursor-ring{width:92px;height:92px;margin:-46px 0 0 -46px;background:var(--blue);border-color:var(--blue)}
-.cursor.label .cursor-ring span{opacity:1}
-.cursor.hover .cursor-dot,.cursor.label .cursor-dot{opacity:0}
-.cursor.gone .cursor-dot,.cursor.gone .cursor-ring{opacity:0}
+/* the system pointer stays — it never lags; the control under it gets a glass frame in its own shape,
+   which glides from one control to the next */
+.hover-frame{position:fixed;left:0;top:0;z-index:70;pointer-events:none;width:var(--w,0px);height:var(--h,0px);border-radius:var(--r,999px);
+  transform:translate3d(var(--x,-200px),var(--y,-200px),0);opacity:0;
+  background:radial-gradient(70px circle at var(--px,50%) var(--py,50%),rgba(4,153,221,.12),transparent 72%);
+  box-shadow:0 0 0 1.5px rgba(28,105,180,.45),0 0 0 5px rgba(4,153,221,.07),0 12px 30px -14px rgba(28,105,180,.4);
+  transition:transform .2s cubic-bezier(.2,.8,.2,1),width .2s cubic-bezier(.2,.8,.2,1),height .2s cubic-bezier(.2,.8,.2,1),border-radius .2s,opacity .16s,box-shadow .16s}
+.hover-frame.on{opacity:1}
+.hover-frame.jump{transition:opacity .16s}
+.hover-frame.press{box-shadow:0 0 0 2px rgba(28,105,180,.7),0 0 0 3px rgba(4,153,221,.1),0 6px 16px -10px rgba(28,105,180,.45)}
 
 /* ---------- nav ---------- */
 .nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding:0 var(--gutter)}
@@ -374,9 +372,20 @@ html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,ht
 .page-stack{position:absolute;right:var(--gutter);top:-64px;bottom:calc(-1 * clamp(40px,5vw,64px));width:min(42%,480px);z-index:-1;
   perspective:1600px;perspective-origin:50% 35%;pointer-events:none}
 .page-stack .iso{--gap:64px;left:50%;top:50%}
+/* product pages show their own visual in place of the stack, feathered into the page */
+.page-visual{position:absolute;right:var(--gutter);top:-70px;bottom:calc(-1 * clamp(40px,5vw,64px));width:min(44%,540px);z-index:-1;pointer-events:none;
+  -webkit-mask-image:radial-gradient(ellipse 66% 64% at 50% 52%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 66% 64% at 50% 52%,#000 52%,transparent 100%)}
+.page-visual img{width:100%;height:100%;object-fit:cover}
+/* home: the team text beside its visual */
+.team-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:clamp(36px,5vw,56px)}
+.team-intro .sec-head{margin-bottom:0}
+.team-visual{margin:0;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:16/10}
+.team-visual img{width:100%;height:100%;object-fit:cover}
+@media (max-width:900px){.team-intro{grid-template-columns:1fr}.page-visual{width:46%;opacity:.6}}
+@media (max-width:600px){.page-visual{display:none}}
 /* the title block keeps clear of the stack column instead of running across the plates */
-.page-hero .wrap>:not(.page-stack){max-width:calc(100% - min(42%,480px))}
-@media (max-width:600px){.page-hero .wrap>:not(.page-stack){max-width:none}}
+.page-hero .wrap>:not(.page-stack):not(.page-visual){max-width:calc(100% - min(42%,480px))}
+@media (max-width:600px){.page-hero .wrap>:not(.page-stack):not(.page-visual){max-width:none}}
 .page-stack::after{content:"";position:absolute;left:50%;top:72%;width:70%;height:22%;transform:translateX(-50%);border-radius:50%;
   background:radial-gradient(closest-side,rgba(28,105,180,.22),transparent);filter:blur(10px)}
 .crumbs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;font:500 12.5px/1.4 var(--f-mono);color:var(--muted)}
@@ -500,7 +509,13 @@ html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,ht
 /* ---------- products ---------- */
 .bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .bento.two{grid-template-columns:1fr 1fr}
-.prod{padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:14px;overflow:hidden;border-radius:var(--r-lg);transition:transform .45s var(--ease)}
+.prod{--pad:clamp(24px,3vw,36px);padding:var(--pad);display:flex;flex-direction:column;gap:14px;overflow:hidden;border-radius:var(--r-lg);transition:transform .45s var(--ease)}
+/* product cover: full-bleed at the top of the card, dissolving into the glass below */
+.prod-img{position:relative;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 2px;aspect-ratio:16/8;overflow:hidden;
+  -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+.prod:hover .prod-img img{transform:scale(1.045)}
+.prod-img .chip{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .prod:hover{transform:translateY(-4px)}
 .prod.tilting{transition:transform .18s linear}
 .prod.big{grid-row:span 2}
@@ -956,7 +971,7 @@ html.vt-page::view-transition-new(root){animation:vt-new .8s cubic-bezier(.77,0,
 /* ---------- a11y mode ---------- */
 html.a11y{font-size:118%}
 html.a11y body{font-size:20px;background:#fff;color:#000}
-html.a11y .ambient,html.a11y .grain,html.a11y .page-stack,html.a11y .cursor,html.a11y .loader,html.a11y .bigword,html.a11y .rail{display:none!important}
+html.a11y .ambient,html.a11y .grain,html.a11y .page-stack,html.a11y .hover-frame,html.a11y .loader,html.a11y .bigword,html.a11y .rail{display:none!important}
 html.a11y [data-depth]{transform:none!important;opacity:1!important}
 html.a11y .glass,html.a11y .sub,html.a11y .dlg,html.a11y .pal,html.a11y .svc,html.a11y .metric{background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none;border:2px solid #000;box-shadow:none}
 html.a11y .glass.lit::before,html.a11y .glass.lit::after{display:none}
@@ -1072,7 +1087,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <div class="ambient" aria-hidden="true"><i></i></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"><i id="progress"></i></div>
-<div class="cursor" aria-hidden="true"><div class="cursor-ring"><span></span></div><div class="cursor-dot"></div></div>
+<div class="hover-frame" aria-hidden="true"></div>
 
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader-in">
@@ -1326,10 +1341,13 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 
 <section class="sec" style="padding-bottom:clamp(80px,10vw,140px)" data-chapter="Команда"><div class="bigword" aria-hidden="true" data-bigword>Команда</div>
   <div class="wrap" data-depth>
+    <div class="team-intro">
     <div class="sec-head" data-reveal>
       <span class="eyebrow">Наша команда</span>
       <h2 data-split>Наша команда — ваш главный актив</h2>
       <p class="lead">За плечами наших специалистов — годы работы на&nbsp;финансовом рынке. Мы не&nbsp;просто пишем код, мы понимаем логику депозитарного учета, требования регулятора и&nbsp;риски, которые нельзя автоматизировать без глубокой экспертизы. Поэтому, выбирая нас, вы получаете не&nbsp;просто программное обеспечение, а&nbsp;надежный ресурс для вашего бизнеса.</p>
+    </div>
+    <figure class="team-visual glass" data-reveal style="--d:1"><img src="assets/img/team.webp" alt="" width="1536" height="864" loading="lazy" decoding="async"></figure>
     </div>
     <div class="perks team">
       <div class="perk glass lit" data-reveal><span class="key" data-icon="learning"></span><h3>Эксперты в своей области</h3><p>Специалисты с&nbsp;уникальным опытом в&nbsp;разработке ИТ-решений для финансового рынка. Понимают предметную область на&nbsp;уровне регулятора.</p></div>
@@ -1367,7 +1385,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <template id="tpl-staff">
 <h2 class="group-title" data-reveal>Руководители</h2>
 <div class="staff-grid">
-  <a class="staff-card glass lit" href="#/company/staff/roman-kovbasyuk/" data-reveal data-cursor="Профиль">
+  <a class="staff-card glass lit" href="#/company/staff/roman-kovbasyuk/" data-reveal>
     <div class="ph"><img src="assets/kovbasyuk.jpg" alt="" width="600" height="621" loading="lazy"></div>
     <div class="who"><small>Генеральный директор</small><b>Роман Ковбасюк</b></div>
   </a>
@@ -1428,16 +1446,16 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <template id="tpl-docs">
 <div class="panel glass" data-reveal>
   <div class="panel-head"><h2>Решения и ведомости</h2><span class="muted" style="font-size:14px">PDF</span></div>
-  <a class="doc" href="assets/docs/sout-2026.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2026</b><small>PDF · 205,2 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/sout-2025.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2025</b><small>PDF · 180,1 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/sout-2024.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2024</b><small>PDF · 268,8 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/mintsifry-akkreditatsiya.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Решение Минцифры об аккредитации и выписка из реестра аккредитованных организаций</b><small>PDF · 124 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/sout-2023.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 25.05.2023</b><small>PDF · 876,9 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/sout-2026.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2026</b><small>PDF · 205,2 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/sout-2025.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2025</b><small>PDF · 180,1 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/sout-2024.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2024</b><small>PDF · 268,8 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/mintsifry-akkreditatsiya.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Решение Минцифры об аккредитации и выписка из реестра аккредитованных организаций</b><small>PDF · 124 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/sout-2023.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 25.05.2023</b><small>PDF · 876,9 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
 </div>
 <div class="panel glass" data-reveal>
   <div class="panel-head"><h2>Политики сайта</h2></div>
-  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
 </div>
 </template>
 
@@ -1873,13 +1891,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const firstList = id => (PC[id].sections[0].blocks.find(b => b.t === "ul") || { items: [] }).items.map(i => unhtml(i.h).replace(/[.;]$/, ""));
   const modWord = n => n % 10 === 1 && n % 100 !== 11 ? "модуль" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "модуля" : "модулей";
   const PRODUCTS = [
-    { id: "digital-depo", title: "«Цифровой депозитарий»", icon: ICON.bank,
+    { id: "digital-depo", title: "«Цифровой депозитарий»", icon: ICON.bank, img: "assets/img/product-digital-depo.webp",
       demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-depo"].length} ${modWord(MODS["digital-depo"].length)}</span></div>${checks(MODS["digital-depo"].slice(0, 4).map(m => m[1]))}` },
-    { id: "digital-doc", title: "«Цифровой документооборот НФО»", icon: ICON.doc,
+    { id: "digital-doc", title: "«Цифровой документооборот НФО»", icon: ICON.doc, img: "assets/img/product-digital-doc.webp",
       demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-doc"].length} ${modWord(MODS["digital-doc"].length)}</span></div>${checks(MODS["digital-doc"].map(m => m[1]))}` },
-    { id: "digital-investor", title: "«Цифровой инвестор»", icon: ICON.user,
+    { id: "digital-investor", title: "«Цифровой инвестор»", icon: ICON.user, img: "assets/img/product-digital-investor.webp",
       demo: () => `<div class="mini-head"><b>Назначение продукта</b></div>${checks(firstList("digital-investor"))}` },
-    { id: "digital-check", title: "«Цифровая проверка»", icon: ICON.check,
+    { id: "digital-check", title: "«Цифровая проверка»", icon: ICON.check, img: "assets/img/product-digital-check.webp",
       demo: () => `<div class="mini-head"><b>Цели продукта</b></div>${checks(firstList("digital-check"))}` }
   ].map(p => ({ ...p, text: firstSentence(p.id) }));
   const shortTitle = id => (PRODUCTS.find(p => p.id === id) || {}).title || (modOf(id) || {}).short || id;
@@ -1909,15 +1927,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ================= renderers ================= */
   const newsCard = (n, featured, d = 0) => `
-    <a class="news-card glass lit${featured ? " featured" : ""}" href="#/news/${n.id}/" data-cursor="Читать" data-reveal style="--d:${d}">
+    <a class="news-card glass lit${featured ? " featured" : ""}" href="#/news/${n.id}/" data-reveal style="--d:${d}">
       ${featured ? '<div class="matrix" aria-hidden="true" data-matrix></div>' : ""}
       <span class="meta">${n.tag ? `<span class="badge plain">${n.tag}</span>` : ""}<time datetime="${n.date}">${fmtDate(n.date)}</time></span>
       <h3>${esc(n.title)}</h3>
       <span class="link-arrow">Читать ${ARROW}</span>
     </a>`;
   const productCard = (p, d) => `
-    <a class="prod glass lit" href="#/projects/${p.id}/" data-reveal data-cursor="Открыть" style="--d:${d}">
-      <div class="prod-top"><div class="prod-icon">${p.icon}</div>${MODS[p.id] ? `<span class="chip">${MODS[p.id].length} ${modWord(MODS[p.id].length)}</span>` : ""}</div>
+    <a class="prod glass lit" href="#/projects/${p.id}/" data-reveal style="--d:${d}">
+      <div class="prod-img"><img src="${p.img}" alt="" width="1248" height="832" loading="lazy" decoding="async">${MODS[p.id] ? `<span class="chip">${MODS[p.id].length} ${modWord(MODS[p.id].length)}</span>` : ""}</div>
       <span class="kind">Программа для ЭВМ</span>
       <h3>${p.title}</h3><p>${esc(p.text)}</p>
       <div class="demo" aria-hidden="true">${p.demo()}</div>
@@ -1963,7 +1981,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (ul ? ul.items : []).forEach(it => { const [name, desc] = splitItem(it.h), m = list.find(x => (x[2] || x[1]).toLowerCase() === name.toLowerCase()); if (m) MOD_DESC[m[0]] = desc; });
   });
   const modCard = (pid, m, d = 0) => { const kind = /^Адаптер/.test(m[1]) ? "Адаптер" : "Модуль", desc = MOD_DESC[m[0]] || PC[m[0]].description;
-    return `<a class="mod-card glass lit" href="#/projects/${pid}/${m[0]}/" data-reveal data-cursor="Открыть" style="--d:${d}"><span class="t">${kind}</span><b>${m[1]}</b><span>${esc(desc.charAt(0).toUpperCase() + desc.slice(1))}</span><span class="link-arrow">Подробнее ${ARROW}</span></a>`; };
+    return `<a class="mod-card glass lit" href="#/projects/${pid}/${m[0]}/" data-reveal style="--d:${d}"><span class="t">${kind}</span><b>${m[1]}</b><span>${esc(desc.charAt(0).toUpperCase() + desc.slice(1))}</span><span class="link-arrow">Подробнее ${ARROW}</span></a>`; };
   function modulesHTML(pid, blocks) {
     let out = "", dev = false;
     blocks.forEach(b => {
@@ -2045,7 +2063,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const pm = p.match(/^\/projects\/([\w-]+)\/(?:([\w-]+)\/)?$/);
     if (pm && PC[pm[1]] && !PC[pm[1]].parent) {
       const pid = pm[1], sub = pm[2], base = { section: "projects", long: true, render: () => productPage(sub || pid) };
-      if (!sub) return { ...base, path: p, title: PC[pid].h1, eyebrow: "Программа для ЭВМ", crumbs: [["Продукты", "/projects/"]], crumbTitle: shortTitle(pid),
+      if (!sub) return { ...base, path: p, title: PC[pid].h1, eyebrow: "Программа для ЭВМ", crumbs: [["Продукты", "/projects/"]], crumbTitle: shortTitle(pid), image: PRODUCTS.find(x => x.id === pid).img,
         seoTitle: `${shortTitle(pid)} — программа для ЭВМ`, desc: PC[pid].description };
       if (PC[sub] && PC[sub].parent === pid) return { ...base, path: p, title: PC[sub].h1, eyebrow: `${/^Адаптер/.test(shortTitle(sub)) ? "Адаптер" : "Модуль"} · ${shortTitle(pid)}`,
         crumbs: [["Продукты", "/projects/"], [shortTitle(pid), `/projects/${pid}/`]], crumbTitle: shortTitle(sub), seoTitle: `${shortTitle(sub)} — ${shortTitle(pid)}`, desc: PC[sub].description };
@@ -2055,7 +2073,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function shell(r, content) {
     const crumbs = [["Главная", "/"], ...(r.crumbs || [])].map(([t, p]) => p ? `<a href="#${p}">${t}</a>` : `<span>${t}</span>`).join("");
     return `<section class="page-hero">
-      <div class="wrap"><div class="page-stack" aria-hidden="true" data-mini-stack></div><nav class="crumbs" aria-label="Навигационная цепочка">${crumbs}<span aria-current="page">${r.crumbTitle || r.title}</span></nav>
+      <div class="wrap">${r.image ? `<div class="page-visual" aria-hidden="true"><img src="${r.image}" alt="" width="1248" height="832" decoding="async"></div>` : `<div class="page-stack" aria-hidden="true" data-mini-stack></div>`}<nav class="crumbs" aria-label="Навигационная цепочка">${crumbs}<span aria-current="page">${r.crumbTitle || r.title}</span></nav>
       ${r.eyebrow ? `<span class="eyebrow">${r.eyebrow}</span>` : ""}<h1 class="${r.long ? "long" : ""}" tabindex="-1" data-split>${r.title}</h1>${r.lead ? `<p class="lead">${r.lead}</p>` : ""}</div></section>
       <div class="wrap page-body${r.side ? " with-side" : ""}">${r.side ? sideNav(r.path) : ""}<div class="page-main">${content}</div></div>`;
   }
@@ -2895,25 +2913,42 @@ document.addEventListener("DOMContentLoaded", () => {
   addEventListener("resize", requestScroll);
   totop.addEventListener("click", () => lenis ? lenis.scrollTo(0, { duration: 1.4 }) : scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
 
-  /* ================= cursor + magnetic ================= */
-  const cursor = $(".cursor");
-  const initCursor = () => root.classList.toggle("has-cursor", fine && motionOK());
-  if (fine && !reduce) {
-    const dot = $(".cursor-dot"), ringEl = $(".cursor-ring"), label = $(".cursor-ring span");
-    let mx = -100, my = -100, rx = -100, ry = -100;
+  /* ================= pointer: magnetic frame =================
+     The system cursor stays, so it never lags. The control under it gets a glass frame that takes the control's own
+     shape and glides from one control to the next; large cards keep their own hover (lift + light) instead. */
+  const frame = $(".hover-frame");
+  const initCursor = () => { if (!motionOK()) frame.classList.remove("on"); };
+  if (fine) {
+    const SEL = "a, button, summary, select, [role=button]", CARD = ".glass, .prod, .news-card, .mod-card, .staff-card";
+    let cur = null, px = 0, py = 0, raf = 0;
+    const place = () => {
+      const r = cur.getBoundingClientRect(), cs = getComputedStyle(cur), pad = 5, rad = cs.borderTopLeftRadius;
+      const br = Math.min(/%$/.test(rad) ? Infinity : parseFloat(rad) || 6, Math.min(r.width, r.height) / 2) + pad;
+      frame.style.cssText = `--x:${(r.left - pad).toFixed(1)}px;--y:${(r.top - pad).toFixed(1)}px;--w:${(r.width + pad * 2).toFixed(1)}px;--h:${(r.height + pad * 2).toFixed(1)}px;--r:${br.toFixed(1)}px;--px:${(px - r.left + pad).toFixed(0)}px;--py:${(py - r.top + pad).toFixed(0)}px`;
+    };
+    // follows its control through scrolling and the magnetic pull
+    const loop = () => { if (!cur) { raf = 0; return; } place(); raf = requestAnimationFrame(loop); };
+    const target = el => {
+      if (el === cur) return;
+      const appear = !cur; cur = el;
+      if (!el) { frame.classList.remove("on", "press"); return; }
+      if (appear) { frame.classList.add("jump"); place(); frame.offsetWidth; frame.classList.remove("jump"); }
+      frame.classList.add("on");
+      if (!raf) raf = requestAnimationFrame(loop);
+    };
     addEventListener("pointermove", e => {
-      mx = e.clientX; my = e.clientY; dot.style.transform = `translate3d(${mx}px,${my}px,0)`; cursor.classList.remove("gone");
-      const t = e.target.closest && e.target.closest("[data-cursor], a, button, summary, label, input, textarea, select");
-      const lab = t && t.closest("[data-cursor]"), txt = lab ? lab.dataset.cursor : "";
-      cursor.classList.toggle("label", !!txt); cursor.classList.toggle("hover", !txt && !!t && !/input|textarea|select/i.test(t.tagName));
-      if (txt) label.textContent = txt;
-      const m = e.target.closest && e.target.closest("[data-magnetic]");
+      px = e.clientX; py = e.clientY;
+      let t = motionOK() && e.target.closest ? e.target.closest(SEL) : null;
+      if (t) { const r = t.getBoundingClientRect(); if (t.closest("dialog") || t.matches(CARD) || r.width > 440 || r.height > 120) t = null; }
+      target(t);
+      const m = motionOK() && e.target.closest && e.target.closest("[data-magnetic]");
       $$("[data-magnetic].mag").forEach(x => { if (x !== m) { x.classList.remove("mag"); x.style.transform = ""; } });
-      if (m && motionOK()) { const r = m.getBoundingClientRect(); m.classList.add("mag"); m.style.transform = `translate(${(mx - r.left - r.width / 2) * .22}px,${(my - r.top - r.height / 2) * .3}px)`; }
+      if (m) { const r = m.getBoundingClientRect(); m.classList.add("mag"); m.style.transform = `translate(${(px - r.left - r.width / 2) * .12}px,${(py - r.top - r.height / 2) * .18}px)`; }
     }, { passive: true });
-    document.addEventListener("pointerleave", () => cursor.classList.add("gone"));
-    document.addEventListener("pointerover", e => { if (e.target.tagName === "IFRAME") cursor.classList.add("gone"); });
-    (function loop() { rx += (mx - rx) * .18; ry += (my - ry) * .18; ringEl.style.transform = `translate3d(${rx}px,${ry}px,0)`; requestAnimationFrame(loop); })();
+    document.addEventListener("pointerleave", () => target(null));
+    addEventListener("pointerdown", () => cur && frame.classList.add("press"));
+    addEventListener("pointerup", () => frame.classList.remove("press"));
+    addEventListener("hashchange", () => target(null));
   }
   initCursor();
 
