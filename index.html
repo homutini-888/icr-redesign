@@ -189,12 +189,12 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
    which glides from one control to the next */
 .hover-frame{position:fixed;left:0;top:0;z-index:70;pointer-events:none;width:var(--w,0px);height:var(--h,0px);border-radius:var(--r,999px);
   transform:translate3d(var(--x,-200px),var(--y,-200px),0);opacity:0;
-  background:radial-gradient(70px circle at var(--px,50%) var(--py,50%),rgba(4,153,221,.12),transparent 72%);
-  box-shadow:0 0 0 1.5px rgba(28,105,180,.45),0 0 0 5px rgba(4,153,221,.07),0 12px 30px -14px rgba(28,105,180,.4);
+  background:radial-gradient(60px circle at var(--px,50%) var(--py,50%),rgba(4,153,221,.06),transparent 75%);
+  box-shadow:0 0 0 1px rgba(28,105,180,.28),0 10px 24px -16px rgba(28,105,180,.3);
   transition:transform .2s cubic-bezier(.2,.8,.2,1),width .2s cubic-bezier(.2,.8,.2,1),height .2s cubic-bezier(.2,.8,.2,1),border-radius .2s,opacity .16s,box-shadow .16s}
 .hover-frame.on{opacity:1}
 .hover-frame.jump{transition:opacity .16s}
-.hover-frame.press{box-shadow:0 0 0 2px rgba(28,105,180,.7),0 0 0 3px rgba(4,153,221,.1),0 6px 16px -10px rgba(28,105,180,.45)}
+.hover-frame.press{box-shadow:0 0 0 1px rgba(28,105,180,.42),0 6px 14px -12px rgba(28,105,180,.35)}
 
 /* ---------- nav ---------- */
 .nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding:0 var(--gutter)}
@@ -226,7 +226,7 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .sub a[aria-current]{background:rgba(4,153,221,.1)}
 .sub hr{border:0;border-top:1px solid var(--hair);margin:6px 8px}
 .sub .btn{margin:4px 6px}
-.search-btn{display:flex;align-items:center;gap:8px;height:44px;padding:0 10px 0 14px;border-radius:999px;border:0;box-shadow:var(--bevel),0 4px 10px -6px rgba(14,26,43,.25);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));cursor:pointer;color:var(--muted);font-size:14.5px;transition:background .2s;flex-shrink:0}
+.search-btn{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px 0 15px;border-radius:999px;border:0;box-shadow:var(--bevel),0 4px 10px -6px rgba(14,26,43,.25);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));cursor:pointer;color:var(--muted);font-size:14.5px;transition:background .2s;flex-shrink:0}
 .search-btn:hover{background:#fff}
 .search-btn svg{width:18px;height:18px;color:var(--ink)}
 /* CTA sits inside the pill with the same 9px inset on every side */
@@ -234,7 +234,7 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .phone-ic{display:none;width:18px;height:18px}
 .burger{display:none}
 /* priority+ header: JS raises data-fit until everything fits inside the pill */
-.nav:is([data-fit="1"],[data-fit="2"],[data-fit="3"],[data-fit="4"]) .search-btn :is(.lbl,kbd){display:none}
+.nav:is([data-fit="1"],[data-fit="2"],[data-fit="3"],[data-fit="4"]) .search-btn .lbl{display:none}
 .nav:is([data-fit="1"],[data-fit="2"],[data-fit="3"],[data-fit="4"]) .search-btn{width:44px;padding:0;justify-content:center}
 .nav:is([data-fit="2"],[data-fit="3"],[data-fit="4"]) .menu-phone .num,.nav:is([data-fit="2"],[data-fit="3"],[data-fit="4"]) .menu-phone>li>button>svg:last-child{display:none}
 .nav:is([data-fit="2"],[data-fit="3"],[data-fit="4"]) .phone-ic{display:block}
@@ -1176,7 +1176,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         </div>
       </li>
     </ul>
-    <button class="search-btn" type="button" data-open-palette aria-label="Поиск по сайту"><svg aria-hidden="true"><use href="#i-search"/></svg><span class="lbl">Поиск</span><kbd data-kbd>Ctrl K</kbd></button>
+    <button class="search-btn" type="button" data-open-palette aria-label="Поиск по сайту"><svg aria-hidden="true"><use href="#i-search"/></svg><span class="lbl">Поиск</span></button>
     <button class="icon-btn" type="button" id="a11y" aria-pressed="false" title="Версия для слабовидящих"><span class="vh">Версия для слабовидящих</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
     <button class="icon-btn burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="sheet"><span></span></button>
   </div>
@@ -2812,7 +2812,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (t.closest("[data-raw]")) { palForce = palInput.value.trim(); palRender(); palInput.focus(); return; }
     const it = t.closest(".pal-item"); if (it) palRun(+it.dataset.i);
   });
-  if (/Mac|iPhone|iPad/.test(navigator.platform)) $$("[data-kbd]").forEach(k => k.textContent = "⌘K");
   addEventListener("keydown", e => {
     const typing = /input|textarea|select/i.test(document.activeElement.tagName) || document.activeElement.isContentEditable;
     if (["k", "K", "л", "Л"].includes(e.key) && (e.ctrlKey || e.metaKey)) { e.preventDefault(); pal.open ? pal.close() : openPalette(); }
@@ -2941,7 +2940,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const SEL = "a, button, summary, select, [role=button]", CARD = ".glass, .prod, .news-card, .mod-card, .staff-card";
     let cur = null, px = 0, py = 0, raf = 0;
     const place = () => {
-      const r = cur.getBoundingClientRect(), cs = getComputedStyle(cur), pad = 5, rad = cs.borderTopLeftRadius;
+      const r = cur.getBoundingClientRect(), cs = getComputedStyle(cur), pad = 4, rad = cs.borderTopLeftRadius;
       const br = Math.min(/%$/.test(rad) ? Infinity : parseFloat(rad) || 6, Math.min(r.width, r.height) / 2) + pad;
       frame.style.cssText = `--x:${(r.left - pad).toFixed(1)}px;--y:${(r.top - pad).toFixed(1)}px;--w:${(r.width + pad * 2).toFixed(1)}px;--h:${(r.height + pad * 2).toFixed(1)}px;--r:${br.toFixed(1)}px;--px:${(px - r.left + pad).toFixed(0)}px;--py:${(py - r.top + pad).toFixed(0)}px`;
     };
