@@ -267,7 +267,7 @@ html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,ht
 /* one row sized by the copy: the art column shares the copy's top (eyebrow) and bottom (last trust chip) lines */
 .hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-content:center;gap:clamp(24px,3vw,48px);width:100%}
 .hero-copy{display:grid;gap:clamp(14px,2.6svh,28px);position:relative;z-index:2;justify-items:start;align-self:center}
-.hero h1{font-size:clamp(2.3rem,min(4.4vw,8.6svh),4.1rem);line-height:1.04}
+.hero h1{font-size:clamp(1.95rem,min(3.3vw,6.6svh),3.5rem);line-height:1.06}
 .hero .lead{font-size:clamp(1rem,min(1.3vw,2.45svh),1.2rem);max-width:58ch}
 .hero h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
 .hero h1 .w>span{display:inline-block;transform:translateY(105%);animation:rise 1s var(--ease) forwards;animation-delay:calc(.25s + var(--i)*70ms)}
@@ -573,6 +573,70 @@ html.has-cursor,html.has-cursor body,html.has-cursor a,html.has-cursor button,ht
 .pd-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-top:8px}
 .pd-other{margin-top:24px;display:grid;gap:22px}
 .pd-other h2{font-size:clamp(1.5rem,2.4vw,2.1rem)}
+/* product and module pages: the client's text set in the site's own type, one glass section per H2 */
+.rich{display:grid;gap:14px}
+.rich>p{font-size:16.5px;line-height:1.65;color:var(--ink-2);max-width:80ch}
+.rich .lead-in{font:600 15.5px/1.4 var(--f-body);color:var(--ink);margin-top:8px}
+.rich .lead-in b{font-weight:600}
+.rich h3{margin-top:12px;font:500 12px/1.3 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--indigo)}
+.rich .note{font-size:14px;line-height:1.55;color:var(--muted);max-width:84ch}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.ticks li{position:relative;padding-left:24px;font-size:15.5px;line-height:1.5;color:var(--ink-2);break-inside:avoid}
+.ticks li::before{content:"";position:absolute;left:2px;top:.55em;width:9px;height:9px;border-radius:3px;background:var(--brand-grad);box-shadow:0 0 0 3px rgba(4,153,221,.12)}
+.ticks li b{color:var(--ink);font-weight:600}
+.ticks ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px}
+.ticks ul li{padding-left:18px;font-size:14.5px}
+.ticks ul li::before{width:8px;height:2px;top:.72em;border-radius:2px;box-shadow:none}
+.ticks.cols{display:block;columns:2;column-gap:44px}
+.ticks.cols>li{margin-bottom:10px}
+.expand .more{margin-top:12px}
+.expand .more svg{transition:transform .35s var(--ease)}
+/* tariffs */
+.tbl{overflow-x:auto;border-radius:var(--r-md);box-shadow:var(--bevel);background:rgba(255,255,255,.55)}
+.tbl table{width:100%;border-collapse:collapse;min-width:560px;font-size:14.5px}
+.tbl th{text-align:left;font:500 11px/1.4 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:14px 18px;border-bottom:1px solid var(--hair);vertical-align:bottom}
+.tbl td{padding:13px 18px;border-bottom:1px solid var(--hair);color:var(--ink-2);vertical-align:top}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.num{font:500 14.5px/1.3 var(--f-mono);color:var(--ink);white-space:nowrap}
+.tbl tbody tr{transition:background .2s}
+.tbl tbody tr:hover{background:rgba(255,255,255,.7)}
+/* hub pages fork into module pages */
+.mods{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mod-card{padding:20px;border-radius:18px;background:rgba(255,255,255,.55);box-shadow:var(--bevel);display:grid;gap:8px;align-content:start;transition:transform .35s var(--ease),background .25s,box-shadow .35s}
+a.mod-card:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--bevel),0 16px 30px -18px rgba(14,26,43,.3)}
+.mod-card .t{font:500 10.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--cyan)}
+.mod-card b{font-weight:600;color:var(--ink);font-size:16px;line-height:1.3}
+.mod-card>span:not(.t):not(.link-arrow){font-size:14px;color:var(--muted);line-height:1.45}
+.mod-card .link-arrow{margin-top:4px;font-size:14px}
+.mods.dev .mod-card{background:rgba(255,255,255,.28);box-shadow:inset 0 0 0 1px var(--hair)}
+.mods.dev .mod-card .t{color:var(--muted)}
+/* home: four products, the team block */
+.bento.four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.prod p{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.perks.team{grid-template-columns:repeat(4,minmax(0,1fr))}
+.perk.stat .nums{display:grid;gap:16px;margin-top:4px}
+.perk.stat .nums b{display:block;font:600 clamp(2rem,3vw,2.7rem)/1.05 var(--f-display);letter-spacing:-.03em;font-variation-settings:"SHRP" 100;background:var(--brand-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.perk.stat .nums>div>span{display:block;margin-top:6px;font-size:14.5px;color:var(--ink-2);line-height:1.45}
+/* career */
+.career-sec{display:grid;gap:22px}
+.career-sec+.career-sec{margin-top:clamp(36px,5vw,64px)}
+.career-sec .sec-head{margin-bottom:0}
+.career-sec .hire{grid-template-columns:1fr;gap:26px}
+.career-sec .hire-head{display:flex;justify-content:space-between;align-items:center;gap:16px 24px;flex-wrap:wrap}
+.career-sec .principles li:first-child{border-left:0;padding-left:0}
+@media (max-width:1100px){.perks.team{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.bento.four,.ticks.cols{grid-template-columns:1fr;columns:1}}
+@media (max-width:600px){
+  .perks.team{grid-template-columns:1fr}
+  /* tariffs on a phone: every row becomes a card of «column: value» pairs */
+  .tbl{overflow:visible;background:none;box-shadow:none}
+  .tbl table,.tbl tbody,.tbl tr,.tbl td{display:block;min-width:0;width:auto}
+  .tbl thead{display:none}
+  .tbl tr{padding:12px 16px;margin-bottom:10px;border-radius:16px;background:rgba(255,255,255,.6);box-shadow:var(--bevel)}
+  .tbl td{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--hair);text-align:right}
+  .tbl td::before{content:attr(data-label);font:500 10.5px/1.35 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:left;white-space:normal}
+  .tbl td:last-child{border-bottom:0}
+}
 .p-visual{position:relative;perspective:1100px;min-height:380px;display:grid;place-items:center}
 .tilt{position:relative;width:100%;max-width:440px;transform-style:preserve-3d;transition:transform .6s var(--ease)}
 .v-card{padding:20px;border-radius:22px;background:rgba(255,255,255,.72);border:0;box-shadow:var(--bevel),0 30px 60px -30px rgba(14,26,43,.35)}
@@ -1056,22 +1120,29 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         <div class="sub glass" id="sub-company">
           <a href="#/company/">О компании</a>
           <a href="#/company/staff/">Сотрудники</a>
-          <a href="#/company/vacancy/">Вакансии<b data-vac-count>4</b></a>
           <a href="#/company/requisites/">Реквизиты</a>
           <a href="#/company/docs/">Документы</a>
         </div>
       </li>
       <li class="has-sub">
-        <button type="button" aria-expanded="false" aria-controls="sub-products" data-section="projects">Продукты и услуги<svg aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <button type="button" aria-expanded="false" aria-controls="sub-products" data-section="projects">Продукты<svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <div class="sub glass" id="sub-products">
-          <a href="#/projects/digital-depo/">Программа для ЭВМ «Цифровой депозитарий»</a>
-          <a href="#/projects/digital-investor/">Программа для ЭВМ «Цифровой инвестор»</a>
-          <a href="#/projects/digital-check/">Программа для ЭВМ «Цифровая проверка»</a>
+          <a href="#/projects/digital-depo/">«Цифровой депозитарий»<small>Программа для ЭВМ · 7 модулей</small></a>
+          <a href="#/projects/digital-doc/">«Цифровой документооборот НФО»<small>Программа для ЭВМ · 4 модуля</small></a>
+          <a href="#/projects/digital-investor/">«Цифровой инвестор»<small>Программа для ЭВМ</small></a>
+          <a href="#/projects/digital-check/">«Цифровая проверка»<small>Программа для ЭВМ</small></a>
           <hr>
-          <a href="#/projects/">Все продукты и услуги</a>
+          <a href="#/projects/">Все продукты</a>
         </div>
       </li>
       <li><a href="#/news/" data-section="news">Новости</a></li>
+      <li class="has-sub">
+        <button type="button" aria-expanded="false" aria-controls="sub-career" data-section="career">Карьера<svg aria-hidden="true"><use href="#i-chev"/></svg></button>
+        <div class="sub glass" id="sub-career">
+          <a href="#/career/">Работа у нас<small>Условия, отбор, вопросы и ответы</small></a>
+          <a href="#/career/vacancy/">Вакансии<b data-vac-count>4</b></a>
+        </div>
+      </li>
       <li><a href="#/contacts/" data-section="contacts">Контакты</a></li>
     </ul>
     <ul class="menu menu-phone">
@@ -1088,19 +1159,19 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     </ul>
     <button class="search-btn" type="button" data-open-palette aria-label="Поиск по сайту"><svg aria-hidden="true"><use href="#i-search"/></svg><span class="lbl">Поиск</span><kbd data-kbd>Ctrl K</kbd></button>
     <button class="icon-btn" type="button" id="a11y" aria-pressed="false" title="Версия для слабовидящих"><span class="vh">Версия для слабовидящих</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
-    <button class="btn btn-primary btn-cta" type="button" data-open="order">Подать заявку</button>
     <button class="icon-btn burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="sheet"><span></span></button>
   </div>
   <nav class="sheet glass" id="sheet" aria-label="Мобильное меню">
     <h4>Компания</h4>
-    <a href="#/company/">О компании</a><a href="#/company/staff/">Сотрудники</a><a href="#/company/vacancy/">Вакансии</a><a href="#/company/requisites/">Реквизиты</a><a href="#/company/docs/">Документы</a>
-    <h4>Продукты и услуги</h4>
-    <a href="#/projects/digital-depo/">«Цифровой депозитарий»</a><a href="#/projects/digital-investor/">«Цифровой инвестор»</a><a href="#/projects/digital-check/">«Цифровая проверка»</a><a href="#/projects/">Все продукты и услуги</a>
+    <a href="#/company/">О компании</a><a href="#/company/staff/">Сотрудники</a><a href="#/company/requisites/">Реквизиты</a><a href="#/company/docs/">Документы</a>
+    <h4>Продукты</h4>
+    <a href="#/projects/digital-depo/">«Цифровой депозитарий»</a><a href="#/projects/digital-doc/">«Цифровой документооборот НФО»</a><a href="#/projects/digital-investor/">«Цифровой инвестор»</a><a href="#/projects/digital-check/">«Цифровая проверка»</a><a href="#/projects/">Все продукты</a>
+    <h4>Карьера</h4>
+    <a href="#/career/">Работа у нас</a><a href="#/career/vacancy/">Вакансии</a>
     <h4>Ещё</h4>
-    <a href="#/news/">Новости</a><a href="#/contacts/">Контакты</a><a href="#/info/faq/">Вопросы и ответы</a>
+    <a href="#/news/">Новости</a><a href="#/contacts/">Контакты</a>
     <a href="tel:+74952252373">+7 (495) 225-23-73</a>
     <button class="btn btn-ghost" type="button" data-open="callback">Заказать звонок</button>
-    <button class="btn btn-primary" type="button" data-open="order">Подать заявку</button>
   </nav>
 </header>
 
@@ -1113,15 +1184,15 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         <a href="#/" aria-label="Инновации и цифровое развитие"><svg class="brand" viewBox="0 0 540 136" width="159" height="40" aria-hidden="true"><use href="#brand"/></svg></a>
         <p>ИТ-компания для инфраструктурных организаций финансового рынка. Резидент «Сколково».</p>
       </div>
-      <div class="foot-col"><h4>Компания</h4><ul><li><a href="#/company/">О компании</a></li><li><a href="#/company/staff/">Сотрудники</a></li><li><a href="#/company/vacancy/">Вакансии</a></li><li><a href="#/company/requisites/">Реквизиты</a></li><li><a href="#/company/docs/">Документы</a></li></ul></div>
-      <div class="foot-col"><h4>Продукты и услуги</h4><ul><li><a href="#/projects/digital-depo/">«Цифровой депозитарий»</a></li><li><a href="#/projects/digital-investor/">«Цифровой инвестор»</a></li><li><a href="#/projects/digital-check/">«Цифровая проверка»</a></li><li><a href="#/services/">Услуги</a></li></ul></div>
-      <div class="foot-col"><h4>Информация</h4><ul><li><a href="#/news/">Новости</a></li><li><a href="#/info/faq/">Вопросы и ответы</a></li><li><a href="#/contacts/">Контакты</a></li></ul></div>
+      <div class="foot-col"><h4>Компания</h4><ul><li><a href="#/company/">О компании</a></li><li><a href="#/company/staff/">Сотрудники</a></li><li><a href="#/company/requisites/">Реквизиты</a></li><li><a href="#/company/docs/">Документы</a></li><li><a href="#/news/">Новости</a></li></ul></div>
+      <div class="foot-col"><h4>Продукты</h4><ul><li><a href="#/projects/digital-depo/">«Цифровой депозитарий»</a></li><li><a href="#/projects/digital-doc/">«Цифровой документооборот НФО»</a></li><li><a href="#/projects/digital-investor/">«Цифровой инвестор»</a></li><li><a href="#/projects/digital-check/">«Цифровая проверка»</a></li></ul></div>
+      <div class="foot-col"><h4>Карьера</h4><ul><li><a href="#/career/">Работа у нас</a></li><li><a href="#/career/vacancy/">Вакансии</a></li><li><a href="#/career/?to=faq">Вопросы и ответы</a></li><li><a href="#/contacts/">Контакты</a></li></ul></div>
       <div class="foot-col"><h4>Контакты</h4><ul><li><a href="tel:+74952252373">+7 (495) 225-23-73</a></li><li><a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru</a></li><li>115162, г. Москва, ул.&nbsp;Шаболовка, дом&nbsp;31, строение&nbsp;Б</li><li><button class="chip-btn" type="button" data-open="callback">Заказать звонок</button></li></ul></div>
     </div>
     <div class="foot-big" aria-hidden="true">Инновации и&nbsp;цифровое развитие</div>
     <div class="foot-bottom">
       <span>© 2026 Инновации и цифровое развитие</span>
-      <nav aria-label="Документы"><a href="assets/docs/privacy-policy.pdf" target="_blank" rel="noopener">Политика конфиденциальности</a><a href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener">Политика обработки персональных данных</a></nav>
+      <nav aria-label="Документы"><a href="assets/docs/privacy-policy.pdf" target="_blank" rel="noopener">Политика конфиденциальности</a><a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">Политика обработки персональных данных</a></nav>
     </div>
   </div>
 </footer>
@@ -1136,19 +1207,16 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <dialog class="modal" id="order" aria-labelledby="or-title">
   <div class="dlg glass" data-formwrap data-lenis-prevent>
     <form class="form" novalidate>
-      <div class="dlg-head"><h2 id="or-title">Подать заявку</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
-      <p class="muted" style="font-size:15px">Расскажем детали и подготовим индивидуальные условия сотрудничества.</p>
-      <div class="row2">
-        <div class="field"><label for="o-name">Имя</label><input id="o-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
-        <div class="field"><label for="o-org">Компания <small>— необязательно</small></label><input id="o-org" name="org" autocomplete="organization"></div>
-      </div>
+      <div class="dlg-head"><h2 id="or-title">Задать вопрос</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
+      <p class="muted" style="font-size:15px">Ответим по почте или перезвоним в рабочее время: пн–пт, 08:00–21:00.</p>
+      <div class="field"><label for="o-name">Имя</label><input id="o-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
       <div class="field"><label for="o-contact">Телефон или почта</label><input id="o-contact" name="contact" autocomplete="email" required><span class="msg">Оставьте телефон или почту для связи</span></div>
-      <div class="field"><label for="o-topic">Тема</label><select id="o-topic" name="topic" data-topic-select><option>«Цифровой депозитарий»</option><option>«Цифровой инвестор»</option><option>«Цифровая проверка»</option><option>Разработка и поддержка систем</option><option>Вопрос</option><option>Другое</option></select></div>
-      <div class="field"><label for="o-msg">Сообщение <small>— необязательно</small></label><textarea id="o-msg" name="message"></textarea></div>
-      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
-      <button class="btn btn-primary" type="submit">Отправить заявку</button>
+      <div class="field"><label for="o-topic">Тема</label><select id="o-topic" name="topic" data-topic-select><option>Работа в компании</option><option>Вакансии и отбор</option><option>Продукты</option><option>Другое</option></select></div>
+      <div class="field"><label for="o-msg">Вопрос</label><textarea id="o-msg" name="message" required></textarea><span class="msg">Напишите вопрос</span></div>
+      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <button class="btn btn-primary" type="submit">Отправить вопрос</button>
     </form>
-    <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Заявка отправлена</h3><p>Мы свяжемся с вами по указанным контактам.</p><button class="btn btn-ghost" type="button" data-close style="justify-self:start">Закрыть</button></div>
+    <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Вопрос отправлен</h3><p>Ответим по указанным контактам.</p><button class="btn btn-ghost" type="button" data-close style="justify-self:start">Закрыть</button></div>
   </div>
 </dialog>
 
@@ -1159,7 +1227,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <p class="muted" style="font-size:15px">Перезвоним в рабочее время: пн–пт, 08:00–21:00.</p>
       <div class="field"><label for="c-name">Имя</label><input id="c-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
       <div class="field"><label for="c-phone">Телефон</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required><span class="msg">Укажите телефон</span></div>
-      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
       <button class="btn btn-primary" type="submit">Заказать звонок</button>
     </form>
     <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Звонок заказан</h3><p>Перезвоним в рабочее время.</p><button class="btn btn-ghost" type="button" data-close style="justify-self:start">Закрыть</button></div>
@@ -1180,7 +1248,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         <span class="msg">Подойдёт PDF, DOC или DOCX до 10 МБ</span>
       </div>
       <div class="field"><label for="r-link">Ссылка на резюме <small>— необязательно</small></label><input id="r-link" name="link" type="url" placeholder="https://hh.ru/resume/…"></div>
-      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
       <button class="btn btn-primary" type="submit">Отправить резюме</button>
     </form>
     <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Резюме отправлено</h3><p>Ответим в течение 2–3 дней.</p><button class="btn btn-ghost" type="button" data-close style="justify-self:start">Закрыть</button></div>
@@ -1216,19 +1284,20 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <section class="hero" data-chapter="Главная">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow">ИТ для инфраструктуры финансового рынка</span>
+      <span class="eyebrow">ООО «Инновации и цифровое развитие»</span>
       <h1>
-        <span class="w"><span style="--i:0">ООО</span></span>
-        <span class="w"><span style="--i:1">«Инновации</span></span>
-        <span class="w"><span style="--i:2">и</span></span>
-        <span class="w"><span style="--i:3" class="mark">цифровое<span class="bits" aria-hidden="true" data-bits></span></span></span>
-        <span class="w"><span style="--i:4">развитие»</span></span>
+        <span class="w"><span style="--i:0">Комплексные</span></span>
+        <span class="w"><span style="--i:1" class="mark">ИТ-решения<span class="bits" aria-hidden="true" data-bits></span></span></span>
+        <span class="w"><span style="--i:2">для</span></span>
+        <span class="w"><span style="--i:3">специализированных</span></span>
+        <span class="w"><span style="--i:4">депозитариев</span></span>
+        <span class="w"><span style="--i:5">и</span></span>
+        <span class="w"><span style="--i:6">участников</span></span>
+        <span class="w"><span style="--i:7">финансового</span></span>
+        <span class="w"><span style="--i:8">рынка</span></span>
+        <span class="w"><span style="--i:9">России</span></span>
       </h1>
-      <p class="lead">ИТ-компания, объединяющая специалистов с&nbsp;уникальным опытом разработки и&nbsp;поддержки информационных систем учёта, документооборота и&nbsp;взаимодействия с&nbsp;поставщиками данных на&nbsp;финансовом рынке. Аккредитована в&nbsp;качестве ИТ-компании Министерством цифрового развития, связи и&nbsp;массовых коммуникаций.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="#/company/" data-magnetic>Подробнее <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        <button class="btn btn-ghost" type="button" data-open="order" data-magnetic>Подать заявку</button>
-      </div>
+      <p class="lead">Готовые решения полного цикла работы спецдепозитарного, депозитарного, реестрового, бухгалтерского и&nbsp;налогового учёта. Предварительный и&nbsp;последующий контроль. Высоконагруженный документооборот и&nbsp;отчетность в&nbsp;строгом соответствии с&nbsp;требованиями Банка России</p>
       <ul class="trust">
         <li><span class="ti" data-icon="shield"></span>Аккредитованная ИТ-компания Минцифры России</li>
         <li><span class="ti" data-icon="flask"></span>Исследовательский центр «Сколково»</li>
@@ -1236,91 +1305,40 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     </div>
     <div class="hero-art">
       <div class="stack3d" aria-hidden="true" data-stack></div>
-      <div class="ledger glass" role="img" aria-label="Иллюстрация: функции систем ИЦР — контроли, документооборот, отчётность, проверка клиентов и голосования — выполняются по очереди. Электронный документооборот: до 100 млн документов, SLA на регистрацию и обработку до 15 минут">
+      <div class="ledger glass" role="img" aria-label="Иллюстрация: функции программ ИЦР — контроли, документооборот, отчётность, проверка клиентов и голосования — выполняются по очереди">
         <div class="ledger-head"><span class="mono">Журнал операций</span><span class="live"><i></i>пример</span></div>
         <div class="ledger-view"><ol class="ledger-list" data-ledger></ol></div>
-        <div class="ledger-kpi"><div><b>до 100 млн</b><span>документов в ЭДО</span></div><div><b>до 15 мин</b><span>SLA на регистрацию и обработку</span></div></div>
+        <div class="ledger-kpi"><div><b>4 продукта</b><span>программы для ЭВМ</span></div><div><b>11 модулей</b><span>в составе продуктов</span></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="sec" data-chapter="Новости"><div class="bigword" aria-hidden="true" data-bigword>Новости</div>
+<section class="sec" data-chapter="Продукты"><div class="bigword" aria-hidden="true" data-bigword>Продукты</div>
   <div class="wrap" data-depth>
     <div class="sec-head split" data-reveal>
-      <div><span class="eyebrow">Новости</span><h2 data-split>Новости компании</h2><p class="lead">Читайте новости компании: заявления, пресс-релизы, важные сообщения.</p></div>
-      <a class="link-arrow" href="#/news/">Все новости <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <div><span class="eyebrow">Программы для ЭВМ</span><h2 data-split>Продукты</h2></div>
+      <a class="link-arrow" href="#/projects/">Все продукты <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
-    <div class="news" data-news-latest></div>
+    <div class="bento four" data-products="all"></div>
   </div>
 </section>
 
-<section class="sec" data-chapter="Работа"><div class="bigword" aria-hidden="true" data-bigword>Работа</div>
+<section class="sec" style="padding-bottom:clamp(80px,10vw,140px)" data-chapter="Команда"><div class="bigword" aria-hidden="true" data-bigword>Команда</div>
   <div class="wrap" data-depth>
-    <div class="sec-head split" data-reveal>
-      <div><span class="eyebrow">Работа в ИЦР</span><h2 data-split>Как мы работаем</h2></div>
-      <a class="link-arrow" href="#/company/vacancy/">Вакансии <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <div class="sec-head" data-reveal>
+      <span class="eyebrow">Наша команда</span>
+      <h2 data-split>Наша команда — ваш главный актив</h2>
+      <p class="lead">За плечами наших специалистов — годы работы на&nbsp;финансовом рынке. Мы не&nbsp;просто пишем код, мы понимаем логику депозитарного учета, требования регулятора и&nbsp;риски, которые нельзя автоматизировать без глубокой экспертизы. Поэтому, выбирая нас, вы получаете не&nbsp;просто программное обеспечение, а&nbsp;надежный ресурс для вашего бизнеса.</p>
     </div>
-    <div class="perks">
-      <div class="perk glass lit" data-reveal><span class="key" data-icon="growth"></span><h3>Конкурентные условия</h3><p>На уровне современных российских ИТ-компаний.</p></div>
-      <div class="perk glass lit" data-reveal style="--d:1"><span class="key" data-icon="salary"></span><h3>«Белая» зарплата</h3><p>Оформление по ТК РФ с первого рабочего дня.</p></div>
-      <div class="perk glass lit" data-reveal style="--d:2"><span class="key" data-icon="hybrid"></span><h3>Гибридный офис</h3><p>Работа дома или в офисе, в Москве или любом городе России.</p></div>
-      <div class="perk glass lit" data-reveal><span class="key" data-icon="learning"></span><h3>Обучение и развитие</h3><p>Профессиональный рост и обучение у лучших провайдеров на рынке.</p></div>
-      <div class="perk glass lit" data-reveal style="--d:1"><span class="key" data-icon="benefits"></span><h3>Социальный пакет</h3><p>С возможностью выбирать то, что нужно вам и вашей семье.</p></div>
-      <div class="perk glass lit" data-reveal style="--d:2"><span class="key" data-icon="community"></span><h3>Корпоративная жизнь</h3><p>Неформальная атмосфера и душевные праздники с коллегами.</p></div>
+    <div class="perks team">
+      <div class="perk glass lit" data-reveal><span class="key" data-icon="learning"></span><h3>Эксперты в своей области</h3><p>Специалисты с&nbsp;уникальным опытом в&nbsp;разработке ИТ-решений для финансового рынка. Понимают предметную область на&nbsp;уровне регулятора.</p></div>
+      <div class="perk glass lit" data-reveal style="--d:1"><span class="key" data-icon="regulator"></span><h3>Регуляторная компетентность</h3><p>Мы понимаем требования Банка России и&nbsp;ФСТЭК на&nbsp;уровне, позволяющем внедрять изменения в&nbsp;законодательство в&nbsp;кратчайшие сроки, без остановки вашего бизнеса.</p></div>
+      <div class="perk glass lit stat" data-reveal style="--d:2"><h3>Зрелая команда</h3>
+        <div class="nums"><div><b><span data-count="36">36</span> лет</b><span>средний возраст сотрудника</span></div><div><b><span data-count="5">5</span> лет</b><span>средний опыт сотрудника в&nbsp;финансовом секторе</span></div></div></div>
+      <div class="perk glass lit stat" data-reveal style="--d:3"><h3>Количество</h3>
+        <div class="nums"><div><b><span data-count="150">150</span>+</b><span>Более 150 ИТ-сотрудников в&nbsp;штате</span></div></div></div>
     </div>
-  </div>
-</section>
-
-<section class="sec" style="padding-top:18px" data-chapter="Команда">
-  <div class="wrap" data-depth>
-    <div class="hire glass" data-reveal>
-      <div class="hire-head">
-        <h2 data-split>Как стать частью нашей команды</h2>
-        <a class="btn btn-primary" href="#/company/vacancy/" data-magnetic>Смотреть вакансии <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-      </div>
-      <ul class="principles">
-        <li><b>Быстро</b><span>Принимаем решение по кандидату</span></li>
-        <li><b>Справедливо</b><span>Оцениваем преимущества каждого кандидата</span></li>
-        <li><b>Честно</b><span>Рассказываем о работе и условиях</span></li>
-        <li><b>Онлайн</b><span>Удалённое знакомство и обратная связь в течение 2–3 дней</span></li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec" data-chapter="Услуги"><div class="bigword" aria-hidden="true" data-bigword>Услуги</div>
-  <div class="wrap svc-layout">
-    <div class="svc-intro" data-reveal>
-      <span class="eyebrow">Услуги</span>
-      <h2 data-split>Помогаем развивать бизнес</h2>
-      <p class="lead">Разрабатываем и поддерживаем системы, на которых держится работа специализированного депозитария.</p>
-      <a class="btn btn-ghost" href="#/services/" data-magnetic>Все услуги <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    </div>
-    <div class="stack svc-stack" data-services="stack"></div>
-  </div>
-</section>
-
-<section class="sec" data-chapter="Проекты"><div class="bigword" aria-hidden="true" data-bigword>Проекты</div>
-  <div class="wrap" data-depth>
-    <div class="sec-head split" data-reveal>
-      <div><span class="eyebrow">Продукты</span><h2 data-split>Реализованные проекты</h2></div>
-      <a class="link-arrow" href="#/projects/">Все проекты <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    </div>
-    <div class="bento" data-products="all"></div>
-  </div>
-</section>
-
-<section class="sec" style="padding-bottom:clamp(80px,10vw,140px)" data-chapter="Вопросы"><div class="bigword" aria-hidden="true" data-bigword>Вопросы</div>
-  <div class="wrap faq">
-    <div class="faq-aside" data-reveal>
-      <span class="eyebrow">Ответы на популярные вопросы</span>
-      <h2 data-split>Как мы работаем: вопросы и ответы</h2>
-      <p class="lead">В этом разделе публикуем ответы на популярные вопросы. Не нашли ответов? Свяжитесь с нами по почте или телефону для консультации. Расскажем детали и подготовим индивидуальные условия сотрудничества.</p>
-      <div class="contact-mini"><a href="tel:+74952252373">+7 (495) 225-23-73</a><a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru</a></div>
-      <a class="link-arrow" href="#/info/faq/">Все ответы <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    </div>
-    <div class="qa glass" data-reveal style="--d:1" data-faq></div>
   </div>
 </section>
 </template>
@@ -1415,212 +1433,90 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
   <a class="doc" href="assets/docs/sout-2024.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 2024</b><small>PDF · 268,8 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
   <a class="doc" href="assets/docs/mintsifry-akkreditatsiya.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Решение Минцифры об аккредитации и выписка из реестра аккредитованных организаций</b><small>PDF · 124 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
   <a class="doc" href="assets/docs/sout-2023.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Сводная ведомость результатов проведения специальной оценки условий труда 25.05.2023</b><small>PDF · 876,9 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных</b><small>PDF · 341,7 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
 </div>
 <div class="panel glass" data-reveal>
   <div class="panel-head"><h2>Политики сайта</h2></div>
   <a class="doc" href="assets/docs/privacy-policy.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика конфиденциальности</b><small>PDF · 350,7 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
-  <a class="doc" href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика обработки персональных данных</b><small>PDF · 341,7 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
+  <a class="doc" href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener" data-cursor="Открыть"><span class="key sm" data-icon="docsign" aria-hidden="true"></span><span><b>Политика в отношении обработки персональных данных. Редакция № 1</b><small>PDF · 527,3 КБ</small></span><span class="doc-dl"><svg aria-hidden="true"><use href="#i-down"/></svg></span></a>
 </div>
 </template>
 
 <!-- Продукты и услуги -->
 <template id="tpl-projects">
-<div class="bento" data-products="all"></div>
-<div class="cta-band glass" data-reveal>
-  <div><h3>Разрабатываем и поддерживаем системы на заказ</h3><p>Учёт специализированного депозитария, документооборот с квалифицированной подписью, обмен данными с поставщиками и Банком России.</p></div>
-  <a class="btn btn-ghost" href="#/services/" data-magnetic>Услуги <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-</div>
-</template>
-
-<template id="tpl-depo">
-<div class="pd-hero glass" data-reveal data-chapter="Обзор">
-  <div class="p-hero">
-    <div class="p-copy">
-      <p>«Цифровой депозитарий» — комплекс решений, обеспечивающий работу специализированных депозитариев согласно требованиям Банка России, ФСТЭК, законодательным и нормативным требованиям.</p>
-      <p>Система позволяет реализовать спецдепозитарный, депозитарный, реестровый, бухгалтерский и налоговый учёты. Помимо учётной функции, с её помощью можно осуществлять высоконагруженный документооборот и загрузку всей необходимой и актуальной информации из внешних источников.</p>
-      <p>Модули предварительного и последующего контроля позволяют вести специализированный учёт любой сложности и любого объёма усилиями малой команды сотрудников.</p>
-      <div class="ip"><span class="key xs" data-icon="shield" aria-hidden="true"></span><span>Правообладатель исключительных прав на программу — ООО «Инновации и цифровое развитие». Программа является собственной разработкой компании.</span></div>
-      <div class="p-cta"><button class="btn btn-primary" type="button" data-open="order" data-topic="«Цифровой депозитарий»" data-magnetic>Запросить демонстрацию <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
-    </div>
-    <div class="p-visual" aria-hidden="true">
-      <div class="tilt" data-tilt>
-        <div class="v-card">
-          <div class="v-head"><span>Модуль контролей ПИФ</span><span>предварительный и последующий</span></div>
-          <div class="v-title">Контроль портфеля по инвестиционной декларации</div>
-          <div class="v-row" style="--d:0"><i class="ck"></i>Хранение контрольных показателей</div>
-          <div class="v-row" style="--d:1"><i class="ck"></i>Показатели для каждого типа портфеля</div>
-          <div class="v-row" style="--d:2"><i class="ck"></i>Обязательные ежедневные контроли</div>
-          <div class="v-row" style="--d:3"><i class="ck"></i>Повторные контроли портфелей</div>
-          <div class="v-row" style="--d:4"><i class="ck"></i>Уведомления клиенту и регулятору</div>
-        </div>
-        <div class="v-float f1"><span class="key xs" data-icon="docsign" aria-hidden="true"></span><span><b>ЭДО</b> · до 100 млн документов</span></div>
-        <div class="v-float f2"><span class="key xs" data-icon="regulator" aria-hidden="true"></span><span><b>XBRL</b> · отчётность для Банка России</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="metrics" data-reveal>
-  <div class="metric"><b><span data-count="100">100</span> млн</b><span>документов — пропускная способность ЭДО</span></div>
-  <div class="metric"><b><span data-count="15">15</span> мин</b><span>SLA на регистрацию и предварительную обработку</span></div>
-  <div class="metric"><b><span data-count="16">16</span></b><span>модулей и адаптеров в составе системы</span></div>
-  <div class="metric price"><b><span data-count="10">10</span> млн ₽</b><span>стоимость лицензии</span></div>
-</div>
-<section class="pd-sec glass" id="modules" data-reveal data-chapter="Модули">
-  <div class="pd-sec-head">
-    <h2>Модули системы</h2>
-    <div class="filters" role="group" aria-label="Фильтр модулей">
-      <button class="filter" type="button" aria-pressed="true" data-mod="all">Все<b>16</b></button>
-      <button class="filter" type="button" aria-pressed="false" data-mod="module">Модули<b>10</b></button>
-      <button class="filter" type="button" aria-pressed="false" data-mod="adapter">Адаптеры<b>6</b></button>
-    </div>
-  </div>
-  <div class="modules">
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Контроли ПИФ</b><span>Проверка ПИФ и отправка уведомлений регулятору и клиенту.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Контроли НПФ</b><span>Контроль и проверка НПФ с уведомлениями регулятору и клиенту.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>СД учёт ПИФ</b><span>Учёт активов, принадлежащих фондам, обеспечение их хранения и управления.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>СД учёт НПФ</b><span>Управление и учёт активов, находящихся в распоряжении фондов.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>МДМ (master data management)</b><span>Единые справочники для документооборота и всех учётных модулей.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Документооборот</b><span>Юридически значимый ЭДО: до 100 млн документов, SLA на регистрацию и предобработку до 15 мин.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Хранение данных</b><span>Централизованное хранение и управление данными всех модулей.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Интеграция с системами роботизации</b><span>Автоматизация процессов внутри системы.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Закачки данных из внешних источников</b><span>Импорт данных для работы учётных модулей.</span></div>
-    <div class="mod" data-kind="module"><span class="t">Модуль</span><b>Аналитика НПФ</b><span>Портфельная аналитика деятельности НПФ.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы 1С</b><span>Интеграционный компонент для взаимодействия с системами 1С.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы управления событиями</b><span>Управление и менеджмент событий.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы регистраторского учёта</b><span>Взаимодействие с реестровыми системами.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы депозитарного учёта</b><span>Обмен данными с депозитарными системами.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы стресс-теста НПФ</b><span>Обмен данными для стресс-тестов и анализа устойчивости НПФ.</span></div>
-    <div class="mod" data-kind="adapter"><span class="t">Адаптер</span><b>Системы XBRL-отчётности</b><span>Формирование, проверка и защищённая отправка отчётности регулятору.</span></div>
-  </div>
-</section>
-<section class="pd-sec glass expand" data-reveal data-chapter="Возможности">
-  <div class="pd-sec-head"><h2>Функциональные возможности</h2><button class="link-arrow" type="button" data-expand>Показать все <svg aria-hidden="true"><use href="#i-chev"/></svg></button></div>
-  <div class="fade-bottom"><div class="collapsible" style="grid-template-rows:minmax(150px,0fr)"><div>
-    <div class="caps">
-      <div class="cap"><h3>Контроль</h3><ul><li>Хранение контрольных показателей</li><li>Настройка показателей контроля для каждого типа портфеля в соответствии с инвестиционной декларацией</li><li>Обязательные ежедневные контроли</li><li>Уведомления клиентам и регулятору при нарушениях, устранениях и неустранениях</li><li>Хранение информации о всех проведённых контролях</li><li>Повторные контроли портфелей</li></ul></div>
-      <div class="cap"><h3>Учёт</h3><ul><li>Учёт ценных бумаг</li><li>Операции по корпоративным действиям эмитентов</li><li>Расчёт и обработка тарифов</li><li>Консолидирующая отчётность</li><li>Интеграция с ПО НРД</li><li>Депозитарная отчётность</li></ul></div>
-      <div class="cap"><h3>Документооборот</h3><ul><li>Создание, редактирование, просмотр формализованных и неформализованных документов</li><li>Подпись, отправка и получение документов</li><li>Информация о состоянии доставки</li><li>Экспорт и импорт документов</li><li>Печатные формы на основе шаблонов</li><li>Запросы на перевыпуск сертификата участника ЭДО</li><li>Массовая (пакетная) отправка</li></ul></div>
-      <div class="cap"><h3>Данные и аналитика</h3><ul><li>Безопасное хранение структурированных данных, целостность и актуальность информации</li><li>Управление доступом к данным</li><li>Оптимизация производительности базы данных</li><li>Интеграция с роботами-помощниками и автоматизация рутинных операций</li><li>Получение информации из внешних источников и контроль её целостности</li><li>Анализ деятельности НПФ, отчётность, аналитические отчёты и прогнозирование</li><li>Мониторинг событий в реальном времени</li><li>Обмен данными с регистраторами, валидация и синхронизация учётных записей</li></ul></div>
-    </div>
-  </div></div></div>
-</section>
-<section class="pd-sec glass" data-reveal data-chapter="Технологии">
-  <div class="pd-sec-head"><h2>Технологии</h2></div>
-  <div class="stack-chips"><span>C#</span><span>S3</span><span>.NET</span><span>RabbitMQ</span><span>Rabbit UI</span><span>Kafka</span><span>Jaeger</span><span>Visual Studio</span><span>MS SQL Studio</span><span>PostgreSQL</span><span>Storybook</span><span>REST</span></div>
-</section>
-<div class="pd-foot"><a class="back" href="#/projects/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Назад к списку</a></div>
-<section class="pd-other" data-chapter="Другие продукты"><h2 data-split>Другие продукты</h2><div class="bento two" data-products="except:digital-depo"></div></section>
-</template>
-
-<template id="tpl-investor">
-<div class="pd-hero glass" data-reveal data-chapter="Обзор">
-  <div class="p-hero">
-    <div class="p-copy">
-      <p>«Цифровой инвестор» — сервис, позволяющий владельцу инвестиционных паёв (пайщику) следить за своими активами и дистанционно участвовать в мероприятиях, связанных с управлением этими активами управляющей компанией ПИФ, — в электронном голосовании.</p>
-      <p>Продукт позволяет управляющим компаниям проводить дистанционные голосования среди пайщиков. Это снижает трудозатраты и сокращает время согласования изменений в правила доверительного управления (ПДУ), а значит — издержки УК ПИФ.</p>
-      <div class="ip"><span class="key xs" data-icon="shield" aria-hidden="true"></span><span>Правообладатель исключительных прав на программу — ООО «Инновации и цифровое развитие». Программа является собственной разработкой компании.</span></div>
-      <div class="p-cta"><button class="btn btn-primary" type="button" data-open="order" data-topic="«Цифровой инвестор»" data-magnetic>Запросить демонстрацию <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
-    </div>
-    <div class="p-visual" aria-hidden="true">
-      <div class="tilt" data-tilt>
-        <div class="v-card">
-          <div class="v-head"><span>Электронное голосование</span><span>ИК · ОСВИП · СД</span></div>
-          <div class="v-title">Изменения в правила доверительного управления</div>
-          <div class="v-row" style="--d:0"><i class="ck"></i>Уведомления участникам, в том числе без кабинета</div>
-          <div class="v-row" style="--d:1"><i class="ck"></i>Формирование бюллетеней</div>
-          <div class="v-row" style="--d:2"><i class="ck"></i>Подписание простой электронной подписью</div>
-          <div class="v-row" style="--d:3"><i class="ck"></i>Автоматическое подведение итогов</div>
-          <div class="v-row" style="--d:4"><i class="ck"></i>Протокол голосования</div>
-        </div>
-        <div class="v-float f1"><span class="key xs" data-icon="investor" aria-hidden="true"></span><span><b>Вход через ЕСИА</b></span></div>
-        <div class="v-float f2"><span class="key xs" data-icon="shield" aria-hidden="true"></span><span><b>ПДн</b> · хранятся зашифрованными</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="metrics" data-reveal>
-  <div class="metric"><b>ЕСИА</b><span>регистрация пайщика в личном кабинете</span></div>
-  <div class="metric"><b><span data-count="3">3</span></b><span>формата голосований: ИК, ОСВИП, совет директоров</span></div>
-  <div class="metric"><b>ПЭП</b><span>подписание бюллетеней простой электронной подписью</span></div>
-  <div class="metric price"><b><span data-count="4">4</span> млн ₽</b><span>стоимость лицензии</span></div>
-</div>
-<section class="pd-sec glass" data-reveal data-chapter="Возможности">
-  <div class="pd-sec-head"><h2>Функциональные возможности</h2></div>
-  <div class="caps">
-    <div class="cap"><h3>Пайщику</h3><ul><li>Регистрация в личном кабинете инвестора через ЕСИА; для лиц без ЕСИА — отдельный вход</li><li>Мониторинг своих активов</li><li>Участие в голосованиях и подписание бюллетеней простой электронной подписью</li></ul></div>
-    <div class="cap"><h3>Управляющей компании</h3><ul><li>Голосования инвестиционного комитета (ИК), общего собрания владельцев паёв (ОСВИП) и совета директоров (СД)</li><li>Уведомления участникам — даже не зарегистрированным в кабинете</li><li>Формирование бюллетеней и протоколов</li><li>Автоматическое подведение итогов</li></ul></div>
-    <div class="cap"><h3>Безопасность</h3><ul><li>Хранение персональных данных в зашифрованном виде</li></ul></div>
-  </div>
-</section>
-<section class="pd-sec glass" data-reveal data-chapter="Технологии">
-  <div class="pd-sec-head"><h2>Технологии</h2></div>
-  <div class="stack-chips"><span>C#</span><span>.NET 8</span><span>Kafka</span><span>PostgreSQL</span><span>Kubernetes</span><span>VictoriaMetrics</span><span>Grafana</span><span>React</span><span>Nginx</span><span>Vault</span><span>Jenkins</span><span>Bitbucket</span><span>Sentry</span><span>Jaeger</span><span>OpenSearch</span><span>WebSocket</span><span>Roox</span><span>Confluence</span></div>
-</section>
-<div class="pd-foot"><a class="back" href="#/projects/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Назад к списку</a></div>
-<section class="pd-other" data-chapter="Другие продукты"><h2 data-split>Другие продукты</h2><div class="bento two" data-products="except:digital-investor"></div></section>
-</template>
-
-<template id="tpl-check">
-<div class="pd-hero glass" data-reveal data-chapter="Обзор">
-  <div class="p-hero">
-    <div class="p-copy">
-      <p>«Цифровая проверка» — решение для автоматизированной проверки клиентов на соответствие требованиям ПОД/ФТ (противодействие отмыванию доходов и финансированию терроризма).</p>
-      <p>Быстрая и точная верификация данных минимизирует риски работы с недобросовестными контрагентами и обеспечивает полное соответствие законодательству Российской Федерации. Основной нормативный акт — Федеральный закон от 07.08.2001 № 115-ФЗ «О противодействии легализации (отмыванию) доходов, полученных преступным путём, и финансированию терроризма».</p>
-      <div class="ip"><span class="key xs" data-icon="shield" aria-hidden="true"></span><span>Правообладатель исключительных прав на программу — ООО «Инновации и цифровое развитие». Программа является собственной разработкой компании.</span></div>
-      <div class="p-cta"><button class="btn btn-primary" type="button" data-open="order" data-topic="«Цифровая проверка»" data-magnetic>Запросить демонстрацию <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></div>
-    </div>
-    <div class="p-visual" aria-hidden="true">
-      <div class="tilt" data-tilt>
-        <div class="v-card">
-          <div class="v-head"><span>Проверка клиента</span><span>115-ФЗ</span></div>
-          <div class="v-title">Проверка по перечням</div>
-          <div class="v-row" style="--d:0"><i class="ck"></i>Перечень РФМ</div>
-          <div class="v-row" style="--d:1"><i class="ck"></i>Решения МВК</div>
-          <div class="v-row" style="--d:2"><i class="ck"></i>Перечни РОМУ ООН</div>
-          <div class="v-row" style="--d:3"><i class="ck"></i>Минюст</div>
-          <div class="v-row" style="--d:4"><i class="ck"></i>Санкционные списки</div>
-          <div class="v-sign">Далее <span class="chip">уровень риска</span><span class="chip">досье клиента</span><span class="chip">отчёт о проверке</span></div>
-        </div>
-        <div class="v-float f1"><span class="key xs" data-icon="community" aria-hidden="true"></span><span><b>Мониторинг</b> · связанные лица</span></div>
-        <div class="v-float f2"><span class="key xs" data-icon="regulator" aria-hidden="true"></span><span><b>ФНС</b> · «Прозрачный бизнес»</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="metrics" data-reveal>
-  <div class="metric"><b>115-ФЗ</b><span>соответствие требованиям ПОД/ФТ</span></div>
-  <div class="metric"><b>РФМ · МВК</b><span>проверка по перечням РОМУ ООН, Минюста и санкционным спискам</span></div>
-  <div class="metric"><b>ФНС</b><span>взаимодействие с системой «Прозрачный бизнес»</span></div>
-  <div class="metric price"><b><span data-count="4">4</span> млн ₽</b><span>стоимость лицензии</span></div>
-</div>
-<section class="pd-sec glass" data-reveal data-chapter="Возможности">
-  <div class="pd-sec-head"><h2>Функциональные возможности</h2></div>
-  <div class="caps">
-    <div class="cap"><h3>Проверка</h3><ul><li>Идентификация клиентов</li><li>Проверка по перечням: РФМ, МВК, РОМУ ООН, Минюст, санкционные списки и другие</li><li>Присвоение уровня риска</li></ul></div>
-    <div class="cap"><h3>Отчётность</h3><ul><li>Отчёты о проверках и по клиентам</li><li>Квартальная отчётность по выполнению требований 115-ФЗ</li><li>Формирование досье клиента</li></ul></div>
-    <div class="cap"><h3>Мониторинг</h3><ul><li>Наблюдение за изменениями данных клиентов и связанных лиц</li><li>Автоматическая поддержка актуальности справочников</li><li>Взаимодействие с системой «Прозрачный бизнес» ФНС</li></ul></div>
-  </div>
-</section>
-<section class="pd-sec glass" data-reveal data-chapter="Технологии">
-  <div class="pd-sec-head"><h2>Технологии</h2></div>
-  <div class="stack-chips"><span>C#</span><span>.NET 8</span><span>RabbitMQ</span><span>Kafka</span><span>PostgreSQL</span><span>VipNet</span><span>Kubernetes</span><span>VictoriaMetrics</span><span>Grafana</span><span>React</span><span>Nginx</span><span>Vault</span><span>Jenkins</span><span>Allure</span><span>Bitbucket</span><span>Sentry</span><span>Confluence</span><span>YouTrack</span></div>
-</section>
-<div class="pd-foot"><a class="back" href="#/projects/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Назад к списку</a></div>
-<section class="pd-other" data-chapter="Другие продукты"><h2 data-split>Другие продукты</h2><div class="bento two" data-products="except:digital-check"></div></section>
-</template>
-
-<!-- Услуги -->
-<template id="tpl-services">
-<div class="svc-grid" data-services="grid"></div>
-<div class="cta-band glass" data-reveal>
-  <div><h3>Хотите узнать подробнее об условиях сотрудничества?</h3><p>Свяжитесь с нами по почте или телефону: проконсультируем, ответим на вопросы и подготовим индивидуальные условия сотрудничества.</p></div>
-  <button class="btn btn-primary" type="button" data-open="order" data-topic="Разработка и поддержка систем" data-magnetic>Подать заявку <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-</div>
+<div class="bento four" data-products="all"></div>
 </template>
 
 <!-- Новости -->
 <template id="tpl-news"><div data-news-all></div></template>
+
+<!-- Карьера -->
+<template id="tpl-career">
+<section class="career-sec" data-chapter="Работа у нас">
+  <div class="sec-head" data-reveal>
+    <h2 data-split>Работа у нас — это</h2>
+    <p class="lead">Мы строим продукты для финансового рынка, где ошибка стоит дорого. А&nbsp;значит, мы ищем и&nbsp;ценим лучших. Если вам интересны сложные, масштабные задачи и&nbsp;вы хотите работать в&nbsp;команде профессионалов, посмотрите, что мы можем предложить.</p>
+  </div>
+  <div class="perks">
+    <div class="perk glass lit" data-reveal><span class="key" data-icon="salary"></span><h3>Стабильность и надежность</h3><p>Официальное трудоустройство и&nbsp;конкурентные условия — это основа для формирования зрелой, ответственной команды, заинтересованной в&nbsp;долгосрочных проектах.</p></div>
+    <div class="perk glass lit" data-reveal style="--d:1"><span class="key" data-icon="hybrid"></span><h3>Свобода в организации</h3><p>Гибридный офис: работай из дома, из нашего офиса в&nbsp;Москве или из любого города России. Важен результат, а&nbsp;не&nbsp;место.</p></div>
+    <div class="perk glass lit" data-reveal style="--d:2"><span class="key" data-icon="benefits"></span><h3>Социальный пакет</h3><p>Социальный пакет с&nbsp;возможностью выбирать то, что нужно именно тебе и&nbsp;твоей семье. От&nbsp;детского Деда Мороза, до тура на&nbsp;собаках по&nbsp;Камчатке.</p></div>
+    <div class="perk glass lit" data-reveal><span class="key" data-icon="learning"></span><h3>Обучение</h3><p>Курсы по&nbsp;направлениям деятельности, посещение конференций, индивидуальные планы развития, платное обучение.</p></div>
+    <div class="perk glass lit" data-reveal style="--d:1"><span class="key" data-icon="growth"></span><h3>Реальное влияние</h3><p>Твой результат будет использоваться в&nbsp;работе крупнейших НПФ и&nbsp;управляющих компаний. Ты видишь результат своей работы в&nbsp;масштабе целого рынка.</p></div>
+    <div class="perk glass lit" data-reveal style="--d:2"><span class="key" data-icon="community"></span><h3>Социальная жизнь</h3><p>Активная социальная жизнь, для тех кому это нужно: праздники, события для детей, спортивные мероприятия, конкурсы и&nbsp;т.&nbsp;д.</p></div>
+  </div>
+</section>
+
+<section class="career-sec" data-chapter="Отбор">
+  <div class="hire glass" data-reveal>
+    <div class="hire-head">
+      <h2 data-split>Присоединяйся к нам!</h2>
+      <a class="btn btn-primary" href="#/career/vacancy/" data-magnetic>Смотреть вакансии <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="principles">
+      <li><b>Понятные этапы</b><span>Мы четко обозначаем шаги отбора: от&nbsp;первичного знакомства до оффера. Вы всегда знаете, что будет дальше.</span></li>
+      <li><b>Обратная связь по итогам</b><span>Мы даем развернутый фидбек по&nbsp;результатам каждого этапа. Не&nbsp;«подошли — не&nbsp;подошли», а&nbsp;аргументированное мнение.</span></li>
+      <li><b>Прозрачные условия</b><span>Мы называем зарплатную вилку на&nbsp;старте и&nbsp;рассказываем о&nbsp;проектах, задачах и&nbsp;команде до того, как вы примете решение.</span></li>
+      <li><b>Уважение к вашему графику</b><span>Основное общение — онлайн. Мы оперативно отвечаем и&nbsp;не&nbsp;заставляем ждать неделями.</span></li>
+    </ul>
+  </div>
+  <div class="contact-panel glass resume-panel" data-reveal data-formwrap>
+    <div class="contact-intro">
+      <span class="eyebrow">Отправить резюме</span>
+      <h2>Расскажите о&nbsp;себе</h2>
+      <p class="lead">Выберите вакансию или отправьте резюме на&nbsp;будущее — свяжемся, когда появится подходящая задача.</p>
+    </div>
+    <form class="form" novalidate>
+      <div class="field"><label for="ri-vac">Вакансия</label><select id="ri-vac" name="vacancy" data-vac-select></select></div>
+      <div class="row2">
+        <div class="field"><label for="ri-name">Имя</label><input id="ri-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
+        <div class="field"><label for="ri-contact">Телефон или почта</label><input id="ri-contact" name="contact" autocomplete="email" required><span class="msg">Оставьте телефон или почту для связи</span></div>
+      </div>
+      <div class="field" data-file-field>
+        <span class="lbl">Резюме <small>— PDF, DOC или DOCX до 10 МБ</small></span>
+        <label class="drop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M6 10l6-6 6 6"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><span><b data-file-name>Перетащите файл или выберите на компьютере</b><span>Можно отправить без файла и приложить ссылку ниже</span></span><input type="file" name="cv" accept=".pdf,.doc,.docx"></label>
+        <span class="msg">Подойдёт PDF, DOC или DOCX до 10 МБ</span>
+      </div>
+      <div class="field"><label for="ri-link">Ссылка на резюме <small>— необязательно</small></label><input id="ri-link" name="link" type="url" placeholder="https://hh.ru/resume/…"></div>
+      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <button class="btn btn-primary" type="submit" data-magnetic>Отправить резюме <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+    </form>
+    <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Резюме отправлено</h3><p>Свяжемся с вами по указанным контактам.</p></div>
+  </div>
+</section>
+
+<section class="career-sec" data-chapter="Вопросы" id="faq">
+  <div class="sec-head" data-reveal>
+    <span class="eyebrow">Ответы на популярные вопросы</span>
+    <h2 data-split>Как мы работаем: вопросы и ответы</h2>
+  </div>
+  <div class="qa glass" data-reveal data-faq></div>
+  <div class="cta-band glass" data-reveal>
+    <div><h3>Не нашли ответа на свой вопрос?</h3><p>Свяжитесь с нами, и мы предоставим всю необходимую информацию.</p></div>
+    <button class="btn btn-primary" type="button" data-open="order" data-topic="Работа в компании" data-magnetic>Задать свой вопрос <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+  </div>
+</section>
+</template>
 
 <!-- Контакты -->
 <template id="tpl-contacts">
@@ -1654,21 +1550,11 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         <div class="field"><label for="f-contact">Телефон или почта</label><input id="f-contact" name="contact" autocomplete="email" required><span class="msg">Оставьте телефон или почту для связи</span></div>
       </div>
       <div class="field"><label for="f-msg">Сообщение</label><textarea id="f-msg" name="message" required></textarea><span class="msg">Напишите сообщение</span></div>
-      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
+      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
       <button class="btn btn-primary" type="submit" data-magnetic>Отправить сообщение <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
     </form>
     <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Сообщение отправлено</h3><p>Мы свяжемся с вами по указанным контактам.</p></div>
   </div>
-</div>
-</template>
-
-<!-- Информация / Вопросы и ответы -->
-<template id="tpl-faq">
-<h2 class="group-title" data-reveal>Общие вопросы</h2>
-<div class="qa glass" data-reveal data-faq></div>
-<div class="cta-band glass" data-reveal>
-  <div><h3>Не нашли ответа на свой вопрос?</h3><p>Свяжитесь с нами, и мы предоставим всю необходимую информацию.</p></div>
-  <button class="btn btn-primary" type="button" data-open="order" data-topic="Вопрос" data-magnetic>Задать свой вопрос <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
 </div>
 </template>
 
@@ -1679,6 +1565,8 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 </div>
 </template>
 
+<!-- product and module pages: generated by tools/import_products.py from the client's docx -->
+<script type="application/json" id="product-content">{"digital-depo":{"h1":"Программное обеспечение «Цифровой депозитарий»","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Цифровой депозитарий – комплекс решений, обеспечивающий работу специализированных депозитариев согласно требованиям Банка России, ФСТЭК, законодательным и нормативным требованиям."},{"t":"p","h":"Система позволяет реализовать спецдепозитарный, депозитарный, реестровый, бухгалтерский и налоговый учеты. Помимо собственно учетной функции, с помощью Цифрового депозитария можно осуществлять высоконагруженный документооборот, загрузку всей необходимой и актуальной информации из внешних источников."},{"t":"p","h":"Цифровой депозитарий содержит модули, осуществляющие контрольную функцию для реализации предварительного и последующего контролей. Целевая реализация проекта позволит осуществлять специализированный учет любой сложности и любого объема усилиями малой команды сотрудников."}]},{"h2":"Модули","blocks":[{"t":"p","h":"Цифровой депозитарий содержит следующие модули:"},{"t":"ul","items":[{"h":"Модуль контролей ПИФ - система отвечает за процессы, связанные с проверкой ПИФ и отправкой уведомлений регулятору и клиенту.","sub":[]},{"h":"Модуль контролей НПФ - система контроля и проверки НПФ, в рамках которой выполняется отправка уведомлений регулятору и клиенту.","sub":[]},{"h":"Модуль МДМ - модуль единых справочников для документооборота и всех учетных модулей.","sub":[]},{"h":"Модуль аналитики НПФ - система портфельной аналитики деятельности НПФ.","sub":[]},{"h":"Модуль корпоративных действий – система обеспечивающая автоматизацию обработки извещений о выплатах дохода по корпоративным действиям.","sub":[]},{"h":"Адаптер систем регистраторского учета - модуль взаимодействия между «Цифровой депозитарий» и реестровыми системами.","sub":[]},{"h":"Адаптер систем депозитарного учета - интеграционный модуль для обмена данными между «Цифровой депозитарий» и депозитарными системами.","sub":[]}]},{"t":"p","h":"Модули на этапе разработки:"},{"t":"ul","items":[{"h":"Модуль учёта специализированного депозитария - система ведения учета активов, принадлежащих фондам, а также обеспечения их хранения и управления. В разработке.","sub":[]},{"h":"Адаптер систем XBRL отчетности - компонент, предназначенный для формирования, проверки и отправки финансовой и надзорно-статистической отчетности в формате XBRL в соответствии с требованиями регулятора и их безопасную передачу через защищенные каналы связи.","sub":[]},{"h":"Адаптер систем 1С - интеграционный компонент для взаимодействия «Цифровой депозитарий» и систем 1С.","sub":[]},{"h":"Модуль хранения данных - система централизованного хранения и управления данными.","sub":[]},{"h":"Модуль интеграции с системами роботизации - система автоматизации процессов. В разработке.","sub":[]},{"h":"Модуль закачек данных из внешних источников - система импорта данных для работы учетных модулей. В разработке","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"хранение контрольных показателей;","sub":[]},{"h":"настройка показателей контроля для каждого типа портфеля в соответствии с инвестиционной декларацией;","sub":[]},{"h":"проведение обязательных ежедневых контролей;","sub":[]},{"h":"формирование и отправка уведомлений клиентам и регулятору при найденных нарушениях, устранениях и не устранениях;","sub":[]},{"h":"хранение информации о всех проведенных контролях;","sub":[]},{"h":"проведение повторных контролей портфелей;","sub":[]},{"h":"ведение учета ценных бумаг;","sub":[]},{"h":"проведение операций по корпоративным действиям эмитентов;","sub":[]},{"h":"расчет и обработка тарифов;","sub":[]},{"h":"формирование консолидирующей отчетности;","sub":[]},{"h":"интеграция с ПО НРД;","sub":[]},{"h":"создание, редактирование, просмотр формализованных и неформализованных документов;","sub":[]},{"h":"подпись, отправка и получение документов;","sub":[]},{"h":"получение информации о состоянии доставки документов;","sub":[]},{"h":"экспорт и импорт документов;","sub":[]},{"h":"формирование печатных форм документов (печать готовых документов из системы на основе шаблонов);","sub":[]},{"h":"создание запросов на перевыпуск сертификата участника ЭДО;","sub":[]},{"h":"массовая (пакетная) отправка документов.","sub":[]},{"h":"безопасное хранение структурированных данных и обеспечение целостности, актуальности информации;","sub":[]},{"h":"управление доступом к данным;","sub":[]},{"h":"оптимизация производительности базы данных;","sub":[]},{"h":"интеграция с роботами-помощниками и втоматизация рутинных операций;","sub":[]},{"h":"получение информации из внешних источников и контроль целостности импортируемой информации;","sub":[]},{"h":"анализ деятельности НПФ и формирование отчетности;","sub":[]},{"h":"построение аналитических отчетов и прогнозирование показателей;","sub":[]},{"h":"мониторинг событий в реальном времени, анализ последовательности и формирование отчетов по событиям;","sub":[]},{"h":"обмен данными с регистраторами и валидация регистрационных записей;","sub":[]},{"h":"контроль корректности передачи информации и синхронизация учетных записей;","sub":[]},{"h":"формирование депозитарной отчетности.","sub":[]}]}]},{"h2":"Архитектура и системные требования","blocks":[{"t":"note","h":"Детальная информация об архитектуре решения и системных требованиях предоставляется по запросу после подписания соглашения о конфиденциальности (NDA)."},{"t":"note","h":"Примечание: количество узлов, их ресурсы и емкость диска могут быть скорректированы по результатам нагрузочного тестирования и в процессе промышленной эксплуатации."}]},{"h2":"Тарифы","blocks":[{"t":"note","h":"Стоимость лицензии и услуг по сопровождению (предоставлению новых версий ПО в разрезе количества пользователей)"},{"t":"table","head":["Программа для ЭВМ","Наименование тарифа","Количество фондов","Стоимость лицензии (руб.) фиксированная стоимость","Стоимость предоставления обновлений ПО (новых версий ПО) (руб./мес.)"],"rows":[["Цифровой депозитарий","№1","до 50","400 000","150 000"],["","№2","до 100","700 000","600 000"],["","№3","до 200","1 300 000","1 800 000"],["","№4","до 500","2 100 000","3 600 000"],["","№5","до 1000","3 600 000","7 200 000"],["","№6","Без ограничений","6 000 000","индивидуально"]]},{"t":"note","h":"Стоимость указана в рублях за месяц, НДС не облагается на основании ст. 145.1 Налогового кодекса Российской Федерации."}]}],"id":"digital-depo","parent":null,"source":"Описание продукта для сайта Цифровой депозитарий.docx","description":"Цифровой депозитарий – комплекс решений, обеспечивающий работу специализированных депозитариев согласно требованиям Банка России, ФСТЭК, законодательным и…"},"MPK-PIF":{"h1":"Программное обеспечение «Цифровой депозитарий» модуль контролей ПИФ","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль контролей ПИФ – высокопроизводительный модуль последующего контроля, позволяющий осуществлять проверку уже совершенных финансовых операций с имуществом паевых инвестиционных фондов (далее – ПИФ). Проверка направлена на оценку совершенных сделок и операций с имуществом ПИФ требованиям нормативных правовых актов, регулирующих деятельность ПИФ и УК ДУ ПИФ, а также договора доверительного управления ПИФ через осуществление расчета и анализа контрольных показателей, анализа первичных документов и сведений. Цель проверки – выявление нарушений для их направления в Банк России и клиенту. Модуль предназначен для обеспечения осуществления контрольных функций специализированного депозитария."},{"t":"lead","h":"Назначение продукта:"},{"t":"p","h":"Основными целями создания и функционирования модуля является снижение рисков человеческого фактора при проведении ежедневного контроля по инвестиционным портфелям."},{"t":"p","h":"Применение продукта позволит автоматизировать процесс проведения ежедневного контроля инвестиционных портфелей."}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Создание и хранение контрольных показателей.","sub":[]},{"h":"Настройка показателей контроля для каждого типа портфеля в соответствии с инвестиционной декларацией.","sub":[]},{"h":"Проведение обязательных ежедневных контролей.","sub":[]},{"h":"Формирование и отправка уведомлений клиентам и регулятору при найденных нарушениях и их устранениях.","sub":[]},{"h":"Хранение информации обо всех проведенных контролях.","sub":[]},{"h":"Проведение вторичного контроля по портфелям.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"Справочники из информационных систем.","sub":[]},{"h":"Данные для проведения контроля по портфелям из отдела учета из ИС.","sub":[]},{"h":"Курсы валют из «Модуля МДМ».","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль формирует и отправляет уведомления клиентам и регулятору при найденных нарушениях и их устранениях."}]}],"id":"MPK-PIF","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Модуль контролей ПИФ.docx","description":"Модуль контролей ПИФ – высокопроизводительный модуль последующего контроля, позволяющий осуществлять проверку уже совершенных финансовых операций с…"},"MPK-NPF":{"h1":"Программное обеспечение «Цифровой депозитарий» модуль контролей НПФ","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль контролей НПФ – высокопроизводительный модуль, предназначенный для ежедневного контроля за:"},{"t":"ul","items":[{"h":"распоряжением негосударственными пенсионными фондами и управляющими компаниями средствами пенсионных резервов и пенсионных накоплений;","sub":[]},{"h":"соблюдением ограничений состава и структуры пенсионных резервов и пенсионных накоплений, которые установлены законодательными и другими нормативными правовыми актами Российской Федерации и нормативными актами Банка России;","sub":[]},{"h":"соблюдением ограничений, установленными инвестиционными декларациями управляющих компаний.","sub":[]}]},{"t":"p","h":"На основании рассчитанных показателей модуль выявляет нарушения перечисленных выше ограничений, позволяет формировать и направлять уведомления о нарушении и их устранении в Банк России, НПФ и соответствующую управляющую компанию, а также формировать отчеты по результатам контроля. Модуль позволяет формировать ряд отчетов по результатам контроля как обязательных в деятельности СД, так и дополнительных (по потребностям НПФ и управляющих компаний). Цель дополнительных отчетов – снижение рисков структурных нарушений."},{"t":"lead","h":"Назначение продукта:"},{"t":"lead","h":"Цели модуля:"},{"t":"p","h":"Основными целями создания и функционирования модуля является снижение рисков человеческого фактора при проведении ежедневного контроля по инвестиционным портфелям."},{"t":"p","h":"Применение продукта позволит автоматизировать процесс проведения ежедневного контроля портфелей и формирование отчетов по результатам контроля."},{"t":"p","h":"Применение модуля позволит:"},{"t":"ul","items":[{"h":"создавать и хранить контрольные показатели;","sub":[]},{"h":"настраивать показатели контроля для каждого типа портфеля в соответствии с инвестиционной декларацией;","sub":[]},{"h":"проводить обязательные ежедневные контроли;","sub":[]},{"h":"формировать и отправлять уведомления клиентам и регулятору при найденных нарушениях и их устранениях;","sub":[]},{"h":"хранить информацию обо всех проведенных контролях;","sub":[]},{"h":"проводить вторичный контроль по портфелям;","sub":[]},{"h":"формировать отчеты по результатам контроля.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Определение параметров, по которым будет оцениваться соответствие портфелей требованиям регулятора и внутренних стандартов.","sub":[]},{"h":"Привязка контрольных показателей к конкретному портфелю в соответствии с его спецификой и инвестиционной декларацией.","sub":[]},{"h":"Плановая проверка всех назначенных показателей для портфелей и выявление отклонений.","sub":[]},{"h":"Оповещение заинтересованных сторон о нарушениях, их исправлении или отсутствии.","sub":[]},{"h":"Обеспечение прозрачности и возможности отслеживания всех событий через журнал проверок.","sub":[]},{"h":"Управление правами доступа пользователей к модулям системы.","sub":[]},{"h":"Повторная проверка портфеля после изменений или жалоб.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"Справочники из информационных систем.","sub":[]},{"h":"Данные для проведения контроля по портфелям из отдела учета из ИС.","sub":[]},{"h":"Курсы валют из Модуля МДМ.","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль формирует и отправляет уведомления клиентам и регулятору при найденных нарушениях и их устранениях, а также отчеты по результатам контроля для клиентов."}]}],"id":"MPK-NPF","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Модуль контролей НПФ.docx","description":"Модуль контролей НПФ – высокопроизводительный модуль, предназначенный для ежедневного контроля за:"},"MDM":{"h1":"Программное обеспечение «Цифровой депозитарий» модуль МДМ","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"«Модуль МДМ» – программное обеспечение, обеспечивающее возможность оперативного, гибкого и эффективного наполнения и контроля данных в системе хранения нормативно-справочной информации (НСИ) и поддержания её в актуальном состоянии."},{"t":"p","h":"Модуль включает в себя:"},{"t":"ul","items":[{"h":"Систему получения данных из различных внешних источников, построенную на принципах микросервис-ориентированной архитектуры.","sub":[]},{"h":"Хранилище данных, построенное на общих принципах, для целей предварительной обработки данных источника при необходимости такой обработки (опционально).","sub":[]},{"h":"Программный интерфейс взаимодействия с системой хранения НСИ для целей ее поддержания в актуальном состоянии, обогащения данными внешних источников.","sub":[]}]},{"t":"lead","h":"Цели модуля:"},{"t":"ul","items":[{"h":"Обеспечение актуальности больших объемов НСИ.","sub":[]},{"h":"Автоматизация обогащения и контроля данных.","sub":[]},{"h":"Исключение необходимости ручного мониторинга и изменения данных.","sub":[]},{"h":"Исключение ошибки операторов.","sub":[]}]},{"t":"p","h":"Применение модуля позволит автоматизировать:"},{"t":"ul","items":[{"h":"Получение данных от внешних поставщиков.","sub":[]},{"h":"Обновление на основании полученных данных нормативно-справочной информации с использованием программного интерфейса, стандартных механизмов интеграции (rest api, cqs система через очередь сообщений).","sub":[]},{"h":"Анализ полученных данных и данных НСИ, данных в клиентских системах НСИ с информированием по выполненным действиям, проблемным моментам бизнес подразделений.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Обновление рыночных и справочных данных: загрузка котировок ценных бумаг, курсов валют, стандартных ставок, расчётных индексов, а также актуализация справочников внешних источников, списков агентов.","sub":[]},{"h":"Импорт и обмен финансовыми данными: получение и импорт данных о сделках и операциях, загрузка структурированных данных и файловых документов от внешних источников и клиентов.","sub":[]},{"h":"Управление реестрами: загрузка, конвертация форматов, а также полный цикл получения, обработки и обновления реестров, включая специализированный блок ведения реестра владельцев инвестиционных паев ПИФ.","sub":[]},{"h":"Автоматизация приёмки документов: автоматическая обработка входящего потока документов, поддержка пакетной загрузки и работы с архивами, встроенная автоматическая проверка качества и читаемости сканов.","sub":[]},{"h":"Мониторинг и контроль документооборота: сквозной учёт текущего местонахождения и статуса обработки каждого документа, контроль соблюдения общих и поэтапных сроков исполнения работ, фиксация нарушений дедлайнов.","sub":[]},{"h":"Маршрутизация и распределение задач: гибкая настройка правил распределения документов различных типов между сотрудниками и подразделениями в соответствии с внутренними регламентами и нагрузкой.","sub":[]}]},{"t":"p","h":"На основании загруженных данных формируются различные контрольные и аналитические оповещения."}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"p","h":"Входные данные для загрузок могут быть получены из различных модулей и иных внешних источников."},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль событийно формирует на основании регулярных заданий оповещения заинтересованных подразделений о различных событиях, связанных с работой системы:"},{"t":"ul","items":[{"h":"Оповещение о загруженных в систему данных: курсы валют, котировки, оповещения по загрузке реестров, счетов, оповещение по изменениям и т.д.","sub":[]},{"h":"Различные событийные оповещения, основанные на данных в системе: прекращенные, заблокированные юридические и физические лица с активами, смена наименования или ФИО, новое вышестоящее место хранения с иностранными ценными бумагами, новые долевые активы и т.д.","sub":[]},{"h":"Интеграционные оповещения: сверка признаков между различными модулями и иными внешними источниками, оповещение об открытых счетах, в т.ч. с закрытыми договорами.","sub":[]},{"h":"Технические оповещения – ошибки работы системы.","sub":[]},{"h":"Количественный анализ работы системы в Grafana.","sub":[]}]}]}],"id":"MDM","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Модуль МДМ.docx","description":"«Модуль МДМ» – программное обеспечение, обеспечивающее возможность оперативного, гибкого и эффективного наполнения и контроля данных в системе хранения…"},"infa":{"h1":"Программное обеспечение «Цифровой депозитарий» модуль аналитики НПФ","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль аналитики НПФ — система, позволяющая пользователям осуществлять контроль своих портфелей в части соблюдения установленных контрольных показателей, а также получать аналитические данные по портфелям в различных разрезах и представлениях."},{"t":"lead","h":"Система позволяет:"},{"t":"ul","items":[{"h":"Получать пользователям аналитическую информацию по их портфелям.","sub":[]},{"h":"Обеспечивать возможность своевременно получать информацию о выявленных нарушениях с целью оперативного принятия мер для их устранения.","sub":[]},{"h":"Информировать пользователей о предстоящих корпоративных действиях.","sub":[]}]},{"t":"lead","h":"Цели модуля:"},{"t":"ul","items":[{"h":"Предоставление пользователям информации в части соблюдения установленных лимитов.","sub":[]},{"h":"Предоставление аналитической информации по портфелям и финансовым результатам операций с ними.","sub":[]}]},{"t":"lead","h":"Применение модуля позволит:"},{"t":"ul","items":[{"h":"Автоматизировать процесс контроля соблюдения установленных лимитов для НПФ.","sub":[]},{"h":"Оперативно выявлять возникшие нарушения и в кратчайшие сроки принимать решения по корректирующим действиям.","sub":[]},{"h":"Централизованно получать информацию и аналитику по состояниям своих портфелей на дату и в динамике.","sub":[]},{"h":"Получать уведомления о планирующихся корпоративных действиях.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"<b>Получение данных по составу портфелей<\/b> относительно установленных лимитов для своевременного принятия мер для корректировки состава портфелей.","sub":[]},{"h":"<b>Получение данных о составе портфелей в деталях<\/b>, включая справочную информацию об активах, эмитентах, рейтингах, финансовых результатах и др., с целью анализа состава портфелей и оценки эффективности управления.","sub":[]},{"h":"<b>Получение уведомлений о предстоящих офертах по ценным бумагам<\/b> в портфелях пользователей и информации о сроках приёма заявок по ним с целью своевременной подготовки и подачи клиентами документов на участие в интересующих офертах.","sub":[]},{"h":"<b>Обработка полученных от источников данных<\/b> с целью приведения их к необходимому виду: типизация, выполнение расчётов, агрегация целевых данных, необходимых для отображения пользователю в витрине.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"Данные по составу портфелей, операциям с активами, пенсионным схемам, рейтингам.","sub":[]},{"h":"Данные по показателям и результатам контроля лимитов.","sub":[]},{"h":"Справочные данные по активам, контрагентам и др.","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"ul","items":[{"h":"Срезы по Договор управления, дашборды на дату.","sub":[]},{"h":"Показатели контроля (табличное и графическое представление).","sub":[]},{"h":"Мониторинг оферт, карта YTM (Yield to Maturity, доходность к погашению).","sub":[]}]}]}],"id":"infa","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Модуль аналитики НПФ.docx","description":"Модуль аналитики НПФ — система, позволяющая пользователям осуществлять контроль своих портфелей в части соблюдения установленных контрольных показателей, а…"},"MKD":{"h1":"Программное обеспечение «Цифровой депозитарий» модуль корпоративных действий","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль корпоративных действий – программное обеспечение, обеспечивающее автоматизацию обработки извещений о выплатах дохода по корпоративным действиям."},{"t":"lead","h":"Модуль включает в себя:"},{"t":"ul","items":[{"h":"Сервис фильтрации документов для проведения контроля входящих документов.","sub":[]},{"h":"Сервис платежей для осуществления взаимодействия с АС «Фэнси-Депо».","sub":[]},{"h":"Сервис уведомлений пользователей о ходе выполнения операций.","sub":[]}]},{"t":"lead","h":"Цели модуля:"},{"t":"ul","items":[{"h":"Построение надежной инфраструктуры.","sub":[]},{"h":"Автоматизация процесса выплаты дохода и снижение ручного труда.","sub":[]},{"h":"Повышение эффективности системы депозитарного обслуживания.","sub":[]},{"h":"Исключение ошибки операторов.","sub":[]}]},{"t":"lead","h":"Применение модуля позволит:"},{"t":"ul","items":[{"h":"Автоматизировать процесс выплаты дохода.","sub":[]},{"h":"Стандартизировать обмен информации с использованием распределенной системы обмена сообщениями между серверными приложениями в режиме реального времени.","sub":[]},{"h":"Автоматизировать ручные операции.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Обработка паспортов по рублевым и валютным извещениям от вышестоящего места хранения.","sub":[]},{"h":"Обработка банковских выписок по депозитарному счету.","sub":[]},{"h":"Контроль входящих сообщений с целью избегания обработки дублирующихся извещений.","sub":[]},{"h":"Обработка информации о заблокированных счетах.","sub":[]},{"h":"Взаимодействие с модулем МДМ, сервисом перекодировки.","sub":[]},{"h":"Формирование протокола по результатам работы за день в рублях и валюте.","sub":[]},{"h":"Взаимодействие с АС «Фэнси-Депо» для выполнения директив внутри системы.","sub":[]},{"h":"Информирование пользователя о ходе выполнения операций на каждом этапе обработки.","sub":[]},{"h":"Информирование пользователя о невозможности автоматической обработки выплаты и передаче её на ручной разбор.","sub":[]},{"h":"Направление платежных поручений в Kafka для 1С.","sub":[]},{"h":"Формирование сводного файла по всем произведённым выплатам за день.","sub":[]},{"h":"Выполнение директивы «Регистрация».","sub":[]},{"h":"Создание документа «Формирование информации о владельцах ценных бумаг и цифровых активов».","sub":[]},{"h":"Создание документа «Расчёт доходов по ЦБ и ЦА».","sub":[]},{"h":"Выполнение директивы «Оплатить».","sub":[]},{"h":"Выполнение директивы «Регистрация ведомости кандидатов».","sub":[]},{"h":"Создание операции «Формирование уведомления о получении дохода».","sub":[]},{"h":"Выполнение директивы «Фиксировать перечисление налога».","sub":[]},{"h":"Выполнение директивы «Завершить работу с платёжными документами».","sub":[]},{"h":"Выполнение директивы «Направить в архив».","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"Паспорт документа и Карточка документа из ПО «Цифровой документооборот НФО».","sub":[]},{"h":"Банковские выписки из банк клиента, поступающие от Модуля интеграции с системами роботизации.","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"ul","items":[{"h":"Документы в АС «Фэнси-Депо» для выполнения расчетов дохода, налога на доходы.","sub":[]},{"h":"Платежное поручение для загрузки в банк клиент.","sub":[]},{"h":"Платежные поручения для загрузки в 1С.","sub":[]},{"h":"Информирование по электронной почте пользователей.","sub":[]},{"h":"Сводный файл по всем выплатам в формате Excel.","sub":[]},{"h":"Технические оповещения (ошибки работы системы).","sub":[]},{"h":"Количественный анализ работы системы в Grafana.","sub":[]}]}]}],"id":"MKD","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Модуль МКД.docx","description":"Модуль корпоративных действий – программное обеспечение, обеспечивающее автоматизацию обработки извещений о выплатах дохода по корпоративным действиям."},"adapter-registrar":{"h1":"Программное обеспечение «Цифровой депозитарий» адаптер систем регистраторского учета","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Адаптер систем регистраторского учета – специализированная система со встроенным функционалом по ведению реестров владельцев инвестиционных паев ПИФ."},{"t":"lead","h":"Система позволяет:"},{"t":"ul","items":[{"h":"Управлять обработкой документов через их распределение между сотрудниками и подразделениями для повышения контроля за процессом.","sub":[]},{"h":"Отслеживать нарушения сроков обработки документов.","sub":[]},{"h":"Обеспечивать учет местонахождения и состояния процесса обработки каждого документа, поступившего в организацию или возникшего внутри нее.","sub":[]}]},{"t":"p","h":"В систему интегрированы средства взаимодействия с устройствами сканирования и работы с визуальными образами документов. Визуальный образ прикрепляется к другим данным о документе (отправитель, податель и другие) и перемещается вместе с ним в процессе обработки по подразделениям регистратора."},{"t":"lead","h":"Модуль включает в себя:"},{"t":"ul","items":[{"h":"<b>Систему получения данных из внешних источников<\/b>, построенную на принципах микросервис-ориентированной архитектуры (Конвертер и Загрузчик).","sub":[]},{"h":"<b>Систему ЭДО<\/b>, содержащую описательную информацию о входном документе (входящий номер, наименование, дата регистрации и т.п.); приложениях к нему, данных об отправителе и подателе документа; полностью специфицированных поручениях на выполнение действий в реестре (необязательно); визуальном образе документа, полученном при помощи устройств сканирования (необязательно); а также некоторую другую вспомогательную информацию.","sub":[]},{"h":"<b>Зенит-Р ПИФ<\/b> – основная компонента системы Зенит. Представляет собой интегрированную программную среду, обеспечивающую пользователя полным набором возможностей по управлению документооборотом и ведению реестров: регистрацию и учет движения документов, управление технологией их обработки, выполнение всех необходимых для ведения реестра функций.","sub":[]},{"h":"<b>Зенит-Р С<\/b> – подсистема работы с визуальными образами документов и устройствами сканирования. Самостоятельное использование подсистемы невозможно. Включение данной подсистемы в состав системы Зенит любой комплектации дополняет последнюю встроенными средствами взаимодействия с устройствами сканирования, обеспечения хранения и использования визуальных образов документов, а также функциями навигации по изображениям документов.","sub":[]}]},{"t":"lead","h":"Цели модуля:"},{"t":"ul","items":[{"h":"Обеспечение функции обработки реестров и реестровых документов на всём жизненном пути.","sub":[]},{"h":"Автоматизация данных и работы с документами.","sub":[]},{"h":"Обеспечение автоматического приёма и конвертации реестров.","sub":[]},{"h":"Исключение необходимости ручного мониторинга и изменения данных.","sub":[]},{"h":"Исключение ошибки операторов.","sub":[]}]},{"t":"lead","h":"Применение модуля позволит автоматизировать:"},{"t":"ul","items":[{"h":"Получение и обработку данных от внешних клиентов.","sub":[]},{"h":"Обновление на основании полученных данных нормативно-справочной информации с использованием программного интерфейса, стандартных механизмов интеграции (rest api, cqs система через очередь сообщений).","sub":[]},{"h":"Обработку операций по входящим документам.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Обновление рыночных и справочных данных: загрузка котировок ценных бумаг, курсов валют, стандартных ставок, расчётных индексов, а также актуализация справочников внешних источников, списков агентов и ППЗ.","sub":[]},{"h":"Импорт и обмен финансовыми данными: получение и импорт данных о сделках и операциях, загрузка структурированных данных и файловых документов от внешних источников и клиентов.","sub":[]},{"h":"Управление реестрами: загрузка, конвертация форматов, а также полный цикл получения, обработки и обновления реестров, включая специализированный блок ведения реестра владельцев инвестиционных паев ПИФ.","sub":[]},{"h":"Автоматизация приёмки документов: автоматическая обработка входящего потока документов, поддержка пакетной загрузки и работы с архивами, встроенная автоматическая проверка качества и читаемости сканов.","sub":[]},{"h":"Мониторинг и контроль документооборота: сквозной учёт текущего местонахождения и статуса обработки каждого документа, контроль соблюдения общих и поэтапных сроков исполнения работ, фиксация нарушений дедлайнов.","sub":[]},{"h":"Маршрутизация и распределение задач: гибкая настройка правил распределения документов различных типов между сотрудниками и подразделениями в соответствии с внутренними регламентами и нагрузкой.","sub":[]}]},{"t":"p","h":"На основании загруженных данных формируются различные контрольные и аналитические оповещения."}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"p","h":"Входные данные для загрузок могут быть получены из различных модулей и иных внешних источников."},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль событийно формирует на основании регулярных заданий оповещения заинтересованных подразделений о различных событиях, связанных с работой системы:"},{"t":"ul","items":[{"h":"Оповещение о загруженных в систему данных: курсы валют, котировки, оповещения по загрузке реестров, счетов, оповещение по изменениям и т.д.","sub":[]},{"h":"Различные событийные оповещения, основанные на данных в системе: прекращенные, заблокированные юридические и физические лица с активами, смена наименования или ФИО, новое вышестоящее место хранения с иностранными ценными бумагами, новые долевые активы и т.д.","sub":[]},{"h":"Интеграционные оповещения: сверка признаков между различными модулями и иными внешними источниками, оповещение об открытых счетах, в т.ч. с закрытыми договорами.","sub":[]},{"h":"Технические оповещения – ошибки работы системы.","sub":[]},{"h":"Количественный анализ работы системы в Grafana.","sub":[]}]}]}],"id":"adapter-registrar","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Адаптер систем регистраторского учета.docx","description":"Адаптер систем регистраторского учета – специализированная система со встроенным функционалом по ведению реестров владельцев инвестиционных паев ПИФ."},"adapter-depozit":{"h1":"Программное обеспечение «Цифровой депозитарий» адаптер систем депозитарного учета","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Адаптер систем Депозитарного учета объединяет под собой ряд отдельных утилит по формированию отчетов в соответствии с требованиями Банка России в зависимости от индивидуальных потребностей пользователя."},{"t":"p","h":"Включает в себя:"},{"t":"ul","items":[{"h":"Сервис нетипового функционала для подготовки данных и формирования отчетности профучастника.","sub":[]},{"h":"Блок пользовательских отчетов для формирования индивидуальных информационных пакетов и отчетных форм.","sub":[]}]},{"t":"lead","h":"Назначение продукта:"},{"t":"p","h":"Цели адаптера:"},{"t":"ul","items":[{"h":"Выполнение требований Банка России.","sub":[]},{"h":"Снижение временных затрат на формирование отчетности.","sub":[]},{"h":"Дополнение недостающего функционала депозитарного ПО.","sub":[]},{"h":"Снижение риска ошибок из-за человеческого фактора.","sub":[]},{"h":"Удовлетворение индивидуальных потребностей пользователя при построении отчетов.","sub":[]}]},{"t":"p","h":"Применение продукта позволит:"},{"t":"ul","items":[{"h":"Реализовать новый функционал, отсутствующий в депозитарном ПО.","sub":[]},{"h":"Достичь соответствия требованиям к ведению депозитарного учета.","sub":[]},{"h":"Автоматизировать процесс сбора данных.","sub":[]},{"h":"Исключить ошибки при расчетах.","sub":[]},{"h":"Конвертировать отчеты в разные форматы.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Построение отчета в соответствии с Указом Президента РФ от 09.09.2023 N 665.","sub":[]},{"h":"Взаимодействие с АС «FANSY-DEPO».","sub":[]},{"h":"Прямое обращение в БД АС «FANSY-DEPO».","sub":[]},{"h":"Запуск отчета из интерфейса АС «FANSY-DEPO».","sub":[]},{"h":"Разграничение по ролям.","sub":[]},{"h":"Взаимодействие с утилитами по выполнению нетипового функционала.","sub":[]},{"h":"Создание и исполнение депозитарных документов.","sub":[]},{"h":"Получение данных напрямую из БД POSTGRES.","sub":[]},{"h":"Формирование отчетов в необходимом формате.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"Содержимое дополнительных внешних файлов в различных форматах.","sub":[]},{"h":"Внутренние данные из БД.","sub":[]},{"h":"Действия пользователя по настройке параметров вывода отчета.","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"ul","items":[{"h":"Файл в требуемом формате.","sub":[]},{"h":"Экранная форма отчета.","sub":[]},{"h":"Документы в депозитарном ПО.","sub":[]}]}]}],"id":"adapter-depozit","parent":"digital-depo","source":"Описание продукта для сайта Цифровой депозитарий_Адаптер систем депоритарного учета.docx","description":"Адаптер систем Депозитарного учета объединяет под собой ряд отдельных утилит по формированию отчетов в соответствии с требованиями Банка России в зависимости…"},"digital-investor":{"h1":"Программное обеспечение «Цифровой инвестор»","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Программное обеспечение «Цифровой инвестор» — это сервис для владельцев инвестиционных паев, а также управляющих компаний специализированного депозитария."},{"t":"p","h":"Для <b>инвестора<\/b> — это личный кабинет, который позволяет в онлайн-режиме, без необходимости обращения в управляющую компанию, получать информацию об открытии лицевого счета, актуальных сведениях о счете, остатках инвестиционных паев и проведенных операциях."},{"t":"p","h":"Для <b>управляющей компании<\/b> — это инструмент для подготовки и проведения электронного голосования инвестиционного комитета ПИФ и общих собраний владельцев инвестиционных паев. Процесс голосования представляет собой полный цикл: от создания собрания с вопросами, материалами и списком участников до подсчета и публикации итогов, а также формирования типового протокола."},{"t":"lead","h":"Назначение продукта:"},{"t":"p","h":"Продукт направлен на решение трех ключевых задач:"},{"t":"ul","items":[{"h":"Снижение трудозатрат на проведение общих собраний владельцев инвестиционных паев.","sub":[]},{"h":"Снижение трудозатрат для внесения изменений в Правила доверительного управления.","sub":[]},{"h":"Снижение лицензионных рисков участников финансового рынка.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"lead","h":"Для инвестора (пайщика):"},{"t":"ul","items":[{"h":"<b>Регистрация в системе<\/b> с использованием Единой системы идентификации и аутентификации (ЕСИА). Для юридических лиц предусмотрена регистрация без ЕСИА.","sub":[]},{"h":"<b>Мониторинг активов:<\/b> Просмотр информации по лицевым счетам и остаткам инвестиционных паев в режиме реального времени.","sub":[]},{"h":"<b>Участие в голосованиях:<\/b> Дистанционное участие в электронных голосованиях (общие собрания, инвестиционные комитеты).","sub":[]},{"h":"<b>Подписание бюллетеней<\/b> простой электронной подписью.","sub":[]},{"h":"<b>Хранение персональных данных<\/b> в зашифрованном виде для обеспечения безопасности.","sub":[]}]},{"t":"lead","h":"Для управляющей компании:"},{"t":"ul","items":[{"h":"<b>Организация полного цикла голосования:<\/b>","sub":[{"h":"Создание собрания (ИК, ОСВИП, совета директоров) с повесткой, материалами и списком участников.","sub":[]},{"h":"Рассылка уведомлений участникам (в том числе, если участник еще не зарегистрирован в системе).","sub":[]},{"h":"Автоматическое формирование бюллетеней и протоколов голосования.","sub":[]},{"h":"Автоматический подсчет итогов голосования и публикация результатов.","sub":[]},{"h":"Получение онлайн-статистики по голосованию и возможность отвечать на вопросы участников.","sub":[]}]},{"h":"<b>Интеграция с внешними системами<\/b> через адаптеры для синхронизации данных.","sub":[]}]}]},{"h2":"Архитектура и системные требования","blocks":[{"t":"p","h":"Детальная информация об архитектуре решения и системных требованиях предоставляется по запросу после подписания соглашения о конфиденциальности (NDA)."},{"t":"p","h":"Примечание: количество узлов, их ресурсы и емкость диска могут быть скорректированы по результатам нагрузочного тестирования и в процессе промышленной эксплуатации."}]},{"h2":"Тарифы","blocks":[{"t":"note","h":"Стоимость лицензии"},{"t":"table","head":["Наименование компонента","Стоимость лицензии (руб.) фиксированная стоимость"],"rows":[["Электронное голосование","2 500 000"],["Кабинет инвестора","400 000"],["Функционал специализированного депозитария для обслуживания управляющих компаний","1 100 000"],["Стоимость всех компонентов","4 000 000"]]},{"t":"note","h":"Стоимость услуг по сопровождению (предоставлению новых версий ПО в разрезе количества пользователей)"},{"t":"table","head":["Количество пользователей","Стоимость услуг по сопровождению ПО (предоставлению новых версий ПО) (руб./мес.)"],"rows":[["до 1 000","20 000"],["до 10 000","200 000"],["до 100 000","1 000 000"],["Безлимитно","3 000 000"]]},{"t":"note","h":"Стоимость указана в рублях за месяц, НДС не облагается на основании ст. 145.1 Налогового кодекса Российской Федерации."}]}],"id":"digital-investor","parent":null,"source":"Описание продукта для сайта Цифровой инвестор.docx","description":"Программное обеспечение «Цифровой инвестор» — это сервис для владельцев инвестиционных паев, а также управляющих компаний специализированного депозитария."},"digital-check":{"h1":"Программное обеспечение «Цифровая проверка»","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Продукт представляет собой программное обеспечение, которое проводит регулярные проверки клиентов и связанных лиц по инициализации или расписанию, присваивая им уровни риска. В рамках системы осуществляется 18 различных проверок на постоянной основе."},{"t":"lead","h":"Назначение продукта:"},{"t":"p","h":"ПО предназначено для автоматизации процессов проверки клиентов организаций по специальным перечням в рамках законодательства Российской Федерации о противодействии легализации (отмыванию) доходов, полученных преступным путем и финансированию терроризма."},{"t":"lead","h":"Цели продукта:"},{"t":"ul","items":[{"h":"Снизить операционные и правовые риски.","sub":[]},{"h":"Осуществлять процесс проверки клиентов.","sub":[]},{"h":"Выполнить требования законодательства.","sub":[]}]},{"t":"p","h":"Применение продукта позволит автоматизировать:"},{"t":"ul","items":[{"h":"Получение данных клиентов и их связанных лиц.","sub":[]},{"h":"Автоматическую отправку запросов на проверку.","sub":[]},{"h":"Поиск совпадений с клиентами и их связанными лицами.","sub":[]},{"h":"Выделение совпадений и потенциальных совпадений.","sub":[]},{"h":"Запуск ручной проверки.","sub":[]},{"h":"Принятие решения сотрудником при спорных обстоятельствах (частичное совпадение по неуникальным атрибутам лица).","sub":[]},{"h":"Хранение историчности данных.","sub":[]},{"h":"Поиск и фильтрацию клиентов.","sub":[]},{"h":"Хранение справочных данных.","sub":[]},{"h":"Синхронизацию данных с другими системами пользователя ПО.","sub":[]},{"h":"Получение отчетов о лицах и проведенных проверках.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"p","h":"Система обеспечивает следующие ключевые функции:"},{"t":"ul","items":[{"h":"Автоматическое сопоставление данных клиента с внешними перечнями — когда загружается информация о новом клиенте или обновляются существующие данные, система оперативно выявляет потенциальные нарушения и исключает риск сотрудничества с запрещенными лицами.","sub":[]},{"h":"Проверка всех связанных с субъектом лиц — когда регистрируется новый клиент или изменяется его структура собственности, система проверяет всех связанных лиц, чтобы гарантировать полное соответствие требованиям регулятора.","sub":[]},{"h":"Анализ, фильтрация и подтверждение потенциальных совпадений — при обнаружении схожих записей в базах данных система помогает сократить время на ручную проверку и минимизировать ложные срабатывания.","sub":[]},{"h":"Автоматическое уведомление ответственных сотрудников о событиях, требующих вмешательства — когда возникает инцидент, выходящий за рамки стандартных правил, система обеспечивает своевременное реагирование и соблюдение внутренних регламентов.","sub":[]},{"h":"Сохранение всех результатов проверок, действий пользователей и событий в защищенном журнале — когда завершается проверка клиента или происходит изменение статуса, система сохраняет полную историю операций для регуляторных отчетов и внутреннего аудита.","sub":[]}]}]},{"h2":"Архитектура и системные требования","blocks":[{"t":"note","h":"Детальная информация об архитектуре решения и системных требованиях предоставляется по запросу после подписания соглашения о конфиденциальности (NDA)."},{"t":"note","h":"Примечание: количество узлов, их ресурсы и емкость диска могут быть скорректированы по результатам нагрузочного тестирования и в процессе промышленной эксплуатации."}]},{"h2":"Тарифы","blocks":[{"t":"note","h":"Стоимость лицензии"},{"t":"table","head":["Наименование тарифа","Количество лиц, в отношении которых может быть осуществлена проверка","Стоимость лицензии (руб.) фиксированная стоимость","Стоимость предоставления обновлений ПО (новых версий ПО) (руб./мес.)"],"rows":[["Старт","1-10000","400 000","Индивидуально, но не более 2 500 000"],["Базовый","10001 - 100000","4 000 000","Индивидуально, но не более 14 000 000"],["Профессиональный","100001 -1000000","40 000 000","Индивидуально, но не более 20 000 000"],["Корпоративный","1000001 и более","Индивидуально","Индивидуально"]]},{"t":"note","h":"Стоимость указана в рублях за месяц, НДС не облагается на основании ст. 145.1 Налогового кодекса Российской Федерации."}]}],"id":"digital-check","parent":null,"source":"Описание продукта для сайта Цифровая проверка.docx","description":"Продукт представляет собой программное обеспечение, которое проводит регулярные проверки клиентов и связанных лиц по инициализации или расписанию, присваивая…"},"digital-doc":{"h1":"Программное обеспечение «Цифровой документооборот НФО»","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Цифровой документооборот НФО — это комплексное программное обеспечение, объединяющее модули для организации юридически значимого электронного документооборота, регистрации и обработки входящих и исходящих документов, а также интеллектуальной обработки данных с применением технологий машинного обучения."},{"t":"p","h":"Продукт предназначен для некредитных финансовых организаций (НФО) и обеспечивает полный цикл работы с документами: от приёма и регистрации до отправки, хранения и интеллектуального анализа. В состав продукта входят четыре функциональных модуля, каждый из которых решает свой класс задач и может использоваться как в составе комплексного решения, так и в рамках отдельных бизнес-процессов."}]},{"h2":"Модули","blocks":[{"t":"p","h":"Цифровой документооборот НФО содержит следующие модули:"},{"t":"ul","items":[{"h":"Модуль Фотон - Обеспечение юридически значимого обмена электронными документами между участниками ЭДО. Ускорение документооборота между НФО и клиентами/контрагентами за счёт использования формализованных документов.","sub":[]},{"h":"Модуль сервисы обработки документов - Обработка и передача документов между внутренними системами и внешними организациями, включая Центральный банк. Конвертация, трансформация, сверка и контроль данных.","sub":[]},{"h":"Модуль реестр документооборота - Регистрация, систематизация, обработка и хранение документов, ведение входящих и исходящих журналов, а также ведение и актуализация справочной информации.","sub":[]},{"h":"Модуль ИИ - Интеллектуальная обработка документов, платежных поручений, товарных строк и аудиозаписей встреч с применением ML, LLM, OCR/VLM и алгоритмов автоматической сверки.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"p","h":"Продукт «Цифровой документооборот НФО» обеспечивает решение следующих задач:"},{"t":"h3","h":"Организация электронного документооборота"},{"t":"ul","items":[{"h":"Юридически значимый обмен электронными документами между участниками ЭДО.","sub":[]},{"h":"Создание, регистрация, обмен и хранение электронных документов в соответствии с законодательством.","sub":[]},{"h":"Формирование формализованных документов на основании XSD-схем.","sub":[]},{"h":"Подписание исходящих документов.","sub":[]}]},{"t":"h3","h":"Обработка и маршрутизация документов"},{"t":"ul","items":[{"h":"Приём и регистрация входящих и исходящих документов в журналах.","sub":[]},{"h":"Автоматическое и ручное создание паспорта документа (машиночитаемое содержимое).","sub":[]},{"h":"Сортировка, фильтрация и поиск документов по ключевым данным и параметрам.","sub":[]},{"h":"Отслеживание статуса и истории обработки документов.","sub":[]},{"h":"Блокировка документа для обработки другим специалистом.","sub":[]},{"h":"Настройка шаблонов фильтров и отображения документов.","sub":[]},{"h":"Выгрузка списков документов в Excel.","sub":[]}]},{"t":"h3","h":"Интеллектуальная обработка данных"},{"t":"ul","items":[{"h":"Распознавание текста документов (OCR).","sub":[]},{"h":"Определение типа документа и извлечение ключевых полей.","sub":[]},{"h":"Автоматическая обработка платежных поручений на основании поля «Назначение платежа».","sub":[]},{"h":"Автоматическая сверка информации из платежа с данными входящих документов.","sub":[]},{"h":"Анализ изменений в версиях документов (сравнение версий ПДУ).","sub":[]},{"h":"Формирование транскриптов, таймкодов и структурированных резюме встреч.","sub":[]},{"h":"Валидация извлечённых данных и выявление случаев, требующих ручной проверки.","sub":[]}]},{"t":"h3","h":"Интеграция и обмен данными"},{"t":"ul","items":[{"h":"Электронный обмен документами между информационными системами.","sub":[]},{"h":"Конвертация и трансформация документов в требуемые форматы.","sub":[]},{"h":"Отправка сверочной отчётности XBRL и XTDD в Центральный банк с шифрованием.","sub":[]},{"h":"Взаимодействие с банковскими системами, АС «Фэнси-Депо», 1С и другими внешними системами.","sub":[]},{"h":"Синхронизация справочных данных с «Модулем МДМ».","sub":[]}]},{"t":"h3","h":"Контроль и мониторинг"},{"t":"ul","items":[{"h":"Сверка и контроль данных в рамках учётных процессов.","sub":[]},{"h":"Автоматическая сверка паспортов для лицевых счетов и анкетных данных в реестрах ПИФ.","sub":[]},{"h":"Мониторинг сроков обработки документов и фиксация нарушений дедлайнов.","sub":[]},{"h":"Ведение статусов обработки, логирование ошибок и расчёт метрик качества.","sub":[]},{"h":"Формирование отчётов об обработке документов и метриках работы ML/LLM-компонентов.","sub":[]}]}]},{"h2":"Архитектура и системные требования","blocks":[{"t":"note","h":"Детальная информация об архитектуре решения и системных требованиях предоставляется по запросу после подписания соглашения о конфиденциальности (NDA)."},{"t":"note","h":"Примечание: количество узлов, их ресурсы и емкость диска могут быть скорректированы по результатам нагрузочного тестирования и в процессе промышленной эксплуатации."}]},{"h2":"Тарифы","blocks":[{"t":"note","h":"Стоимость лицензии и услуг по сопровождению (предоставлению новых версий ПО в разрезе количества пользователей)"},{"t":"table","head":["Программа для ЭВМ","Наименование тарифа","Количество вх. и исх. документов (шт.) в год","Стоимость лицензии (руб.) фиксированная стоимость","Стоимость предоставления обновлений ПО (новых версий ПО) (руб./мес.)"],"rows":[["Цифровой документооборот НФО","№1","до 200 000","200 000","100 000"],["","№2","до 500 000","400 000","400 000"],["","№3","До 1 500 000","900 000","1 200 000"],["","№4","до 3 000 000","1 300 000","2 400 000"],["","№5","до 6 000 000","2 400 000","4 800 000"],["","№6","Без ограничений","4 000 000","индивидуально"]]},{"t":"note","h":"Примечания к тарифам:"},{"t":"note","h":"Стоимость указана в рублях за месяц, НДС не облагается на основании ст. 145.1 Налогового кодекса Российской Федерации."}]}],"id":"digital-doc","parent":null,"source":"Описание продукта для сайта Цифровой документооборот НФО.docx","description":"Цифровой документооборот НФО — это комплексное программное обеспечение, объединяющее модули для организации юридически значимого электронного…"},"foton":{"h1":"Программное обеспечение «Цифровой документооборот НФО» модуль Фотон","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Программный модуль Фотон предназначен для обеспечения юридически значимого обмена электронными документами между участниками ЭДО."},{"t":"lead","h":"Цели продукта:"},{"t":"ul","items":[{"h":"Организация системы юридически значимого обмена электронными документами, направленной на автоматизацию работы при информационном взаимодействии между участниками ЭДО.","sub":[]},{"h":"Ускорение документооборота между НФО и клиентами/контрагентами за счёт использования только формализованных документов.","sub":[]},{"h":"Использование модуля для электронного документооборота между компанией-клиентом и его контрагентами.","sub":[]}]},{"t":"p","h":"Применение продукта позволит:"},{"t":"ul","items":[{"h":"Работать с электронными документами (создавать, регистрировать, обменивать и хранить в соответствии с законодательством).","sub":[]},{"h":"Предоставлять удобный интерфейс для работы с документами (поиск, фильтрация и доступ к необходимым функциям для работы с входящими и исходящими документами).","sub":[]},{"h":"Информировать пользователя о ходе обработки документов (статусное значение).","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Отправлять и принимать электронные документы.","sub":[]},{"h":"Сформировать формализованный документ.","sub":[]},{"h":"Видеть все поступившие (входящие документы), чтобы можно было взять в работу любой документ.","sub":[]},{"h":"Настраивать отображение поступивших документов, чтобы удобнее и быстрее было их обрабатывать.","sub":[]},{"h":"Сортировать и отфильтровывать входящие документы, чтобы быстрее их обрабатывать.","sub":[]},{"h":"Дополнительно отфильтровывать документы по столбцу путём ввода текста содержимого столбца, чтобы экономить время и не искать в большом количестве предложенных данных по фильтру в заголовке столбца.","sub":[]},{"h":"Искать документы по ключевым данным и параметрам, чтобы экономить время.","sub":[]},{"h":"Видеть статус состояния документа, чтобы понимать, на каком этапе сейчас документ, и кто его обрабатывает.","sub":[]},{"h":"Видеть историю обработки документа, чтобы понимать этапы обработки документа.","sub":[]},{"h":"Сообщать об ошибках или некорректных действиях при обработке документа, чтобы не совершать ошибок и понимать дальнейшие действия.","sub":[]},{"h":"Распечатать выбранные документы или файлы, если они требуются в бумажном виде или для удобства просмотра.","sub":[]},{"h":"Предварительный просмотр документов и файлов, чтобы не тратить время на скачивание для просмотра ненужных документов.","sub":[]},{"h":"Выгрузить в Excel список документов для отчётности.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"p","h":"Модуль получает от внешних пользователей или внутренних модулей:"},{"t":"ul","items":[{"h":"Формализованные документы:","sub":[{"h":"депозитарные поручения;","sub":[]},{"h":"уведомления о намерении совершить действие с имуществом;","sub":[]},{"h":"реестровые документы;","sub":[]},{"h":"отчёты ЦБ;","sub":[]},{"h":"отчёты ежедневные.","sub":[]}]},{"h":"Неформализованные документы.","sub":[]},{"h":"Справочные данные от «Модуля МДМ».","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль формирует формализованные документы на основании XSD-схем, иные неформализованные документы и печатные формы этих документов с подписями."}]}],"id":"foton","parent":"digital-doc","source":"Описание продукта для сайта Цифровой документооборот НФО_Модуль Фотон.docx","description":"Программный модуль Фотон предназначен для обеспечения юридически значимого обмена электронными документами между участниками ЭДО."},"sod":{"h1":"Программное обеспечение «Цифровой документооборот НФО» модуль СОД (Система обработки документов)","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Система обработки документов (СОД) является модулем ПО «Цифровой документооборот НФО» и обеспечивает электронный обмен документами и данными между следующими системами:"},{"t":"ul","items":[{"h":"Цифровой документооборот НФО","sub":[{"h":"Модуль Фотон","sub":[]},{"h":"Модуль реестр документооборота","sub":[]}]},{"h":"Цифровой депозитарий","sub":[{"h":"Адаптер систем регистраторского учета","sub":[]},{"h":"Модуль учёта специализированного депозитария","sub":[]},{"h":"Адаптер систем депозитарного учета","sub":[]},{"h":"Адаптер систем XBRL отчетности","sub":[]},{"h":"Модуль МДМ","sub":[]},{"h":"«Адаптер систем 1С»","sub":[]}]},{"h":"Центральный банк","sub":[]},{"h":"Различные банковские системы","sub":[]},{"h":"Различные ФШ/ИШ (финансовые и информационные шлюзы)","sub":[]}]},{"t":"lead","h":"Назначение модуля:"},{"t":"p","h":"Модуль СОД решает следующие задачи:"},{"t":"ul","items":[{"h":"Прием и отправка электронных документов.","sub":[]},{"h":"Обработка и формирование стандартных операций по документам.","sub":[]},{"h":"Электронный обмен документами между информационными системами.","sub":[]},{"h":"Конвертация и трансформация электронных документов в требуемые форматы.","sub":[]},{"h":"Обработка платёжных документов и финансовых сообщений.","sub":[]},{"h":"Формирование и передача отчётности регуляторам и внешним организациям.","sub":[]},{"h":"Сверка и контроль данных в рамках учётных процессов.","sub":[]},{"h":"Обработка уведомлений и служебных сообщений.","sub":[]}]},{"t":"p","h":"Применение продукта позволит:"},{"t":"ul","items":[{"h":"Обеспечить автоматизированный обмен электронными документами и данными между системами «Цифрового депозитария» и внешними контрагентами.","sub":[]},{"h":"Автоматизировать создание карточек входящих документов и стандартных операций в системе учёта.","sub":[]},{"h":"Выполнять разбор отчётов брокеров и платёжных документов.","sub":[]},{"h":"Обеспечивать отправку исходящих сообщений из внутренних модулей в «Модуль Фотон».","sub":[]},{"h":"Выполнять конвертацию и трансформацию документов в требуемые форматы (в том числе из форматов клиентов в формат спецдепозитария и обратно).","sub":[]},{"h":"Обеспечивать передачу сверочной отчётности XBRL и XTDD в Центральный банк с шифрованием пакета.","sub":[]},{"h":"Автоматизировать сверку данных в рамках учётных процессов (например, паспортов для лицевых счетов и анкетных данных в реестрах ПИФ).","sub":[]},{"h":"Снизить объем ручной обработки документов и обеспечить единый технологический контур обмена данными между системами.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"p","h":"Модуль СОД предоставляет следующий набор функций:"},{"t":"ul","items":[{"h":"Формирование карточек входящих документов в «Модуле реестр документооборота» на основе документов, поступивших из «Модуля Фотон», ФШ или ИШ.","sub":[]},{"h":"Определение типа входящего неформализованного документа по имеющимся схемам.","sub":[]},{"h":"Разбор поступивших отчетов брокеров и создание на их основе стандартных операций в «Модуле реестр документооборота».","sub":[]},{"h":"Разбор и загрузка платежных поручений с созданием стандартных операций в «Модуле реестр документооборота».","sub":[]},{"h":"Автоматическая сверка паспортов для лицевых счетов и анкетных данных в реестрах ПИФ.","sub":[]},{"h":"Конвертация документов из форматов клиентов в формат специализированного депозитария и обратно.","sub":[]},{"h":"Обработка уведомлений о намерениях (УОН).","sub":[]},{"h":"Отправка исходящих сообщений из «Модуля реестра документооборота» в «Модуль Фотон» с подписанием исходящих документов.","sub":[]},{"h":"Отправка исходящих сообщений из «Адаптера систем регистраторского учета» в «Модуль Фотон».","sub":[]},{"h":"Отправка сверочной отчетности XBRL и XTDD в Центральный банк с шифрованием пакета.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"p","h":"Модуль получает от внутренних систем:"},{"t":"ul","items":[{"h":"Формализованные документы: депозитарные поручения, уведомления о намерении совершить действие с имуществом, реестровые документы, отчёты ЦБ, ежедневные отчёты.","sub":[]},{"h":"Неформализованные документы.","sub":[]},{"h":"Справочные данные от «Модуля МДМ» и «Модуля реестр документооборота».","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"p","h":"Модуль передает формализованные и неформализованные документы, а также данные, полученные из обработанных документов, во внутренние модули."}]}],"id":"sod","parent":"digital-doc","source":"Описание продукта для сайта Цифровой документооборот НФО_Модуль СОД.docx","description":"Система обработки документов (СОД) является модулем ПО «Цифровой документооборот НФО» и обеспечивает электронный обмен документами и данными между следующими…"},"reestr-doc":{"h1":"Программное обеспечение «Цифровой документооборот НФО» модуль реестр документооборота","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль Реестр документооборота предназначен для регистрации, систематизации, обработки, хранения документов и информации (ведение входящих и исходящих журналов), а также для ведения и актуализации основной части справочной информации."},{"t":"lead","h":"Назначение модуля:"},{"t":"ul","items":[{"h":"Реализация входящего документооборота из различных источников.","sub":[]},{"h":"Прием и регистрация в журнал входящих и исходящих документов.","sub":[]},{"h":"Автоматическое и ручное создание паспорта документа — машиночитаемое (цифровое) содержимое документа.","sub":[]},{"h":"Реализация электронного документооборота.","sub":[]},{"h":"Обработка и формирование стандартных операций по документам.","sub":[]},{"h":"Конвертация и трансформация электронных документов.","sub":[]},{"h":"Формирование и передача отчетности регуляторам и внешним организациям.","sub":[]},{"h":"Сверка и контроль данных в рамках учетных процессов.","sub":[]},{"h":"Обработка уведомлений и служебных сообщений.","sub":[]},{"h":"Получение и отправка документов, подписание документов, создание формализованных сообщений для депозитария, специализированного депозитария.","sub":[]}]},{"t":"p","h":"Применение продукта позволит:"},{"t":"ul","items":[{"h":"Работать с электронными документами — создавать, регистрировать, обменивать и хранить в соответствии с законодательством.","sub":[]},{"h":"Предоставлять удобный интерфейс для работы с документами, включая поиск, фильтрацию и доступ к необходимым функциям для работы с входящими и исходящими документами.","sub":[]},{"h":"Информировать пользователя о ходе обработки документов (статусное значение).","sub":[]},{"h":"Объединить в одном модуле прием и учет входящих документов из разных источников.","sub":[]},{"h":"Автоматизировать разбор данных в документах и на их основе создание стандартных операций.","sub":[]},{"h":"Автоматизировать работу с документами в рамках конкретных бизнес-процессов по документам корпоративных действий (КД). Создать единую автоматизированную систему с учетом возможности ручной обработки документов пользователем.","sub":[]},{"h":"Автоматизировать процесс сверки платежных поручений и согласования их исполнения.","sub":[]},{"h":"Автоматизировать процесс сверки сделок РЕПО и операций с ценными бумагами.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"lead","h":"Функциональные возможности входящего документооборота (ВД):"},{"t":"ul","items":[{"h":"Просмотр всех поступивших (входящих) документов, чтобы можно было взять в работу любой документ.","sub":[]},{"h":"Настройка отображения поступивших документов для удобства и скорости обработки.","sub":[]},{"h":"Сортировка и фильтрация входящих документов для быстрой обработки.","sub":[]},{"h":"Дополнительная фильтрация документов по столбцу путем ввода текста содержимого столбца.","sub":[]},{"h":"Поиск документов по ключевым данным и параметрам.","sub":[]},{"h":"Просмотр статуса состояния документа (этап обработки, ответственный).","sub":[]},{"h":"Изменение статуса состояния документа, доступного для ручной обработки.","sub":[]},{"h":"Регистрация документов для контроля их движения и хранения.","sub":[]},{"h":"Создание нового документа при регистрации на основе ранее поступившего.","sub":[]},{"h":"Внесение изменений в зарегистрированный документ.","sub":[]},{"h":"Просмотр истории обработки документа (кто, когда и какие вносил изменения).","sub":[]},{"h":"Просмотр свойств документа.","sub":[]},{"h":"Отказ в приеме документа.","sub":[]},{"h":"Просмотр всех вложенных/связанных с документом файлов.","sub":[]},{"h":"Сообщение об ошибках или некорректных действиях при обработке документа.","sub":[]},{"h":"Блокировка документа для обработки другим специалистом.","sub":[]},{"h":"Настройка шаблонов фильтров для входящих документов.","sub":[]},{"h":"Просмотр автоматически созданного паспорта документа и его редактирование.","sub":[]},{"h":"Создание паспорта документа, если он не был создан автоматически.","sub":[]},{"h":"Выделение сразу нескольких документов для проведения дальнейших действий (распечатка, отказ и т.д.).","sub":[]},{"h":"Печать выбранных документов или файлов.","sub":[]},{"h":"Предварительный просмотр документов и файлов.","sub":[]},{"h":"Резервирование входящих номеров.","sub":[]},{"h":"Назначение выбранного курьера для доставки исходящих документов в бумажном варианте.","sub":[]},{"h":"Выгрузка в Excel списка документов в двух видах.","sub":[]},{"h":"Скрытие необработанных документов.","sub":[]},{"h":"Формирование и направление электронных исходящих документов автоматически.","sub":[]},{"h":"Удаление ненужных/ошибочных документов (для администратора).","sub":[]}]},{"t":"lead","h":"Функциональные возможности паспорта документа:"},{"t":"ul","items":[{"h":"Просмотр в Карточке документа полей, необходимых для обработки документа.","sub":[]},{"h":"Просмотр в списке документов полей, необходимых для поиска и фильтрации.","sub":[]},{"h":"Ручное создание и обработка паспорта документа, если он не сформировался автоматически.","sub":[]}]},{"t":"lead","h":"Функциональные возможности исходящего документооборота (ИД):"},{"t":"ul","items":[{"h":"Просмотр всех исходящих документов.","sub":[]},{"h":"Настройка отображения исходящих документов.","sub":[]},{"h":"Сортировка и фильтрация исходящих документов.","sub":[]},{"h":"Дополнительная фильтрация документов по столбцу.","sub":[]},{"h":"Поиск документов по ключевым данным и параметрам.","sub":[]},{"h":"Просмотр статуса состояния документа.","sub":[]},{"h":"Изменение статуса состояния документа, доступного для ручной обработки.","sub":[]},{"h":"Регистрация исходящих документов и внесение записи в журнал.","sub":[]},{"h":"Внесение изменений в исходящий документ.","sub":[]},{"h":"Просмотр истории обработки документа.","sub":[]},{"h":"Просмотр свойств документа.","sub":[]},{"h":"Просмотр всех вложенных/связанных с документом файлов, в том числе по входящему документу, связанному с исходящим.","sub":[]},{"h":"Получение сообщений от системы об ошибках или некорректных действиях.","sub":[]},{"h":"Блокировка документа для обработки другим специалистом.","sub":[]},{"h":"Настройка шаблонов фильтров для исходящих документов.","sub":[]},{"h":"Открытие паспорта документа, созданного при регистрации входящего.","sub":[]},{"h":"Выгрузка списка документов в Excel.","sub":[]},{"h":"Выделение сразу нескольких документов для проведения дальнейших действий (опись, отправка и т.д.).","sub":[]},{"h":"Печать выбранных документов или файлов.","sub":[]},{"h":"Предварительный просмотр документов и файлов.","sub":[]},{"h":"Отметка вида доставки документа (ЭДО, почта и т.д.).","sub":[]},{"h":"Назначение выбранного курьера для доставки исходящих документов в бумажном варианте.","sub":[]},{"h":"Формирование и направление электронных исходящих документов автоматически.","sub":[]},{"h":"Удаление ненужных/ошибочных документов.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"p","h":"Настоящим Техническим заданием требования к входным данным не устанавливаются."},{"t":"lead","h":"Выходные данные (список отчетов, формируемых в модуле):"},{"t":"ul","items":[{"h":"Справочные отчеты.","sub":[]},{"h":"ПН сверка по предоставленным отчетам (РСА и СЧА).","sub":[]},{"h":"Мониторинг справочников по акциям/облигациям.","sub":[]},{"h":"Признаки обесценения по активам и эмитентам.","sub":[]},{"h":"Отчет об отсутствующих справках СЧА.","sub":[]},{"h":"Договоры АСЭД.","sub":[]},{"h":"Контроль сроков действия лицензий клиентов.","sub":[]},{"h":"Договоры ПИФ.","sub":[]},{"h":"Отчет о заключенных договорах с АИФ, УК АИФ, УК ПИФ, УК ИП.","sub":[]},{"h":"Уведомление о заключении договора об оказании услуг УК НПФ по ПН.","sub":[]},{"h":"Журнал выявленных нарушений (несоответствий).","sub":[]},{"h":"Менеджеры договоров по УК или Фонду.","sub":[]},{"h":"Список контактных лиц Клиентов.","sub":[]},{"h":"Отчет по проектам за период.","sub":[]},{"h":"Отчет о расторгнутых договорах.","sub":[]},{"h":"Банковские счета.","sub":[]},{"h":"Отчет о количестве записей справочников.","sub":[]},{"h":"Отчет по действующим Агентам ПИФ.","sub":[]},{"h":"Отчет о введенной информации в справочник договоры с клиентом.","sub":[]},{"h":"Анализ физических лиц и паспортных данных.","sub":[]},{"h":"Отчет о заключенных и расторгнутых договорах за период.","sub":[]},{"h":"Справка по клиенту.","sub":[]},{"h":"Управленческая отчетность по Регламенту.","sub":[]},{"h":"Отчет для оценки удовлетворенности клиентов.","sub":[]},{"h":"Статистика (справочники).","sub":[]},{"h":"Отчет по работе со справочниками модуля.","sub":[]},{"h":"Контрагенты с одинаковым ИНН.","sub":[]},{"h":"Имена фондов и справочник контрагентов.","sub":[]},{"h":"Журнал входящих (Фонд - УК).","sub":[]},{"h":"Изменение наименования контрагента.","sub":[]},{"h":"Список клиентов для отправки корреспонденции почтой.","sub":[]},{"h":"Сверка отправитель - УК.","sub":[]},{"h":"Журнал входящих (Фонд - УК) включая отказные.","sub":[]},{"h":"Список клиентов для направления отчетности в соответствии с законодательством.","sub":[]},{"h":"Неторгуемые ценные бумаги в остатках.","sub":[]},{"h":"Выгрузка доверенных лиц.","sub":[]},{"h":"Отчет проведенных документов.","sub":[]},{"h":"Различия параметров активов справочников активов и истории ЦБ.","sub":[]},{"h":"Функциональные доверенности.","sub":[]},{"h":"Отчет по котировкам иностранных бумаг для загрузки в иное ПО.","sub":[]},{"h":"Отчет о времени обработки документов.","sub":[]},{"h":"Отчет по изменению рейтингов эмитентов и ценных бумаг.","sub":[]},{"h":"Опись передаваемых документов.","sub":[]},{"h":"Отчет с данными для ПАРТАД.","sub":[]},{"h":"Информационная справка СПАРК.","sub":[]},{"h":"Отчет по котировкам иностранных бумаг в оригинальной валюте.","sub":[]},{"h":"Отчет по исходящим документам.","sub":[]},{"h":"Журнал исходящих.","sub":[]},{"h":"Журнал по датам.","sub":[]},{"h":"Отчет по полномочиям пользователей СЭД без привязки к контактным лицам.","sub":[]},{"h":"Отчет по FATCA-статусам.","sub":[]},{"h":"Общий отчет по FATCA.","sub":[]},{"h":"Отчет исходящих документов по деятельности регистратора.","sub":[]},{"h":"Отчет входящих документов по деятельности регистратора.","sub":[]},{"h":"Отчет по ценным бумагам ОКУД 0420415.","sub":[]},{"h":"Проверка кода клиента.","sub":[]},{"h":"Список ISINов.","sub":[]},{"h":"Отчёт по векселям на хранении.","sub":[]},{"h":"Загрузка РСП по российским фондам.","sub":[]},{"h":"Информация о реестрах владельцев инвестиционных паев.","sub":[]}]},{"t":"p","h":"Список электронных документов, формируемых в модуле:"},{"t":"ul","items":[{"h":"Справочные отчеты.","sub":[]},{"h":"Неформализованное сообщение.","sub":[]},{"h":"Отчётность:","sub":[{"h":"ежедневная;","sub":[]},{"h":"для Банка России.","sub":[]}]},{"h":"Депозитарные поручения:","sub":[{"h":"поручения на прием ценных бумаг на учет и/или хранение (R03-1);","sub":[]},{"h":"поручения на снятие ценных бумаг с учета и/или хранения (R03-2);","sub":[]},{"h":"поручения на перевод ценных бумаг (между счетами депо Депонентов (R03-3);","sub":[]},{"h":"поручения на перемещение ценных бумаг (изменение места хранения ЦБ) (R03-4);","sub":[]},{"h":"поручения на перевод ценных бумаг Депонента на счет депо/с торгового счета депо (R03-5);","sub":[]},{"h":"поручения на выдачу информации (R05).","sub":[]}]},{"h":"Уведомление о намерении совершить распоряжение имуществом.","sub":[]}]},{"t":"p","h":"Примечание: для каждого пользователя в системе должны отображаться только те документы, на создание которых у него есть разрешение. Разрешениями управляет Администратор системы."}]}],"id":"reestr-doc","parent":"digital-doc","source":"Описание продукта для сайта Цифровой документооборот НФО_Модуль реестр документооборота.docx","description":"Модуль Реестр документооборота предназначен для регистрации, систематизации, обработки, хранения документов и информации (ведение входящих и исходящих…"},"ai":{"h1":"Программное обеспечение «Цифровой документооборот НФО» модуль ИИ","sections":[{"h2":"Описание","blocks":[{"t":"p","h":"Модуль ИИ — высокопроизводительный модуль интеллектуальной обработки документов, платежных поручений, товарных строк, аудиозаписей встреч и иных входящих данных с применением технологий машинного обучения, больших языковых моделей, OCR/VLM и алгоритмов автоматической сверки данных. Модуль предназначен для автоматизации процессов распознавания, типизации, извлечения, классификации, сверки и интерпретации информации, поступающей из внутренних и смежных систем, а также для формирования структурированных результатов обработки, пригодных для последующей загрузки, проверки и использования в бизнес-процессах."},{"t":"lead","h":"Цели модуля:"},{"t":"ul","items":[{"h":"Реализация автоматизированной интеллектуальной обработки документов и связанных с ними бизнес-операций.","sub":[]},{"h":"Сокращение объема ручной обработки документов, платежных поручений и результатов встреч.","sub":[]},{"h":"Автоматическое распознавание текстов документов и извлечение из них машиночитаемого содержимого.","sub":[]},{"h":"Автоматическое определение типа документа, типа операции и необходимых реквизитов для дальнейшей обработки во внутренних модулях.","sub":[]},{"h":"Автоматизация обработки платежных поручений на основании поля «Назначение платежа».","sub":[]},{"h":"Автоматизация обработки товарных строк документов и определение операций с учетом уверенности ML-модели.","sub":[]},{"h":"Автоматизация проверки наличия печати/штампа в документах, для которых такой признак является обязательным.","sub":[]},{"h":"Автоматизация сверки информации из платежа с информацией из внутренних документов.","sub":[]},{"h":"Автоматизация анализа изменений в версиях документов и проверки полноты клиентских таблиц изменений.","sub":[]},{"h":"Автоматическое формирование транскриптов, таймкодов, определения спикеров и структурированных резюме встреч.","sub":[]},{"h":"Ведение статусов обработки, логирование ошибок, сохранение результатов и расчет метрик качества работы ML/LLM-компонентов.","sub":[]},{"h":"Интеграция результатов интеллектуальной обработки с внутренними модулями, базами данных, очередями сообщений и пользовательскими интерфейсами.","sub":[]}]},{"t":"lead","h":"Применение продукта позволит:"},{"t":"ul","items":[{"h":"Автоматизировать работу с документами и платежными поручениями в рамках конкретных бизнес-процессов с учетом возможности ручной проверки пользователем.","sub":[]},{"h":"Сократить время обработки документов и платежных данных за счет автоматического распознавания, типизации, извлечения реквизитов и передачи результатов в целевые системы.","sub":[]},{"h":"Снизить риск ошибок, связанных с ручным вводом, ручной сверкой и ручной классификацией документов и операций.","sub":[]},{"h":"Обеспечить формирование структурированных данных по результатам OCR/LLM/ML-обработки для дальнейшей загрузки, хранения и использования во внутренних модулях.","sub":[]},{"h":"Автоматически выявлять случаи, требующие проверки пользователем, при недостаточной уверенности модели, ошибках распознавания, некорректных реквизитах или недостаточности данных.","sub":[]},{"h":"Обеспечить единый контур обработки результатов ML/LLM-сервисов, включая получение заданий, передачу данных на обработку, сохранение предсказаний, возврат результатов и расчет метрик.","sub":[]},{"h":"Повысить качество и прозрачность обработки за счет сохранения статусов, логов, признаков ошибок, уверенности моделей и метрик качества.","sub":[]},{"h":"Обеспечить возможность дальнейшего развития модуля за счет подключения новых типов документов, новых ML/LLM-моделей, новых сценариев сверки и новых интеграций.","sub":[]}]}]},{"h2":"Функциональные возможности","blocks":[{"t":"ul","items":[{"h":"Передача документа на обработку.","sub":[]},{"h":"Распознавание текста документа.","sub":[]},{"h":"Определение типа документа.","sub":[]},{"h":"Извлечение ключевых полей документа.","sub":[]},{"h":"Валидация извлеченных данных.","sub":[]},{"h":"Формирование машиночитаемого результата.","sub":[]},{"h":"Массовая обработка документов.","sub":[]},{"h":"Получение платежных поручений из внутренней системы.","sub":[]},{"h":"Определение типа операции платежного поручения.","sub":[]},{"h":"Передача результата определения операции ПП во внутреннюю систему.","sub":[]},{"h":"Определение операции банковской выписки.","sub":[]},{"h":"Определение даты окончания периода в операции.","sub":[]},{"h":"Определение наличия печати/штампа в документе МНО.","sub":[]},{"h":"Типизация неформализованных входящих документов.","sub":[]},{"h":"Парсинг неформализованных входящих документов.","sub":[]},{"h":"Сверка информации из назначения платежа с входящими документами.","sub":[]},{"h":"Парсинг документов для сверки с ПП.","sub":[]},{"h":"Сравнение версий ПДУ.","sub":[]},{"h":"Проверка клиентской таблицы изменений ПДУ.","sub":[]},{"h":"Сохранение статусов обработки.","sub":[]},{"h":"Расчет и передача метрик качества.","sub":[]},{"h":"Настройка параметров ML/LLM-компонентов.","sub":[]},{"h":"Логирование действий и ошибок.","sub":[]},{"h":"Получение результата обработки.","sub":[]}]}]},{"h2":"Входные и выходные данные","blocks":[{"t":"lead","h":"Входные данные:"},{"t":"ul","items":[{"h":"PDF-документы и иные файлы документов, поступающие через интерфейс, API, очередь сообщений или из смежной системы.","sub":[]},{"h":"Платежные поручения, включая идентификатор платежного поручения, дату поступления в очередь и текстовое поле «Назначение платежа».","sub":[]},{"h":"Банковские выписки, включая товарные строки документов и данные, необходимые для определения типа операции.","sub":[]},{"h":"Данные документов МНО (изображения страниц PDF в формате base64, извлеченный текст документа, признак наличия текстового слоя, количество страниц, идентификатор файла, идентификатор документа или запроса).","sub":[]},{"h":"Неформализованные входящие документы для типизации и парсинга, включая акты приема-передачи, счета, счета-фактуры и иные документы, определенные в рамках развития модуля.","sub":[]},{"h":"Входящие документы для сверки с платежными поручениями по операциям, включая счета, договоры об оценке, задания на оценку, заявки на оценку, технические задания, заявления на депозит, подтверждения, подтверждения по депозитной сделке и сообщения-публикации.","sub":[]},{"h":"Данные из назначения платежа, реквизиты платежного поручения и связанные данные из внутренних систем, необходимые для сверки.","sub":[]},{"h":"Две версии ПДУ или иных документов, подлежащих сравнению.","sub":[]},{"h":"Клиентская таблица изменений по ПДУ, если требуется проверка полноты и корректности изменений, указанных клиентом.","sub":[]},{"h":"Справочники, параметры валидации, настройки моделей, пороги уверенности, конфигурации очередей, маршруты API и иные служебные данные, необходимые для работы модуля.","sub":[]}]},{"t":"lead","h":"Выходные данные:"},{"t":"ul","items":[{"h":"Распознанный текст документа.","sub":[]},{"h":"Тип документа, определенный системой.","sub":[]},{"h":"Структурированные данные по документу в формате XML/JSON или ином согласованном формате.","sub":[]},{"h":"Извлеченные реквизиты документа (номер, дата, сумма, БИК, счет, расчетный счет, контрагент, ИНН контрагента, УК, фонд, основание, признак наличия электронной подписи, признак наличия печати и подписи, иные поля, предусмотренные конкретным сценарием обработки).","sub":[]},{"h":"Результат определения типа операции платежного поручения.","sub":[]},{"h":"Результат определения операции банковской выписки.","sub":[]},{"h":"Признак целевой/нецелевой операции, признак уверенности модели, коэффициенты уверенности и иные служебные результаты ML-обработки.","sub":[]},{"h":"Результат определения наличия печати/штампа в документе МНО.","sub":[]},{"h":"Результат сверки информации из назначения платежа с данными входящих документов.","sub":[]},{"h":"Перечень фактических изменений между версиями ПДУ.","sub":[]},{"h":"Результат проверки клиентской таблицы изменений ПДУ, включая: подтвержденные изменения; неподтвержденные изменения; изменения, найденные в документах, но отсутствующие в клиентской таблице; выдержки из старой и новой версии документа; комментарии по неоднозначным случаям.","sub":[]},{"h":"Транскрипт встречи с таймкодами и спикерами.","sub":[]},{"h":"Структурированное резюме или протокол встречи по заданному шаблону.","sub":[]},{"h":"Отчет об обработке документов, включая количество обработанных документов и количество ошибок.","sub":[]},{"h":"Статус обработки задания: принято в работу; обработано успешно; ошибка обработки; требуется ручная проверка; отменено; недостаточно данных; низкая уверенность модели.","sub":[]},{"h":"Логи обработки, включая сведения об ошибках, проблемных полях, времени обработки и детализации сбоя.","sub":[]},{"h":"Метрики качества работы ML/LLM-компонентов, включая accuracy, F1Score, признаки выполнения целевых показателей и иные согласованные метрики.","sub":[]},{"h":"Служебная информация о версии ML-ядра, настройках модели, целевых операциях и результатах выполнения обработки.","sub":[]}]}]}],"id":"ai","parent":"digital-doc","source":"Описание продукта для сайта Цифровой документооборот НФО_Модуль ИИ.docx","description":"Модуль ИИ — высокопроизводительный модуль интеллектуальной обработки документов, платежных поручений, товарных строк, аудиозаписей встреч и иных входящих…"}}</script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js" defer></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -1693,6 +1581,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const ARROW = '<svg aria-hidden="true"><use href="#i-arrow"/></svg>';
   const SITE = "Инновации и цифровое развитие";
+  const metaDesc = $('meta[name="description"]'), DEFAULT_DESC = metaDesc.getAttribute("content");
 
   /* ================= toast & clipboard ================= */
   const toastEl = $("#toast"); let toastT;
@@ -1968,27 +1857,33 @@ document.addEventListener("DOMContentLoaded", () => {
       <circle class="in" cx="20" cy="35" r="3"/><circle class="in" cx="28.5" cy="33" r="2.2"/><circle class="in" cx="25" cy="24.5" r="1.8"/>`)
   };
   const ICON = { bank: ICONS.stack, doc: ICONS.docsign, swap: ICONS.exchange, cbr: ICONS.regulator, user: ICONS.investor, check: ICONS.check };
-  const SERVICES = [
-    { short: "Учёт специализированного депозитария", full: "Разработка и поддержка информационных систем учёта специализированного депозитария", tag: "Спецдепозитарий", icon: ICON.bank, note: "Модули СД учёт ПИФ и НПФ", product: "digital-depo" },
-    { short: "Документооборот с цифровой подписью", full: "Разработка и поддержка систем документооборота с использованием криптографии и квалифицированной цифровой подписи по ГОСТ 34.10-2018", tag: "ГОСТ 34.10-2018", icon: ICON.doc, note: "Модуль документооборота: до 100 млн документов", product: "digital-depo" },
-    { short: "Обмен с поставщиками данных", full: "Разработка и поддержка сервисов для взаимодействия с поставщиками данных финансового рынка", tag: "Интеграции", icon: ICON.swap, note: "Модуль закачек данных из внешних источников", product: "digital-depo" },
-    { short: "Взаимодействие с Банком России", full: "Разработка и поддержка сервисов для взаимодействия с Банком России", tag: "Регулятор", icon: ICON.cbr, note: "Адаптер XBRL-отчётности и уведомления регулятору", product: "digital-depo" }
-  ];
-  // product card previews show only facts published on the product pages — no sample records
+  /* products and their module pages come from the client's descriptions (Файлы для вставки на новый сайт/*.docx),
+     converted verbatim by tools/import_products.py into the #product-content block */
+  const PC = JSON.parse(document.getElementById("product-content").textContent);
+  const unhtml = h => { const d = document.createElement("div"); d.innerHTML = h; return d.textContent; };
+  // hub pages fork into module pages: [id, short name, name as the hub lists it]
+  const MODS = {
+    "digital-depo": [["MPK-PIF", "Модуль контролей ПИФ"], ["MPK-NPF", "Модуль контролей НПФ"], ["MDM", "Модуль МДМ"], ["infa", "Модуль аналитики НПФ"],
+      ["MKD", "Модуль корпоративных действий"], ["adapter-registrar", "Адаптер систем регистраторского учета"], ["adapter-depozit", "Адаптер систем депозитарного учета"]],
+    "digital-doc": [["foton", "Модуль Фотон"], ["sod", "Модуль СОД", "Модуль сервисы обработки документов"], ["reestr-doc", "Модуль реестр документооборота"], ["ai", "Модуль ИИ"]]
+  };
+  const modOf = id => { for (const [pid, list] of Object.entries(MODS)) { const m = list.find(x => x[0] === id); if (m) return { parent: pid, id, short: m[1], hub: m[2] || m[1] }; } return null; };
+  // product card previews quote the descriptions — no sample records
   const checks = items => `<ul class="checks">${items.map((x, i) => `<li style="--d:${i}"><i></i>${x}</li>`).join("")}</ul>`;
+  const firstSentence = id => { const p = PC[id].sections[0].blocks.find(b => b.t === "p"); const t = unhtml(p.h); const m = t.match(/^.{60,}?[.!?](?=\s|$)/); return (m ? m[0] : t).trim(); };
+  const firstList = id => (PC[id].sections[0].blocks.find(b => b.t === "ul") || { items: [] }).items.map(i => unhtml(i.h).replace(/[.;]$/, ""));
+  const modWord = n => n % 10 === 1 && n % 100 !== 11 ? "модуль" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "модуля" : "модулей";
   const PRODUCTS = [
-    { id: "digital-depo", title: "«Цифровой депозитарий»", icon: ICON.bank, price: "10 млн ₽",
-      text: "Комплекс решений для работы специализированных депозитариев по требованиям Банка России и ФСТЭК: учёт, контроли, документооборот и загрузка данных из внешних источников.",
-      demo: big => `<div class="mini-head"><b>Состав системы</b><span>16 модулей</span></div>
-        ${checks(["Контроли ПИФ и НПФ", "СД учёт ПИФ и НПФ", "Документооборот", "Адаптер XBRL-отчётности"])}
-        <div class="kpis"><div><b>до 100 млн</b><span>документов в ЭДО</span></div><div><b>до 15 мин</b><span>SLA на обработку</span></div></div>` },
-    { id: "digital-investor", title: "«Цифровой инвестор»", icon: ICON.user, price: "4 млн ₽",
-      text: "Сервис для пайщиков: мониторинг активов и дистанционное участие в электронных голосованиях, которые проводят управляющие компании ПИФ.",
-      demo: () => `<div class="mini-head"><b>Голосования</b><span>ИК · ОСВИП · СД</span></div>${checks(["Уведомления участникам", "Бюллетени и протоколы", "Подписание ПЭП", "Автоматическое подведение итогов"])}` },
-    { id: "digital-check", title: "«Цифровая проверка»", icon: ICON.check, price: "4 млн ₽",
-      text: "Автоматизированная проверка клиентов на соответствие требованиям ПОД/ФТ по 115-ФЗ: перечни, уровень риска, досье и отчётность.",
-      demo: () => `<div class="mini-head"><b>Проверка по перечням</b><span>115-ФЗ</span></div>${checks(["Перечень РФМ", "Решения МВК", "Перечни РОМУ ООН", "Санкционные списки"])}` }
-  ];
+    { id: "digital-depo", title: "«Цифровой депозитарий»", icon: ICON.bank,
+      demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-depo"].length} ${modWord(MODS["digital-depo"].length)}</span></div>${checks(MODS["digital-depo"].slice(0, 4).map(m => m[1]))}` },
+    { id: "digital-doc", title: "«Цифровой документооборот НФО»", icon: ICON.doc,
+      demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-doc"].length} ${modWord(MODS["digital-doc"].length)}</span></div>${checks(MODS["digital-doc"].map(m => m[1]))}` },
+    { id: "digital-investor", title: "«Цифровой инвестор»", icon: ICON.user,
+      demo: () => `<div class="mini-head"><b>Назначение продукта</b></div>${checks(firstList("digital-investor"))}` },
+    { id: "digital-check", title: "«Цифровая проверка»", icon: ICON.check,
+      demo: () => `<div class="mini-head"><b>Цели продукта</b></div>${checks(firstList("digital-check"))}` }
+  ].map(p => ({ ...p, text: firstSentence(p.id) }));
+  const shortTitle = id => (PRODUCTS.find(p => p.id === id) || {}).title || (modOf(id) || {}).short || id;
   const ML_OFFER = ["Удалённый или гибридный формат — можно работать из любой точки России", "ИТ-аккредитованная компания с устойчивыми процессами", "Расширенный соцпакет: компенсация билетов (авиа и ЖД), ДМС, обучение", "Гибкое утро — рабочий день начинается без строгой планки", "Сильная команда инженеров и ML-разработчиков", "Корпоративный университет: ML, инженерия и смежные направления", "Официальная «белая» зарплата", "Оформление с первого рабочего дня, полное соблюдение ТК РФ", "Живое комьюнити: праздники, поездки, семейные мероприятия, образовательные встречи"];
   const VAC = [
     { id: "senior-mle", title: "Senior MLE", exp: "Опыт работы: 3–6 лет", emp: "Полная занятость", fmt: ["remote", "hybrid"],
@@ -2010,6 +1905,7 @@ document.addEventListener("DOMContentLoaded", () => {
       stack: ".NET, PostgreSQL, RabbitMQ / Kafka, Prometheus, Kibana, Jenkins" }
   ];
   const FMT = { remote: "Удалённо", hybrid: "Гибрид", office: "На месте работодателя" };
+  const VAC_OPTIONS = VAC.map(v => `<option value="${v.id}">${esc(v.title)}</option>`).join("") + '<option value="other">Нет подходящей — отправлю резюме на будущее</option>';
   const fmtDate = iso => new Date(iso + "T12:00:00").toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" }).replace(" г.", "");
 
   /* ================= renderers ================= */
@@ -2020,33 +1916,92 @@ document.addEventListener("DOMContentLoaded", () => {
       <h3>${esc(n.title)}</h3>
       <span class="link-arrow">Читать ${ARROW}</span>
     </a>`;
-  const productCard = (p, big, d) => `
-    <a class="prod glass lit${big ? " big" : ""}" href="#/projects/${p.id}/" data-reveal data-cursor="Открыть" style="--d:${d}">
-      <div class="prod-top"><div class="prod-icon">${p.icon}</div><span class="price-chip">${p.price}</span></div>
+  const productCard = (p, d) => `
+    <a class="prod glass lit" href="#/projects/${p.id}/" data-reveal data-cursor="Открыть" style="--d:${d}">
+      <div class="prod-top"><div class="prod-icon">${p.icon}</div>${MODS[p.id] ? `<span class="chip">${MODS[p.id].length} ${modWord(MODS[p.id].length)}</span>` : ""}</div>
       <span class="kind">Программа для ЭВМ</span>
-      <h3>${p.title}</h3><p>${p.text}</p>
-      <div class="demo" aria-hidden="true">${p.demo(big)}</div>
+      <h3>${p.title}</h3><p>${esc(p.text)}</p>
+      <div class="demo" aria-hidden="true">${p.demo()}</div>
       <span class="link-arrow">Подробнее ${ARROW}</span>
     </a>`;
   const productCards = spec => {
     const ex = spec.startsWith("except:") ? spec.slice(7) : null;
-    const list = PRODUCTS.filter(p => p.id !== ex);
-    return list.map((p, i) => productCard(p, false, i)).join("");
+    return PRODUCTS.filter(p => p.id !== ex).map((p, i) => productCard(p, i)).join("");
   };
-  const svcCard = (s, i, stack) => `
-    <article class="svc glass lit" style="--i:${i};--d:${i}"${stack ? "" : " data-reveal"}>
-      <div class="svc-top"><div class="svc-ic">${s.icon}</div><span class="chip">${s.tag}</span></div>
-      <h3>${stack ? s.short : s.full}</h3>
-      ${stack ? `<p>${s.full}.</p>` : ""}
-      <div class="svc-link">В продукте: ${s.note}<a class="link-arrow" href="#/projects/${s.product}/">«Цифровой депозитарий» ${ARROW}</a></div>
-    </article>`;
+
+  /* ---- product and module pages: H1, then each H2 of the description as its own glass section ---- */
+  const LONG_LIST = 16;                                   // longer lists fold, with «Показать все»
+  const listHTML = items => items.map(it => `<li>${it.h}${it.sub && it.sub.length ? `<ul>${listHTML(it.sub)}</ul>` : ""}</li>`).join("");
+  function tableHTML(b) {
+    // the first column only repeats the product name the page is about
+    const drop = /^Программа для ЭВМ$/.test(b.head[0]) ? 1 : 0;
+    const cells = r => r.slice(drop);
+    const num = c => /^[\d\s ]+$/.test(c) ? ' class="num"' : "";
+    return `<div class="tbl"><table><thead><tr>${cells(b.head).map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+      <tbody>${b.rows.map(r => `<tr>${cells(r).map((c, i) => `<td${num(c)} data-label="${esc(cells(b.head)[i] || "")}">${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  }
+  function richHTML(blocks) {
+    return blocks.map(b => {
+      if (b.t === "p") return `<p>${b.h}</p>`;
+      if (b.t === "lead") return `<p class="lead-in">${b.h}</p>`;
+      if (b.t === "h3") return `<h3>${b.h}</h3>`;
+      if (b.t === "note") return `<p class="note">${b.h}</p>`;
+      if (b.t === "table") return tableHTML(b);
+      if (b.t === "ul") {
+        const n = b.items.length, ul = `<ul class="ticks${n > 8 ? " cols" : ""}">${listHTML(b.items)}</ul>`;
+        return n > LONG_LIST ? `<div class="expand"><div class="fade-bottom"><div class="collapsible" data-min="320px" style="grid-template-rows:minmax(320px,0fr)"><div>${ul}</div></div></div>
+          <button class="link-arrow more" type="button" data-expand>Показать все ${n} <svg aria-hidden="true"><use href="#i-chev"/></svg></button></div>` : ul;
+      }
+      return "";
+    }).join("");
+  }
+  // the hub's «Модули» list becomes a fork: published modules link to their pages, the rest are marked as in development
+  const splitItem = h => { const t = unhtml(h), m = t.match(/^(.+?)\s+[-–—]\s+(.+)$/); return m ? [m[1].trim(), m[2].trim()] : [t, ""]; };
+  // a module card quotes the one-line description the hub page gives that module
+  const MOD_DESC = {};
+  Object.entries(MODS).forEach(([pid, list]) => {
+    const ul = (PC[pid].sections.find(s => s.h2 === "Модули") || { blocks: [] }).blocks.find(b => b.t === "ul");
+    (ul ? ul.items : []).forEach(it => { const [name, desc] = splitItem(it.h), m = list.find(x => (x[2] || x[1]).toLowerCase() === name.toLowerCase()); if (m) MOD_DESC[m[0]] = desc; });
+  });
+  const modCard = (pid, m, d = 0) => { const kind = /^Адаптер/.test(m[1]) ? "Адаптер" : "Модуль", desc = MOD_DESC[m[0]] || PC[m[0]].description;
+    return `<a class="mod-card glass lit" href="#/projects/${pid}/${m[0]}/" data-reveal data-cursor="Открыть" style="--d:${d}"><span class="t">${kind}</span><b>${m[1]}</b><span>${esc(desc.charAt(0).toUpperCase() + desc.slice(1))}</span><span class="link-arrow">Подробнее ${ARROW}</span></a>`; };
+  function modulesHTML(pid, blocks) {
+    let out = "", dev = false;
+    blocks.forEach(b => {
+      if (b.t === "p" && /этапе разработки/i.test(unhtml(b.h))) { dev = true; out += `<h3>${b.h.replace(/:\s*$/, "")}</h3>`; return; }
+      if (b.t !== "ul") { out += richHTML([b]); return; }
+      out += `<div class="mods${dev ? " dev" : ""}">${b.items.map((it, i) => {
+        const [name, desc] = splitItem(it.h), m = MODS[pid].find(x => (x[2] || x[1]).toLowerCase() === name.toLowerCase());
+        if (m && !dev) return modCard(pid, m, i % 3);
+        return `<div class="mod-card"><span class="t">${dev ? "В разработке" : "Модуль"}</span><b>${esc(name)}</b><span>${esc(desc.replace(/\s*В разработке\.?$/, ""))}</span></div>`;
+      }).join("")}</div>`;
+    });
+    return out;
+  }
+  function productPage(id) {
+    const pg = PC[id], mod = modOf(id), hub = !pg.parent && MODS[id];
+    const secs = pg.sections.map(s => `
+      <section class="pd-sec glass" data-reveal data-chapter="${esc(s.h2)}">
+        <div class="pd-sec-head"><h2>${esc(s.h2)}</h2></div>
+        <div class="rich">${hub && s.h2 === "Модули" ? modulesHTML(id, s.blocks) : richHTML(s.blocks)}</div>
+      </section>`).join("");
+    if (mod) {
+      const sib = MODS[mod.parent].filter(m => m[0] !== id);
+      return `${secs}
+        <div class="pd-foot"><a class="back" href="#/projects/${mod.parent}/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>${shortTitle(mod.parent)}: все модули</a></div>
+        <section class="pd-other" data-chapter="Другие модули"><h2 data-split>Другие модули продукта ${shortTitle(mod.parent)}</h2><div class="mods">${sib.map((m, i) => modCard(mod.parent, m, i % 3)).join("")}</div></section>`;
+    }
+    return `${secs}
+      <div class="pd-foot"><a class="back" href="#/projects/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Все продукты</a></div>
+      <section class="pd-other" data-chapter="Другие продукты"><h2 data-split>Другие продукты</h2><div class="bento" data-products="except:${id}"></div></section>`;
+  }
   const faqHTML = () => FAQ.map(([q, a], i) => `<details${i === 0 ? " open" : ""}><summary>${q}<i aria-hidden="true"></i></summary><div class="ans"><div><p>${a}</p></div></div></details>`).join("");
-  const COMPANY = [["О компании", "/company/"], ["Сотрудники", "/company/staff/"], ["Вакансии", "/company/vacancy/"], ["Реквизиты", "/company/requisites/"], ["Документы", "/company/docs/"]];
+  const COMPANY = [["О компании", "/company/"], ["Сотрудники", "/company/staff/"], ["Реквизиты", "/company/requisites/"], ["Документы", "/company/docs/"]];
   const sideNav = path => `
     <aside class="side">
       <nav class="side-nav glass" aria-label="Раздел «Компания»">${COMPANY.map(([t, p]) => {
         const cur = p === "/company/" ? path === p : path.startsWith(p);
-        return `<a href="#${p}"${cur ? ' aria-current="page"' : ""}>${t}${p === "/company/vacancy/" ? `<b>${VAC.length}</b>` : ""}</a>`;
+        return `<a href="#${p}"${cur ? ' aria-current="page"' : ""}>${t}</a>`;
       }).join("")}</nav>
       <div class="side-cta glass"><b>Остались вопросы?</b><span>Пн–пт, 08:00–21:00</span><a href="tel:+74952252373">+7 (495) 225-23-73</a><button class="btn btn-ghost btn-sm" type="button" data-open="callback">Заказать звонок</button></div>
     </aside>`;
@@ -2069,23 +2024,33 @@ document.addEventListener("DOMContentLoaded", () => {
     "/company/": { tpl: "company", title: "О компании", section: "company", side: true, crumbs: [["Компания", null]] },
     "/company/staff/": { tpl: "staff", title: "Сотрудники", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
     "/company/staff/roman-kovbasyuk/": { tpl: "kovbasyuk", title: "Роман Ковбасюк", section: "company", side: true, crumbs: [["Компания", "/company/"], ["Сотрудники", "/company/staff/"]] },
-    "/company/vacancy/": { tpl: "vacancy", title: "Вакансии", section: "company", side: true, crumbs: [["Компания", "/company/"]], lead: "Мы рады видеть в команде инициативных и вовлечённых сотрудников, готовых решать сложные задачи и реализовывать масштабные проекты." },
     "/company/requisites/": { tpl: "requisites", title: "Реквизиты", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
     "/company/docs/": { tpl: "docs", title: "Документы", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
-    "/projects/": { tpl: "projects", title: "Продукты и услуги", section: "projects", lead: "Собственные программы для ЭВМ. Правообладатель исключительных прав на все программы — ООО «Инновации и цифровое развитие»." },
-    "/projects/digital-depo/": { tpl: "depo", title: "«Цифровой депозитарий»", eyebrow: "Программа для ЭВМ", section: "projects", crumbs: [["Продукты и услуги", "/projects/"]] },
-    "/projects/digital-investor/": { tpl: "investor", title: "«Цифровой инвестор»", eyebrow: "Программа для ЭВМ", section: "projects", crumbs: [["Продукты и услуги", "/projects/"]] },
-    "/projects/digital-check/": { tpl: "check", title: "«Цифровая проверка»", eyebrow: "Программа для ЭВМ", section: "projects", crumbs: [["Продукты и услуги", "/projects/"]] },
-    "/services/": { tpl: "services", title: "Услуги", eyebrow: "Автоматизация", section: "projects", lead: "Разрабатываем и поддерживаем информационные системы для инфраструктурных организаций финансового рынка." },
+    "/projects/": { tpl: "projects", title: "Продукты", section: "projects", lead: "Собственные программы для ЭВМ. Правообладатель исключительных прав на все программы — ООО «Инновации и цифровое развитие».",
+      desc: "Программы для ЭВМ ООО «Инновации и цифровое развитие»: «Цифровой депозитарий», «Цифровой документооборот НФО», «Цифровой инвестор», «Цифровая проверка»." },
     "/news/": { tpl: "news", title: "Новости", section: "news" },
-    "/contacts/": { tpl: "contacts", title: "Контакты", section: "contacts" },
-    "/info/faq/": { tpl: "faq", title: "Вопросы и ответы", crumbs: [["Информация", null]] }
+    "/career/": { tpl: "career", title: "Карьера", section: "career",
+      desc: "Работа в ООО «Инновации и цифровое развитие»: условия, этапы отбора, ответы на вопросы и отправка резюме." },
+    "/career/vacancy/": { tpl: "vacancy", title: "Вакансии", section: "career", crumbs: [["Карьера", "/career/"]], lead: "Мы рады видеть в команде инициативных и вовлечённых сотрудников, готовых решать сложные задачи и реализовывать масштабные проекты." },
+    "/contacts/": { tpl: "contacts", title: "Контакты", section: "contacts" }
   };
+  // pages that moved keep working under their old addresses
+  const MOVED = { "/company/vacancy/": "/career/vacancy/", "/info/faq/": "/career/", "/services/": "/projects/" };
   const tpl = id => document.getElementById("tpl-" + id).innerHTML;
   function resolve(p) {
+    if (MOVED[p]) { history.replaceState(null, "", "#" + MOVED[p] + location.hash.replace(/^[^?]*/, "")); p = MOVED[p]; }
     if (ROUTES[p]) return { ...ROUTES[p], path: p };
     const m = p.match(/^\/news\/([^/]+)\/$/), n = m && NEWS.find(x => x.id === m[1]);
     if (n) return { path: p, title: n.title, long: true, eyebrow: fmtDate(n.date), section: "news", crumbs: [["Новости", "/news/"]], crumbTitle: "Новость", render: () => newsArticle(n) };
+    // /projects/<product>/ and /projects/<product>/<module>/
+    const pm = p.match(/^\/projects\/([\w-]+)\/(?:([\w-]+)\/)?$/);
+    if (pm && PC[pm[1]] && !PC[pm[1]].parent) {
+      const pid = pm[1], sub = pm[2], base = { section: "projects", long: true, render: () => productPage(sub || pid) };
+      if (!sub) return { ...base, path: p, title: PC[pid].h1, eyebrow: "Программа для ЭВМ", crumbs: [["Продукты", "/projects/"]], crumbTitle: shortTitle(pid),
+        seoTitle: `${shortTitle(pid)} — программа для ЭВМ`, desc: PC[pid].description };
+      if (PC[sub] && PC[sub].parent === pid) return { ...base, path: p, title: PC[sub].h1, eyebrow: `${/^Адаптер/.test(shortTitle(sub)) ? "Адаптер" : "Модуль"} · ${shortTitle(pid)}`,
+        crumbs: [["Продукты", "/projects/"], [shortTitle(pid), `/projects/${pid}/`]], crumbTitle: shortTitle(sub), seoTitle: `${shortTitle(sub)} — ${shortTitle(pid)}`, desc: PC[sub].description };
+    }
     return { path: p, tpl: "404", title: "Страница не найдена" };
   }
   function shell(r, content) {
@@ -2112,9 +2077,12 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollTop();
       mount(view, loc);
       setActive(r);
-      document.title = r.tpl === "home" ? SITE : `${r.title.replace(/<[^>]+>/g, "")} — ${SITE}`;
+      document.title = r.tpl === "home" ? SITE : `${(r.seoTitle || r.title).replace(/<[^>]+>/g, "")} — ${SITE}`;
+      metaDesc.setAttribute("content", r.desc || r.lead || DEFAULT_DESC);
       if (!first) { const h1 = $("h1", view); h1 && h1.focus({ preventScroll: true }); }
       if (pending) { const f = pending; pending = null; setTimeout(f, 80); }
+      // ?to=<id> lands on a section of the page (e.g. the FAQ inside «Карьера»)
+      else if (loc.q.get("to")) { const id = loc.q.get("to"); setTimeout(() => scrollToEl($("#" + CSS.escape(id), view)), 350); }
     };
     if (first || !motionOK() || !document.startViewTransition) swap();
     else {
@@ -2141,7 +2109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $$("[data-news-latest]", el).forEach(h => h.innerHTML = NEWS.slice(0, 4).map((n, i) => newsCard(n, i === 0, i)).join(""));
     $$("[data-news-all]", el).forEach(h => mountNewsList(h, loc.q.get("year") || "all"));
     $$("[data-products]", el).forEach(h => h.innerHTML = productCards(h.dataset.products));
-    $$("[data-services]", el).forEach(h => { const st = h.dataset.services === "stack"; h.innerHTML = SERVICES.map((s, i) => svcCard(s, i, st)).join(""); });
+    $$("[data-vac-select]", el).forEach(s => s.innerHTML = VAC_OPTIONS);
     $$("[data-faq]", el).forEach(h => h.innerHTML = faqHTML());
     $$("[data-vacancies]", el).forEach(h => mountVacancies(h, loc.q.get("open")));
     $$("[data-matrix]", el).forEach(fillMatrix);
@@ -2209,13 +2177,15 @@ document.addEventListener("DOMContentLoaded", () => {
   function ledger(list) {
     const ops = [
       ["Депозитарий", "Контроль ПИФ", "Проверка по инвестиционной декларации"],
-      ["Депозитарий", "Подписание документа", "КЭП по ГОСТ 34.10-2018"],
-      ["Проверка", "Проверка клиента", "Перечни РФМ, МВК, РОМУ ООН"],
-      ["Депозитарий", "Отчётность XBRL", "Защищённая передача в Банк России"],
+      ["Документооборот", "Подписание документов", "Модуль Фотон · ЭДО"],
+      ["Проверка", "Проверка клиента", "18 проверок на постоянной основе"],
+      ["Документооборот", "Отчётность XBRL и XTDD", "Отправка в Банк России с шифрованием"],
       ["Инвестор", "Электронное голосование", "Подписание бюллетеня ПЭП"],
       ["Депозитарий", "Обмен с НРД", "Интеграция с ПО НРД"],
+      ["Документооборот", "Распознавание документа", "Модуль ИИ · OCR"],
       ["Депозитарий", "Загрузка данных", "Внешний источник · контроль целостности"],
-      ["Проверка", "Мониторинг клиента", "Изменения данных и связанных лиц"],
+      ["Проверка", "Проверка связанных лиц", "Изменение структуры собственности"],
+      ["Депозитарий", "Выплата дохода", "Модуль корпоративных действий"],
       ["Депозитарий", "Обмен с регистратором", "Валидация регистрационных записей"],
       ["Инвестор", "Вход пайщика", "Через ЕСИА"]
     ];
@@ -2266,7 +2236,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* vacancies */
   const vacSelect = $("#r-vac");
-  vacSelect.innerHTML = VAC.map(v => `<option value="${v.id}">${esc(v.title)}</option>`).join("") + '<option value="other">Нет подходящей — отправлю резюме на будущее</option>';
+  vacSelect.innerHTML = VAC_OPTIONS;
   function mountVacancies(host, openId) {
     host.innerHTML = `<div class="vac-head" style="margin:10px 0 18px"><h2 class="group-title" data-reveal>Ищем сотрудников</h2>
       <div class="filters" role="group" aria-label="Фильтр по формату работы">${[["all", "Все", VAC.length], ...Object.keys(FMT).map(k => [k, FMT[k], VAC.filter(v => v.fmt.includes(k)).length])]
@@ -2313,7 +2283,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     const top = t.closest(".vac-top"); if (top) { const v = top.closest(".vac"); toggleVac(v, !v.classList.contains("open")); return; }
-    const vl = t.closest("[data-vac-link]"); if (vl) { copy(location.href.split("#")[0] + "#/company/vacancy/?open=" + vl.dataset.vacLink, "Ссылка на вакансию скопирована"); return; }
+    const vl = t.closest("[data-vac-link]"); if (vl) { copy(location.href.split("#")[0] + "#/career/vacancy/?open=" + vl.dataset.vacLink, "Ссылка на вакансию скопирована"); return; }
     const vf = t.closest("[data-fmt]");
     if (vf && vf.classList.contains("filter")) {
       const wrap = vf.closest("[data-vacancies]");
@@ -2333,8 +2303,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const ex = t.closest("[data-expand]");
     if (ex) {
       const wrap = $(".fade-bottom", ex.closest(".expand")), col = $(".collapsible", wrap), on = !wrap.classList.contains("open");
-      wrap.classList.toggle("open", on); col.style.gridTemplateRows = on ? "1fr" : "minmax(150px,0fr)";
-      ex.firstChild.textContent = on ? "Свернуть " : "Показать все "; $("svg", ex).style.transform = on ? "rotate(180deg)" : "";
+      wrap.classList.toggle("open", on); col.style.gridTemplateRows = on ? "1fr" : `minmax(${col.dataset.min || "150px"},0fr)`;
+      ex.dataset.label = ex.dataset.label || ex.firstChild.textContent;
+      ex.firstChild.textContent = on ? "Свернуть " : ex.dataset.label; $("svg", ex).style.transform = on ? "rotate(180deg)" : "";
       return;
     }
     const sum = t.closest(".qa summary");
@@ -2518,35 +2489,35 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildSearch() {
     const docs = [];
     const add = d => docs.push({ boost: 1, date: null, path: "", keys: "", target: null, ...d });
-    const prodGroup = { "digital-depo": "«Цифровой депозитарий»", "digital-investor": "«Цифровой инвестор»", "digital-check": "«Цифровая проверка»" };
-    const prodTpl = { "digital-depo": "depo", "digital-investor": "investor", "digital-check": "check" };
     // news — the whole article is the block
     NEWS.forEach(n => add({ g: "Новости", icon: SI.news, t: n.title, path: `Новости${n.tag ? " · " + n.tag : ""}`, date: n.date,
       text: n.body.flat().join(" "), keys: `новость новости ${fmtDate(n.date)}`, route: `/news/${n.id}/`, target: { sel: ".article-body" } }));
-    // products: the summary card, then every block of the product page
+    // products and modules: the summary, then every H2 section of each page
+    const blockText = blocks => blocks.map(b => b.t === "ul" ? b.items.map(function it(i) { return unhtml(i.h) + " " + (i.sub || []).map(it).join(" "); }).join(". ")
+      : b.t === "table" ? [b.head, ...b.rows].map(r => r.join(" ")).join(". ") : unhtml(b.h)).join(" ");
     PRODUCTS.forEach(p => {
-      const g = prodGroup[p.id], route = `/projects/${p.id}/`, tp = prodTpl[p.id];
-      add({ g, icon: p.icon, t: p.title, path: `Программа для ЭВМ · ${p.price}`, text: p.text, keys: "продукт программа", route, boost: 1.25 });
-      fromTpl(tp, ".p-copy>p").forEach((el, n) => add({ g, icon: p.icon, t: n ? "О продукте" : p.title + " — что это", path: `${p.title} · обзор`, text: txt(el), route, target: { sel: ".p-copy>p", n } }));
-      fromTpl(tp, ".metric").forEach((el, n) => { const what = txt($(":scope>span", el));
-        add({ g, icon: p.icon, t: `${what[0].toUpperCase()}${what.slice(1)} — ${txt($("b", el))}`, path: `${p.title} · ключевые показатели`, text: "", route, target: { sel: ".metric", n } }); });
-      fromTpl(tp, ".mod").forEach((el, n) => add({ g, icon: ICONS.stack, t: txt($("b", el)), path: `${p.title} · ${txt($(".t", el))}`, text: txt($(":scope>span:last-child", el)), route, target: { sel: ".mod", n } }));
-      fromTpl(tp, ".cap").forEach((el, n) => add({ g, icon: ICONS.check, t: txt($("h3", el)), path: `${p.title} · функциональные возможности`, text: $$("li", el).map(txt).join(". "), route, target: { sel: ".cap", n } }));
-      fromTpl(tp, ".stack-chips").forEach(el => add({ g, icon: ICONS.stack, t: "Технологии", path: `${p.title} · стек`, text: $$("span", el).map(txt).join(", "), route, target: { sel: ".stack-chips" } }));
+      const g = p.title, pages = [[p.id, `/projects/${p.id}/`, null], ...(MODS[p.id] || []).map(m => [m[0], `/projects/${p.id}/${m[0]}/`, m[1]])];
+      add({ g, icon: p.icon, t: p.title, path: "Программа для ЭВМ", text: p.text, keys: "продукт программа", route: `/projects/${p.id}/`, boost: 1.25 });
+      pages.forEach(([id, route, short]) => {
+        if (short) add({ g, icon: ICONS.stack, t: short, path: `${p.title} · ${/^Адаптер/.test(short) ? "адаптер" : "модуль"}`, text: PC[id].description, keys: "модуль", route, boost: 1.15 });
+        PC[id].sections.forEach((s, n) => add({ g, icon: short ? ICONS.stack : p.icon, t: short ? `${short}: ${s.h2.toLowerCase()}` : s.h2,
+          path: short ? `${p.title} · ${short}` : `${p.title} · раздел`, text: blockText(s.blocks), route, target: { sel: ".pd-sec", n } }));
+      });
     });
-    SERVICES.forEach((s, n) => add({ g: "Услуги", icon: s.icon, t: s.full, path: `Услуги · ${s.tag}`, text: `В продукте: ${s.note}.`, keys: s.short + " услуга услуги", route: "/services/", target: { sel: ".svc", n } }));
     VAC.forEach(v => add({ g: "Вакансии", icon: SI.job, t: v.title, path: `Вакансии · ${v.exp.replace("Опыт работы: ", "опыт ")} · ${v.fmt.map(f => FMT[f]).join(", ")}`,
-      text: [v.intro, v.team || "", ...v.cols.map(([h, it]) => `${h}: ${it.join("; ")}`), v.stack ? "Стек: " + v.stack : ""].join(" "), keys: v.emp + " вакансия вакансии", route: `/company/vacancy/?open=${v.id}`, target: { sel: "#vac-" + v.id } }));
-    fromTpl("vacancy", ".vac-intro p").forEach(el => add({ g: "Вакансии", icon: SI.job, t: "Как мы нанимаем", path: "Вакансии", text: txt(el), route: "/company/vacancy/", target: { sel: ".vac-intro" } }));
-    FAQ.forEach(([q, a], n) => add({ g: "Вопросы и ответы", icon: SI.faq, t: q, path: "Вопросы и ответы", text: a, keys: "вопрос ответ", route: "/info/faq/", target: { sel: ".qa details", n } }));
+      text: [v.intro, v.team || "", ...v.cols.map(([h, it]) => `${h}: ${it.join("; ")}`), v.stack ? "Стек: " + v.stack : ""].join(" "), keys: v.emp + " вакансия вакансии", route: `/career/vacancy/?open=${v.id}`, target: { sel: "#vac-" + v.id } }));
+    fromTpl("vacancy", ".vac-intro p").forEach(el => add({ g: "Вакансии", icon: SI.job, t: "Как мы нанимаем", path: "Карьера · вакансии", text: txt(el), route: "/career/vacancy/", target: { sel: ".vac-intro" } }));
+    // career
+    fromTpl("career", ".perk").forEach((el, n) => add({ g: "Карьера", icon: ICONS.community, t: txt($("h3", el)), path: "Карьера · работа у нас — это", text: txt($("p", el)), keys: "условия работа карьера", route: "/career/", target: { sel: ".perk", n } }));
+    fromTpl("career", ".principles li").forEach((el, n) => add({ g: "Карьера", icon: ICONS.community, t: txt($("b", el)), path: "Карьера · присоединяйся к нам", text: txt($("span", el)), keys: "найм отбор собеседование кандидат", route: "/career/", target: { sel: ".principles li", n } }));
+    add({ g: "Карьера", icon: SI.job, t: "Отправить резюме", path: "Карьера · форма", text: "Выберите вакансию или отправьте резюме на будущее.", keys: "резюме cv отклик", route: "/career/", target: { sel: ".resume-panel" } });
+    FAQ.forEach(([q, a], n) => add({ g: "Вопросы и ответы", icon: SI.faq, t: q, path: "Карьера · вопросы и ответы", text: a, keys: "вопрос ответ", route: "/career/", target: { sel: ".qa details", n } }));
     // company
     fromTpl("company", ".statement").forEach(el => add({ g: "О компании", icon: ICONS.flask, t: "О компании", path: "Компания", text: txt(el), route: "/company/", target: { sel: ".statement" } }));
     fromTpl("company", ".note p").forEach(el => add({ g: "О компании", icon: ICONS.flask, t: "Резидент «Сколково»", path: "Компания", text: txt(el), route: "/company/", target: { sel: ".note" } }));
     fromTpl("company", ".fact").forEach((el, n) => add({ g: "О компании", icon: ICONS.shield, t: `${txt($("dt", el))}: ${txt($("dd", el).firstChild)}`, path: "Компания · сведения", text: txt($("dd", el)), route: "/company/", target: { sel: ".fact", n } }));
     fromTpl("kovbasyuk", ".leader").forEach(el => add({ g: "О компании", icon: ICONS.investor, t: "Роман Ковбасюк — генеральный директор", path: "Компания · сотрудники", text: txt($("blockquote", el)), route: "/company/staff/roman-kovbasyuk/", target: { sel: ".leader" } }));
-    // working at the company (home page)
-    fromTpl("home", ".perk").forEach((el, n) => add({ g: "Работа в ИЦР", icon: ICONS.community, t: txt($("h3", el)), path: "Главная · как мы работаем", text: txt($("p", el)), keys: "условия работа", route: "/", target: { sel: ".perk", n } }));
-    fromTpl("home", ".principles li").forEach((el, n) => add({ g: "Работа в ИЦР", icon: ICONS.community, t: txt($("b", el)), path: "Главная · как стать частью команды", text: txt($("span", el)), keys: "найм собеседование кандидат", route: "/", target: { sel: ".principles li", n } }));
+    fromTpl("home", ".team .perk").forEach((el, n) => add({ g: "О компании", icon: ICONS.community, t: txt($("h3", el)), path: "Главная · наша команда — ваш главный актив", text: txt(el).replace(txt($("h3", el)), ""), keys: "команда сотрудники специалисты", route: "/", target: { sel: ".team .perk", n } }));
     // documents and requisites carry a second action right in the result
     fromTpl("docs", ".doc").forEach((el, n) => {
       const href = el.getAttribute("href"), name = txt($("b", el)), y = (name.match(/20\d\d/) || [])[0];
@@ -2564,7 +2535,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // actions
     [["Позвонить", "+7 (495) 225-23-73 · Пн–пт, 08:00–21:00", "телефон позвонить звонок", () => location.href = "tel:+74952252373"],
      ["Заказать обратный звонок", "Перезвоним в рабочее время", "звонок перезвонить обратный", () => openDialog($("#callback"))],
-     ["Подать заявку", "Продукты, разработка, вопросы", "заявка демонстрация связаться", () => openDialog($("#order"))],
+     ["Задать вопрос", "Ответим по почте или перезвоним", "вопрос связаться написать", () => openDialog($("#order"))],
      ["Скопировать почту", "info@i-digitaldev.ru", "почта email e-mail написать", () => copy("info@i-digitaldev.ru", "Почта скопирована")]]
       .forEach(([t, s, k, run]) => add({ g: "Действия", icon: SI.pin, t, path: s, text: "", keys: k, run }));
 
@@ -2970,6 +2941,6 @@ document.addEventListener("DOMContentLoaded", () => {
 .review-pill button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;width:26px;height:26px;cursor:pointer;flex-shrink:0}
 @media (max-width:600px){.review-pill{left:12px;bottom:12px;font-size:12px}}
 </style>
-<div class="review-pill" role="note"><i></i><span>Макет редизайна от 09.10.2026 · формы не отправляют данные</span><button type="button" aria-label="Скрыть" onclick="this.parentElement.remove()">✕</button></div>
+<div class="review-pill" role="note"><i></i><span>Макет редизайна от 28.10.2026 · формы не отправляют данные</span><button type="button" aria-label="Скрыть" onclick="this.parentElement.remove()">✕</button></div>
 </body>
 </html>
