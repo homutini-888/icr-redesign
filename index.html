@@ -375,9 +375,8 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 /* product pages show their own visual in place of the stack, feathered into the page */
 .page-visual{position:absolute;right:var(--gutter);top:-70px;bottom:calc(-1 * clamp(40px,5vw,64px));width:min(44%,540px);z-index:-1;pointer-events:none;
   display:flex;justify-content:center}
-/* the render keeps its 3:2 (nothing cut off the top) and fades to nothing on every edge, so its studio backdrop leaves no box */
-.page-visual img{height:100%;width:auto;max-width:100%;aspect-ratio:3/2;object-fit:cover;
-  -webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent)}
+/* the renders have their studio backdrop removed (transparent webp), so the object stands on the page itself */
+.page-visual img{width:100%;height:100%;object-fit:contain}
 /* home: the team text beside its visual */
 .team-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:clamp(36px,5vw,56px)}
 .team-intro .sec-head{margin-bottom:0}
@@ -512,10 +511,9 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .bento.two{grid-template-columns:1fr 1fr}
 .prod{--pad:clamp(24px,3vw,36px);padding:var(--pad);display:flex;flex-direction:column;gap:14px;overflow:hidden;border-radius:var(--r-lg);transition:transform .45s var(--ease)}
-/* product cover: full-bleed at the top of the card, dissolving into the glass below.
+/* product cover: the render (backdrop removed, transparent) stands straight on the card's glass.
    The frame keeps the renders' own 3:2, so nothing is cut; the hover zoom grows from the top edge */
-.prod-img{position:relative;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 2px;aspect-ratio:3/2;overflow:hidden;
-  -webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.prod-img{position:relative;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 2px;aspect-ratio:3/2;overflow:hidden}
 .prod-img img{width:100%;height:100%;object-fit:cover;transform-origin:50% 0;transition:transform 1s var(--ease)}
 .prod:hover .prod-img img{transform:scale(1.045)}
 .prod-img .chip{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
