@@ -960,7 +960,7 @@ html.vt-page::view-transition-new(root){animation:vt-new .8s cubic-bezier(.77,0,
 [data-depth]{will-change:transform,opacity;transform-origin:50% 0}
 
 /* chapter rail: appears once you leave the first screen */
-.rail{position:fixed;right:22px;top:50%;z-index:45;transform:translate(12px,-50%);display:grid;gap:10px;opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.rail{position:fixed;right:22px;top:50%;z-index:45;transform:translate(12px,-50%);display:grid;justify-items:end;gap:10px;opacity:0;pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .rail.show{opacity:1;transform:translate(0,-50%);pointer-events:auto}
 .rail button{display:flex;align-items:center;justify-content:flex-end;gap:10px;background:none;border:0;padding:5px 0;cursor:pointer;color:var(--muted)}
 .rail span{font:500 10.5px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s var(--ease);white-space:nowrap}
