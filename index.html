@@ -374,8 +374,10 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .page-stack .iso{--gap:64px;left:50%;top:50%}
 /* product pages show their own visual in place of the stack, feathered into the page */
 .page-visual{position:absolute;right:var(--gutter);top:-70px;bottom:calc(-1 * clamp(40px,5vw,64px));width:min(44%,540px);z-index:-1;pointer-events:none;
-  -webkit-mask-image:radial-gradient(ellipse 66% 64% at 50% 52%,#000 52%,transparent 100%);mask-image:radial-gradient(ellipse 66% 64% at 50% 52%,#000 52%,transparent 100%)}
-.page-visual img{width:100%;height:100%;object-fit:cover}
+  display:flex;justify-content:center}
+/* the render keeps its 3:2 (nothing cut off the top) and fades to nothing on every edge, so its studio backdrop leaves no box */
+.page-visual img{height:100%;width:auto;max-width:100%;aspect-ratio:3/2;object-fit:cover;
+  -webkit-mask-image:radial-gradient(closest-side,#000 70%,transparent);mask-image:radial-gradient(closest-side,#000 70%,transparent)}
 /* home: the team text beside its visual */
 .team-intro{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,56px);align-items:center;margin-bottom:clamp(36px,5vw,56px)}
 .team-intro .sec-head{margin-bottom:0}
@@ -510,10 +512,11 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .bento{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
 .bento.two{grid-template-columns:1fr 1fr}
 .prod{--pad:clamp(24px,3vw,36px);padding:var(--pad);display:flex;flex-direction:column;gap:14px;overflow:hidden;border-radius:var(--r-lg);transition:transform .45s var(--ease)}
-/* product cover: full-bleed at the top of the card, dissolving into the glass below */
-.prod-img{position:relative;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 2px;aspect-ratio:16/8;overflow:hidden;
-  -webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
-.prod-img img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease)}
+/* product cover: full-bleed at the top of the card, dissolving into the glass below.
+   The frame keeps the renders' own 3:2, so nothing is cut; the hover zoom grows from the top edge */
+.prod-img{position:relative;margin:calc(-1 * var(--pad)) calc(-1 * var(--pad)) 2px;aspect-ratio:3/2;overflow:hidden;
+  -webkit-mask-image:linear-gradient(#000 80%,transparent);mask-image:linear-gradient(#000 80%,transparent)}
+.prod-img img{width:100%;height:100%;object-fit:cover;transform-origin:50% 0;transition:transform 1s var(--ease)}
 .prod:hover .prod-img img{transform:scale(1.045)}
 .prod-img .chip{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .prod:hover{transform:translateY(-4px)}
@@ -795,6 +798,7 @@ a.mod-card:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--bev
 /* the frame is visible from the start: it stays transparent until the widget paints, so the placeholder shows
    through meanwhile. (Waiting for its load event hid the map whenever one of Yandex's own requests hung or was blocked) */
 .map iframe{position:absolute;inset:0;z-index:1;width:100%;height:100%;border:0;filter:saturate(.75) contrast(1.02)}
+.map iframe.osm{filter:grayscale(.55) contrast(.96) brightness(1.03)}
 /* seen until the map widget paints: a quiet street grid with the office pin */
 .map-fallback{position:absolute;inset:0;background:
   radial-gradient(circle at 58% 46%,rgba(4,153,221,.18) 0 60px,transparent 61px),
@@ -1549,8 +1553,8 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     </ul>
     <a class="link-arrow" style="margin-top:14px" href="https://yandex.ru/maps/?rtext=~55.720895%2C37.61397" target="_blank" rel="noopener">Построить маршрут <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
-  <div class="map" data-reveal style="--d:1">
-    <div class="map-fallback" aria-hidden="true"><span class="map-note">Загружаем Яндекс Карты…</span></div>
+  <div class="map" data-map data-reveal style="--d:1">
+    <div class="map-fallback" aria-hidden="true"><span class="map-note">Загружаем карту…</span></div>
     <iframe src="https://yandex.ru/map-widget/v1/?ll=37.61397%2C55.720895&amp;z=16&amp;pt=37.61397%2C55.720895%2Cpm2blm" title="Офис на Яндекс Картах" allowfullscreen></iframe>
   </div>
 </div>
@@ -2127,6 +2131,7 @@ document.addEventListener("DOMContentLoaded", () => {
     $$("[data-news-all]", el).forEach(h => mountNewsList(h, loc.q.get("year") || "all"));
     $$("[data-products]", el).forEach(h => h.innerHTML = productCards(h.dataset.products));
     $$("[data-vac-select]", el).forEach(s => s.innerHTML = VAC_OPTIONS);
+    $$("[data-map]", el).forEach(h => cleanups.push(mapFallback(h)));
     $$("[data-faq]", el).forEach(h => h.innerHTML = faqHTML());
     $$("[data-vacancies]", el).forEach(h => mountVacancies(h, loc.q.get("open")));
     $$("[data-matrix]", el).forEach(fillMatrix);
@@ -2227,6 +2232,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const obs = new IntersectionObserver(([e]) => e.isIntersecting ? start() : stop()); obs.observe(list);
     const vis = () => document.hidden ? stop() : start(); document.addEventListener("visibilitychange", vis);
     return () => { stop(); obs.disconnect(); document.removeEventListener("visibilitychange", vis); };
+  }
+
+  /* office map: Yandex first; where yandex.ru doesn't answer (VPN, foreign or corporate networks)
+     the frame switches to OpenStreetMap instead of hanging on the placeholder */
+  const OSM_MAP = "https://www.openstreetmap.org/export/embed.html?bbox=37.6075%2C55.7177%2C37.6205%2C55.7241&layer=mapnik&marker=55.720895%2C37.61397";
+  function mapFallback(host) {
+    const frame = $("iframe", host), ctl = new AbortController();
+    let gone = false;
+    const toOSM = () => { if (gone) return;
+      frame.classList.add("osm"); frame.title = "Офис на карте OpenStreetMap"; frame.src = OSM_MAP; };
+    const timer = setTimeout(() => ctl.abort(), 5000);
+    fetch("https://yandex.ru/favicon.ico", { mode: "no-cors", cache: "no-store", signal: ctl.signal })
+      .then(() => clearTimeout(timer), () => { clearTimeout(timer); toOSM(); });
+    return () => { gone = true; clearTimeout(timer); ctl.abort(); };
   }
 
   /* news list with year filter */
