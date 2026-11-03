@@ -43,9 +43,10 @@
   --hair:rgba(14,26,43,.10);
   /* glass edge = slab thickness: hairline speculars that taper around the corners (top-left key, bottom-right fill)
      plus a cool refraction shade just inside them. No uniform white ring — that reads as a white plate underneath */
-  --bevel:inset 0 0 0 1px rgba(255,255,255,.16),inset 1.8px 3px 0 -2px rgba(255,255,255,.95),inset -2px -2px 0 -2px rgba(255,255,255,.75),
-    inset -3px -8px 1px -6px rgba(255,255,255,.55),inset -.3px -1px 4px 0 rgba(16,42,78,.10),inset -1.5px 2.5px 0 -2px rgba(16,42,78,.18),
-    inset 0 3px 4px -2px rgba(16,42,78,.10),inset 2px -6.5px 1px -4px rgba(16,42,78,.08);
+  /* liquid glass edge, iOS 27 style: a hairline rim, a fine specular that tapers off at the corners (top-left),
+     a fainter reflection opposite, and a crisp dark outline that separates the glass from what is behind it */
+  --bevel:inset 0 0 0 .5px rgba(255,255,255,.6),inset .6px 1px 0 -.3px rgba(255,255,255,.95),inset -.6px -1px 0 -.3px rgba(255,255,255,.5),
+    inset 0 -1px 1.5px -1px rgba(16,42,78,.10),0 0 0 .5px rgba(16,42,78,.12);
   /* the same slab on dark fills: white speculars would glow as a halo there */
   --bevel-dark:inset 0 1px 0 rgba(255,255,255,.16),inset 0 -1px 0 rgba(0,0,0,.25);
   --shadow:var(--bevel),0 1px 4px 0 rgba(16,42,78,.08),0 24px 50px -28px rgba(14,26,43,.30);
@@ -140,7 +141,7 @@ section{position:relative}
 .btn-ghost:hover{background:#fff}
 .btn-sm{--h:40px;padding:0 16px;font-size:14.5px}
 [data-magnetic]{transition:transform .5s var(--ease),background .25s,box-shadow .35s var(--ease)}
-.icon-btn{width:44px;height:44px;border-radius:50%;border:0;box-shadow:var(--bevel),0 4px 10px -6px rgba(14,26,43,.25);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .2s}
+.icon-btn{width:44px;height:44px;border-radius:50%;border:0;box-shadow:var(--bevel),0 2px 6px -3px rgba(14,26,43,.16);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:background .2s}
 .icon-btn:hover{background:#fff}
 .icon-btn svg{width:20px;height:20px;color:var(--ink)}
 .icon-btn[aria-pressed="true"]{background:var(--ink);box-shadow:var(--bevel-dark),0 6px 14px -6px rgba(14,26,43,.55)}
@@ -232,7 +233,7 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .sub a[aria-current]{background:rgba(4,153,221,.1)}
 .sub hr{border:0;border-top:1px solid var(--hair);margin:6px 8px}
 .sub .btn{margin:4px 6px}
-.search-btn{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px 0 15px;border-radius:999px;border:0;box-shadow:var(--bevel),0 4px 10px -6px rgba(14,26,43,.25);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));cursor:pointer;color:var(--muted);font-size:14.5px;transition:background .2s;flex-shrink:0}
+.search-btn{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px 0 15px;border-radius:999px;border:0;box-shadow:var(--bevel),0 2px 6px -3px rgba(14,26,43,.16);background:linear-gradient(155deg,#fff,rgba(255,255,255,.62));cursor:pointer;color:var(--muted);font-size:14.5px;transition:background .2s;flex-shrink:0}
 .search-btn:hover{background:#fff}
 .search-btn svg{width:18px;height:18px;color:var(--ink)}
 /* CTA sits inside the pill with the same 9px inset on every side */
