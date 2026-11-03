@@ -4,8 +4,12 @@
 <meta name="robots" content="noindex, nofollow">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Инновации и цифровое развитие</title>
-<meta name="description" content="ИТ-компания, объединяющая специалистов с уникальным опытом разработки и поддержки информационных систем учёта, документооборота и взаимодействия с поставщиками данных на финансовом рынке.">
+<title>ИЦР — ИТ-решения для спецдепозитариев и участников финансового рынка</title>
+<meta name="description" content="Учёт, контроль, электронный документооборот и отчётность по требованиям Банка России. Четыре собственные программы для ЭВМ, резидент «Сколково».">
+<meta property="og:site_name" content="Инновации и цифровое развитие">
+<meta property="og:title" content="ИЦР — ИТ-решения для спецдепозитариев и участников финансового рынка">
+<meta property="og:description" content="Учёт, контроль, электронный документооборот и отчётность по требованиям Банка России. Четыре собственные программы для ЭВМ, резидент «Сколково».">
+<meta property="og:locale" content="ru_RU">
 <link rel="icon" href="assets/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,14 +82,13 @@ kbd{white-space:nowrap;font:500 11.5px/1 var(--f-mono);padding:4px 6px;border-ra
 
 /* ---------- atmosphere ---------- */
 .ambient{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
-.ambient::before,.ambient::after{content:"";position:absolute;border-radius:50%;filter:blur(90px);opacity:.6}
-.ambient::before{width:62vw;height:62vw;left:-18vw;top:-22vw;background:radial-gradient(circle,#BCE3F6 0%,transparent 65%)}
-.ambient::after{width:55vw;height:55vw;right:-20vw;top:30vh;background:radial-gradient(circle,#CDD0F1 0%,transparent 65%)}
+/* soft colour fields: the gradients fade out on their own — a blur filter on screen-sized layers cost every scrolled frame */
+.ambient::before,.ambient::after{content:"";position:absolute;border-radius:50%;opacity:.6}
+.ambient::before{width:62vw;height:62vw;left:-18vw;top:-22vw;background:radial-gradient(circle,#BCE3F6 0%,rgba(188,227,246,.55) 30%,rgba(188,227,246,.18) 52%,transparent 70%)}
+.ambient::after{width:55vw;height:55vw;right:-20vw;top:30vh;background:radial-gradient(circle,#CDD0F1 0%,rgba(205,208,241,.55) 30%,rgba(205,208,241,.18) 52%,transparent 70%)}
 /* engineering dot grid — the strict "digital paper" the whole page sits on */
 .ambient i{position:absolute;inset:0;background-image:radial-gradient(rgba(28,105,180,.22) 1px,transparent 1.6px);background-size:26px 26px;
   mask-image:radial-gradient(ellipse 80% 70% at 70% 10%,#000 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse 80% 70% at 70% 10%,#000 0%,transparent 70%)}
-.grain{position:fixed;inset:0;z-index:250;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
 
 /* ---------- type ---------- */
 h1,h2,h3,h4{font-family:var(--f-display);color:var(--ink);margin:0;font-variation-settings:"SHRP" 100;text-wrap:balance}
@@ -115,8 +118,11 @@ section{position:relative}
 .split.in .wd>span{transform:none}
 
 /* ---------- glass ---------- */
-.glass{position:relative;background:var(--glass-fill);-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+/* cards sit on the calm page background, so they need no backdrop blur (the costliest effect while scrolling);
+   only the layers that float over content — header, menus, dialogs, search, the journal over the stack — blur what is behind them */
+.glass{position:relative;background:var(--glass-fill);
   border:0;border-radius:var(--r-lg);box-shadow:var(--shadow);--mx:50%;--my:50%}
+.nav-bar,.sub,.sheet,.dlg,.pal,.ledger{-webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%)}
 .glass.lit::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
   background:radial-gradient(260px circle at var(--mx) var(--my),rgba(4,153,221,.8),rgba(28,105,180,.55) 35%,rgba(53,58,140,.35) 55%,transparent 75%);
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity .35s var(--ease)}
@@ -292,6 +298,12 @@ html.intro:not(.ready) .hero *,html.intro:not(.ready) .hero *::before{animation-
 .stack3d{position:absolute;left:0;right:0;top:0;bottom:clamp(80px,14svh,140px);perspective:1800px;perspective-origin:50% 35%;pointer-events:none;will-change:transform,opacity}
 .stack3d::after{content:"";position:absolute;left:var(--cx);top:calc(var(--cy) + 22%);width:440px;height:120px;margin-left:-220px;border-radius:50%;background:radial-gradient(closest-side,rgba(28,105,180,.28),transparent);filter:blur(10px);opacity:.7}
 .iso.measure .plate{animation:none}
+.offscreen *{animation-play-state:paused!important}
+/* light mode (set by liteWatch on devices that drop frames): sections stand still, plates stop floating */
+html.lite [data-depth]{transform:none!important;opacity:1!important;will-change:auto}
+html.lite .bigword{display:none}
+html.lite :is(.plate,.trace.flow,.halo){animation:none!important}
+html.lite .beam i{display:none}
 .iso{--rx:57deg;--rz:-42deg;--gap:70px;--s:1;position:absolute;left:var(--cx);top:calc(var(--cy) + var(--oy,0px));width:300px;height:300px;margin:-150px 0 0 -150px;transform-style:preserve-3d;
   transform:scale(var(--s)) rotateX(var(--rx)) rotateZ(var(--rz)) translateZ(calc(var(--gap) * var(--mid,1.5) * -1 + 45px))}
 .plate{position:absolute;inset:0;border-radius:22px;transform-style:preserve-3d;transform:translateZ(calc(var(--i)*var(--gap) + var(--float)));
@@ -672,7 +684,7 @@ a.mod-card:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--bev
 .v-sign .chip{color:var(--ok);border-color:rgba(35,119,90,.3)}
 
 /* ---------- company, staff ---------- */
-.statement{font:500 clamp(1.45rem,2.4vw,2.1rem)/1.32 var(--f-display);color:var(--ink);letter-spacing:-.02em;font-variation-settings:"SHRP" 60}
+.statement{font:400 clamp(1.15rem,1.7vw,1.5rem)/1.45 var(--f-display);color:var(--ink);letter-spacing:-.01em;font-variation-settings:"SHRP" 40}
 .statement .sw{opacity:.16;transition:opacity .35s linear}
 .statement .sw.on{opacity:1}
 .statement em{font-style:normal}
@@ -690,8 +702,9 @@ a.mod-card:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--bev
 .staff-card{padding:12px 12px 22px;border-radius:var(--r-lg);display:grid;gap:14px;transition:transform .45s var(--ease)}
 .staff-card:hover{transform:translateY(-4px)}
 .staff-card .ph{border-radius:20px;overflow:hidden;aspect-ratio:4/4.4}
-.staff-card img,.leader-photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transform:scale(1.04);transition:filter .8s var(--ease),transform 1.2s var(--ease)}
-.staff-card:hover img,.leader:hover .leader-photo img{filter:grayscale(0);transform:scale(1)}
+/* colour portraits (the team is shot in one style); hover: a slow zoom and a touch of light */
+.staff-card img,.leader-photo img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s var(--ease)}
+.staff-card:hover img,.leader:hover .leader-photo img{transform:scale(1.05);filter:brightness(1.04) saturate(1.06)}
 .staff-card .who{padding:0 10px;display:grid;gap:4px}
 .staff-card .who small{font:500 11.5px/1.4 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--indigo)}
 .staff-card .who b{font:600 1.25rem/1.2 var(--f-display);color:var(--ink);font-variation-settings:"SHRP" 100}
@@ -974,7 +987,7 @@ html.vt-page::view-transition-new(root){animation:vt-new .8s cubic-bezier(.77,0,
 /* ---------- a11y mode ---------- */
 html.a11y{font-size:118%}
 html.a11y body{font-size:20px;background:#fff;color:#000}
-html.a11y .ambient,html.a11y .grain,html.a11y .page-stack,html.a11y .hover-frame,html.a11y .loader,html.a11y .bigword,html.a11y .rail{display:none!important}
+html.a11y .ambient,html.a11y .page-stack,html.a11y .hover-frame,html.a11y .loader,html.a11y .bigword,html.a11y .rail{display:none!important}
 html.a11y [data-depth]{transform:none!important;opacity:1!important}
 html.a11y .glass,html.a11y .sub,html.a11y .dlg,html.a11y .pal,html.a11y .svc,html.a11y .metric{background:#fff!important;-webkit-backdrop-filter:none;backdrop-filter:none;border:2px solid #000;box-shadow:none}
 html.a11y .glass.lit::before,html.a11y .glass.lit::after{display:none}
@@ -1089,7 +1102,6 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <body>
 <a class="skip" href="#main" data-skip>Перейти к содержанию</a>
 <div class="ambient" aria-hidden="true"><i></i></div>
-<div class="grain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"><i id="progress"></i></div>
 <div class="hover-frame" aria-hidden="true"></div>
 
@@ -1146,10 +1158,10 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <li class="has-sub">
         <button type="button" aria-expanded="false" aria-controls="sub-products" data-section="projects">Продукты<svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <div class="sub glass" id="sub-products">
-          <a href="#/projects/digital-depo/">«Цифровой депозитарий»<small>Программа для ЭВМ · 7 модулей</small></a>
-          <a href="#/projects/digital-doc/">«Цифровой документооборот НФО»<small>Программа для ЭВМ · 4 модуля</small></a>
-          <a href="#/projects/digital-investor/">«Цифровой инвестор»<small>Программа для ЭВМ</small></a>
-          <a href="#/projects/digital-check/">«Цифровая проверка»<small>Программа для ЭВМ</small></a>
+          <a href="#/projects/digital-depo/">«Цифровой депозитарий»<small>Программное обеспечение · 7 модулей</small></a>
+          <a href="#/projects/digital-doc/">«Цифровой документооборот НФО»<small>Программное обеспечение · 4 модуля</small></a>
+          <a href="#/projects/digital-investor/">«Цифровой инвестор»<small>Программное обеспечение</small></a>
+          <a href="#/projects/digital-check/">«Цифровая проверка»<small>Программное обеспечение</small></a>
           <hr>
           <a href="#/projects/">Все продукты</a>
         </div>
@@ -1169,7 +1181,6 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
         <button type="button" aria-expanded="false" aria-controls="sub-phone" aria-label="Телефон и контакты"><svg class="phone-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg><span class="num">+7 (495) 225-23-73</span><svg aria-hidden="true"><use href="#i-chev"/></svg></button>
         <div class="sub glass right" id="sub-phone">
           <a href="tel:+74952252373">+7 (495) 225-23-73<small>Пн–пт, 08:00–21:00</small></a>
-          <button class="btn btn-primary btn-sm" type="button" data-open="callback">Заказать звонок</button>
           <hr>
           <a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru<small>E-mail</small></a>
           <a href="#/contacts/">115162, г. Москва, ул. Шаболовка, дом 31, строение Б<small>Адрес</small></a>
@@ -1190,7 +1201,6 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     <h4>Ещё</h4>
     <a href="#/news/">Новости</a><a href="#/contacts/">Контакты</a>
     <a href="tel:+74952252373">+7 (495) 225-23-73</a>
-    <button class="btn btn-ghost" type="button" data-open="callback">Заказать звонок</button>
   </nav>
 </header>
 
@@ -1206,7 +1216,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <div class="foot-col"><h4>Компания</h4><ul><li><a href="#/company/">О компании</a></li><li><a href="#/company/staff/">Сотрудники</a></li><li><a href="#/company/requisites/">Реквизиты</a></li><li><a href="#/company/docs/">Документы</a></li><li><a href="#/news/">Новости</a></li></ul></div>
       <div class="foot-col"><h4>Продукты</h4><ul><li><a href="#/projects/digital-depo/">«Цифровой депозитарий»</a></li><li><a href="#/projects/digital-doc/">«Цифровой документооборот НФО»</a></li><li><a href="#/projects/digital-investor/">«Цифровой инвестор»</a></li><li><a href="#/projects/digital-check/">«Цифровая проверка»</a></li></ul></div>
       <div class="foot-col"><h4>Карьера</h4><ul><li><a href="#/career/">Работа у нас</a></li><li><a href="#/career/vacancy/">Вакансии</a></li><li><a href="#/career/?to=faq">Вопросы и ответы</a></li><li><a href="#/contacts/">Контакты</a></li></ul></div>
-      <div class="foot-col"><h4>Контакты</h4><ul><li><a href="tel:+74952252373">+7 (495) 225-23-73</a></li><li><a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru</a></li><li>115162, г. Москва, ул.&nbsp;Шаболовка, дом&nbsp;31, строение&nbsp;Б</li><li><button class="chip-btn" type="button" data-open="callback">Заказать звонок</button></li></ul></div>
+      <div class="foot-col"><h4>Контакты</h4><ul><li><a href="tel:+74952252373">+7 (495) 225-23-73</a></li><li><a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru</a></li><li>115162, г. Москва, ул.&nbsp;Шаболовка, дом&nbsp;31, строение&nbsp;Б</li></ul></div>
     </div>
     <div class="foot-big" aria-hidden="true">Инновации и&nbsp;цифровое развитие</div>
     <div class="foot-bottom">
@@ -1225,7 +1235,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <!-- ===================== dialogs ===================== -->
 <dialog class="modal" id="order" aria-labelledby="or-title">
   <div class="dlg glass" data-formwrap data-lenis-prevent>
-    <form class="form" novalidate>
+    <form class="form" novalidate data-subject="Вопрос с сайта i-digitaldev.ru">
       <div class="dlg-head"><h2 id="or-title">Задать вопрос</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
       <p class="muted" style="font-size:15px">Ответим по почте или перезвоним в рабочее время: пн–пт, 08:00–21:00.</p>
       <div class="field"><label for="o-name">Имя</label><input id="o-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
@@ -1239,23 +1249,9 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
   </div>
 </dialog>
 
-<dialog class="modal" id="callback" aria-labelledby="cb-title">
-  <div class="dlg glass" data-formwrap data-lenis-prevent>
-    <form class="form" novalidate>
-      <div class="dlg-head"><h2 id="cb-title">Заказать звонок</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
-      <p class="muted" style="font-size:15px">Перезвоним в рабочее время: пн–пт, 08:00–21:00.</p>
-      <div class="field"><label for="c-name">Имя</label><input id="c-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
-      <div class="field"><label for="c-phone">Телефон</label><input id="c-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" required><span class="msg">Укажите телефон</span></div>
-      <label class="consent"><input type="checkbox" name="agree" required><span>Согласен с <a href="assets/docs/personal-data-policy-r1.pdf" target="_blank" rel="noopener">политикой обработки персональных данных</a></span></label>
-      <button class="btn btn-primary" type="submit">Заказать звонок</button>
-    </form>
-    <div class="sent" role="status" aria-live="polite"><svg aria-hidden="true"><use href="#i-check"/></svg><h3>Звонок заказан</h3><p>Перезвоним в рабочее время.</p><button class="btn btn-ghost" type="button" data-close style="justify-self:start">Закрыть</button></div>
-  </div>
-</dialog>
-
 <dialog class="modal" id="resume" aria-labelledby="rs-title">
   <div class="dlg glass" data-formwrap data-lenis-prevent>
-    <form class="form" novalidate>
+    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru">
       <div class="dlg-head"><h2 id="rs-title">Отправить резюме</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
       <p class="muted" style="font-size:15px">Проводим одну встречу онлайн и даём обратную связь в течение 2–3 дней.</p>
       <div class="field"><label for="r-vac">Вакансия</label><select id="r-vac" name="vacancy"></select></div>
@@ -1303,7 +1299,6 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <section class="hero" data-chapter="Главная">
   <div class="wrap">
     <div class="hero-copy">
-      <span class="eyebrow">ООО «Инновации и цифровое развитие»</span>
       <h1>
         <span class="w"><span style="--i:0">Комплексные</span></span>
         <span class="w"><span style="--i:1" class="mark">ИТ-решения<span class="bits" aria-hidden="true" data-bits></span></span></span>
@@ -1336,7 +1331,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <section class="sec" data-chapter="Продукты"><div class="bigword" aria-hidden="true" data-bigword>Продукты</div>
   <div class="wrap" data-depth>
     <div class="sec-head split" data-reveal>
-      <div><span class="eyebrow">Программы для ЭВМ</span><h2 data-split>Продукты</h2></div>
+      <h2 data-split>Продукты</h2>
       <a class="link-arrow" href="#/projects/">Все продукты <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
     <div class="bento four" data-products="all"></div>
@@ -1347,7 +1342,6 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
   <div class="wrap" data-depth>
     <div class="team-intro">
     <div class="sec-head" data-reveal>
-      <span class="eyebrow">Наша команда</span>
       <h2 data-split>Наша команда — ваш главный актив</h2>
       <p class="lead">За плечами наших специалистов — годы работы на&nbsp;финансовом рынке. Мы не&nbsp;просто пишем код, мы понимаем логику депозитарного учета, требования регулятора и&nbsp;риски, которые нельзя автоматизировать без глубокой экспертизы. Поэтому, выбирая нас, вы получаете не&nbsp;просто программное обеспечение, а&nbsp;надежный ресурс для вашего бизнеса.</p>
     </div>
@@ -1379,7 +1373,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <div class="fact"><dt>Статус</dt><dd>Аккредитованная ИТ-компания<small>Решение Минцифры от 29.06.2022 № АО-20220629-5822830170-3</small></dd></div>
       <div class="fact"><dt>Сколково</dt><dd>Исследовательский центр<small>ОРН 1127714, статус присвоен 29 июля 2025</small></dd></div>
       <div class="fact"><dt>Основана</dt><dd>28 июня 2022<small>ОГРН 1227700378212</small></dd></div>
-      <div class="fact"><dt>Продукты</dt><dd>Три собственные программы для ЭВМ</dd></div>
+      <div class="fact"><dt>Продукты</dt><dd>Четыре собственные программы для ЭВМ</dd></div>
     </dl>
   </div>
 </div>
@@ -1401,10 +1395,10 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
   <div class="leader-photo"><img src="assets/kovbasyuk.jpg" alt="Роман Ковбасюк, генеральный директор" width="600" height="621"></div>
   <div class="leader-body">
     <span class="role">Должность: генеральный директор</span>
-    <blockquote>Более 17 лет работает в ИТ, из них 10 лет — в управлении проектами и командами. Имеет опыт реализации решений в разных сферах: от разработки до внедрения сложных ИТ-систем.</blockquote>
+    <blockquote>Более 20 лет работает в ИТ, из них 12 лет — в управлении проектами и командами. Имеет опыт реализации решений в разных сферах: от разработки до внедрения сложных ИТ-систем.</blockquote>
     <div class="leader-stats">
-      <div><b><span data-count="17">17</span>+</b><span>лет в ИТ</span></div>
-      <div><b><span data-count="10">10</span></b><span>лет в управлении командами</span></div>
+      <div><b><span data-count="20">20</span>+</b><span>лет в ИТ</span></div>
+      <div><b><span data-count="12">12</span></b><span>лет в управлении командами</span></div>
     </div>
   </div>
 </article>
@@ -1507,7 +1501,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <h2>Расскажите о&nbsp;себе</h2>
       <p class="lead">Выберите вакансию или отправьте резюме на&nbsp;будущее — свяжемся, когда появится подходящая задача.</p>
     </div>
-    <form class="form" novalidate>
+    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru">
       <div class="field"><label for="ri-vac">Вакансия</label><select id="ri-vac" name="vacancy" data-vac-select></select></div>
       <div class="row2">
         <div class="field"><label for="ri-name">Имя</label><input id="ri-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
@@ -1548,7 +1542,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
     <ul class="contact-list">
       <li><span class="k">Адрес</span><span class="v">г. Москва, ул. Шаболовка, дом 31, строение Б<small class="metro"><i>М</i>Шаболовская — 5 минут пешком</small></span></li>
       <li><span class="k">Режим</span><span class="v">Пн–пт: 08:00–21:00</span></li>
-      <li><span class="k">Телефон</span><a href="tel:+74952252373">+7 (495) 225-23-73</a><button class="chip-btn" type="button" data-open="callback">Заказать звонок</button></li>
+      <li><span class="k">Телефон</span><a href="tel:+74952252373">+7 (495) 225-23-73</a></li>
       <li><span class="k">E-mail</span><a href="mailto:info@i-digitaldev.ru">info@i-digitaldev.ru</a><button class="chip-btn" type="button" data-copy="info@i-digitaldev.ru">Скопировать</button></li>
     </ul>
     <a class="link-arrow" style="margin-top:14px" href="https://yandex.ru/maps/?rtext=~55.720895%2C37.61397" target="_blank" rel="noopener">Построить маршрут <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -1565,7 +1559,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <h2>Расскажите о&nbsp;задаче</h2>
       <p class="lead">Ответим на вопросы и подготовим индивидуальные условия сотрудничества.</p>
     </div>
-    <form class="form" novalidate>
+    <form class="form" novalidate data-subject="Сообщение с сайта i-digitaldev.ru">
       <div class="row2">
         <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
         <div class="field"><label for="f-contact">Телефон или почта</label><input id="f-contact" name="contact" autocomplete="email" required><span class="msg">Оставьте телефон или почту для связи</span></div>
@@ -1653,6 +1647,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   /* inner pages carry the same stack as a quieter mark beside the title: three layers, no legend.
      It is scaled to the title block and turns half a revolution as the page header scrolls away */
+  // a 3D stack that has scrolled out of view stops its CSS loops (float, data flow, halos)
+  function pauseOffscreen(el) {
+    const io = new IntersectionObserver(([e]) => el.classList.toggle("offscreen", !e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }
   function miniStackMotion(iso, box) {
     const plates = $$(".plate", iso);
     let tx = 0, ty = 0, cx = 0, cy = 0, turn = 0, raf = 0, alive = true;
@@ -1681,15 +1681,19 @@ document.addEventListener("DOMContentLoaded", () => {
       cx += (tx - cx) * .06; cy += (ty - cy) * .06;
       turn += (clamp(scrollY / (innerHeight * .8)) * 180 - turn) * .07;
       const k = turn / 180;
-      iso.style.setProperty("--rz", (-42 + cx * 10 + turn).toFixed(2) + "deg");
-      iso.style.setProperty("--rx", (57 - cy * 6 - k * 6).toFixed(2) + "deg");
-      iso.style.setProperty("--gap", (64 + k * 24).toFixed(1) + "px");
+      const rz = (-42 + cx * 10 + turn).toFixed(2), rx = (57 - cy * 6 - k * 6).toFixed(2), gap = (64 + k * 24).toFixed(1), key = rz + rx + gap;
+      if (key === pose) return;                         // at rest: no style writes, no recalculation
+      pose = key;
+      iso.style.setProperty("--rz", rz + "deg");
+      iso.style.setProperty("--rx", rx + "deg");
+      iso.style.setProperty("--gap", gap + "px");
     };
-    let rs = 0;
+    let rs = 0, pose = "";
     const refit = () => { cancelAnimationFrame(rs); rs = requestAnimationFrame(fit); };
     const ro = new ResizeObserver(refit); ro.observe(box);
+    const stopOff = pauseOffscreen(box);
     loop();
-    return () => { alive = false; cancelAnimationFrame(raf); cancelAnimationFrame(rs); ro.disconnect(); removeEventListener("pointermove", onMove); };
+    return () => { alive = false; stopOff(); cancelAnimationFrame(raf); cancelAnimationFrame(rs); ro.disconnect(); removeEventListener("pointermove", onMove); };
   }
   /* pointer tilts the stack; scrolling from the first screen to the second turns it a full 180° about its own axis
      while it opens into an exploded view. Angle eases toward its target, so the motion glides on after the wheel stops */
@@ -1714,6 +1718,8 @@ document.addEventListener("DOMContentLoaded", () => {
         t.style.setProperty("--len", (col - pts[i][0]).toFixed(1) + "px");
       });
     };
+    // writes (and the legend's layout reads) only when the pose actually moved: a resting stack costs nothing per frame
+    let pose = "";
     const loop = () => {
       if (!alive) return;
       raf = requestAnimationFrame(loop);
@@ -1724,18 +1730,22 @@ document.addEventListener("DOMContentLoaded", () => {
         turn += (p * 180 - turn) * .07;
         const k = turn / 180;
         rz = -42 + cx * 8 + turn;
-        iso.style.setProperty("--rx", (57 - cy * 5 - k * 7).toFixed(2) + "deg");
+        const rx = (57 - cy * 5 - k * 7).toFixed(2), gap = (70 + k * 30).toFixed(1), key = rx + rz.toFixed(2) + gap;
+        if (key === pose) return;
+        pose = key;
+        iso.style.setProperty("--rx", rx + "deg");
         iso.style.setProperty("--rz", rz.toFixed(2) + "deg");
-        iso.style.setProperty("--gap", (70 + k * 30).toFixed(1) + "px");
-      } else if (turn || rz !== -42) {
-        turn = 0; rz = -42; cx = cy = 0;
+        iso.style.setProperty("--gap", gap + "px");
+      } else if (turn || rz !== -42 || pose) {
+        turn = 0; rz = -42; cx = cy = 0; pose = "";
         ["--rx", "--rz", "--gap"].forEach(v => iso.style.removeProperty(v));
-      }
+      } else return;
       place();
     };
+    const stopOff = pauseOffscreen(host);
     // scale the stack so it fits its box and its legend stays on screen; note where the turn begins
     // measured in the rest pose (no float, no turn, no explode); then the top plate is snapped to the top of
-    // the art column, which shares its top edge with the copy's eyebrow — stack and text sit on one grid line
+    // the art column, which shares its top edge with the copy's first line — stack and text sit on one grid line
     const fit = () => {
       const lim = document.documentElement.clientWidth - 16, keep = rz, mobile = matchMedia("(max-width:900px)").matches;
       rz = -42; iso.classList.add("measure"); ["--rx", "--rz", "--gap"].forEach(v => iso.style.removeProperty(v));
@@ -1762,7 +1772,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fit(); document.fonts && document.fonts.ready.then(refit);
     requestAnimationFrame(() => legend.classList.add("on"));
     loop();
-    return () => { alive = false; cancelAnimationFrame(raf); cancelAnimationFrame(rs); ro.disconnect(); removeEventListener("pointermove", onMove); };
+    return () => { alive = false; stopOff(); cancelAnimationFrame(raf); cancelAnimationFrame(rs); ro.disconnect(); removeEventListener("pointermove", onMove); };
   }
   const fillBits = host => { host.innerHTML = Array.from({ length: 18 }, (_, i) => `<i style="--b:${i}"></i>`).join(""); };
   // featured-news matrix: 12×7 cells, colour runs cyan → indigo, wave runs along the diagonal
@@ -1795,10 +1805,13 @@ document.addEventListener("DOMContentLoaded", () => {
     $("#loaderSkip").addEventListener("click", finishIntro);
   } else { loader.remove(); root.classList.add("ready"); }
 
+  /* ================= light mode: weak devices keep the design, lose the heavy motion (see liteWatch below) ================= */
+  try { if (sessionStorage.getItem("icr-lite")) root.classList.add("lite"); } catch (e) {}
+
   /* ================= smooth scroll ================= */
   let lenis = null;
   function startLenis() {
-    if (lenis || !motionOK() || !window.Lenis) return;
+    if (lenis || !motionOK() || root.classList.contains("lite") || !window.Lenis) return;
     lenis = new Lenis({ lerp: .1, smoothWheel: true });
     const raf = t => { if (!lenis) return; lenis.raf(t); requestAnimationFrame(raf); };
     requestAnimationFrame(raf);
@@ -1896,7 +1909,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modWord = n => n % 10 === 1 && n % 100 !== 11 ? "модуль" : n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20) ? "модуля" : "модулей";
   const PRODUCTS = [
     { id: "digital-depo", title: "«Цифровой депозитарий»", icon: ICON.bank, img: "assets/img/product-digital-depo.webp",
-      demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-depo"].length} ${modWord(MODS["digital-depo"].length)}</span></div>${checks(MODS["digital-depo"].slice(0, 4).map(m => m[1]))}` },
+      demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-depo"].length} ${modWord(MODS["digital-depo"].length)}</span></div>${checks(["MPK-PIF", "MPK-NPF", "MKD", "infa"].map(id => modOf(id).short))}` },
     { id: "digital-doc", title: "«Цифровой документооборот НФО»", icon: ICON.doc, img: "assets/img/product-digital-doc.webp",
       demo: () => `<div class="mini-head"><b>Модули</b><span>${MODS["digital-doc"].length} ${modWord(MODS["digital-doc"].length)}</span></div>${checks(MODS["digital-doc"].map(m => m[1]))}` },
     { id: "digital-investor", title: "«Цифровой инвестор»", icon: ICON.user, img: "assets/img/product-digital-investor.webp",
@@ -1940,7 +1953,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const productCard = (p, d) => `
     <a class="prod glass lit" href="#/projects/${p.id}/" data-reveal style="--d:${d}">
       <div class="prod-img"><img src="${p.img}" alt="" width="1248" height="832" loading="lazy" decoding="async">${MODS[p.id] ? `<span class="chip">${MODS[p.id].length} ${modWord(MODS[p.id].length)}</span>` : ""}</div>
-      <span class="kind">Программа для ЭВМ</span>
+      <span class="kind">Программное обеспечение</span>
       <h3>${p.title}</h3><p>${esc(p.text)}</p>
       <div class="demo" aria-hidden="true">${p.demo()}</div>
       <span class="link-arrow">Подробнее ${ARROW}</span>
@@ -2024,7 +2037,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const cur = p === "/company/" ? path === p : path.startsWith(p);
         return `<a href="#${p}"${cur ? ' aria-current="page"' : ""}>${t}</a>`;
       }).join("")}</nav>
-      <div class="side-cta glass"><b>Остались вопросы?</b><span>Пн–пт, 08:00–21:00</span><a href="tel:+74952252373">+7 (495) 225-23-73</a><button class="btn btn-ghost btn-sm" type="button" data-open="callback">Заказать звонок</button></div>
+      <div class="side-cta glass"><b>Остались вопросы?</b><span>Пн–пт, 08:00–21:00</span><a href="tel:+74952252373">+7 (495) 225-23-73</a></div>
     </aside>`;
   function newsArticle(n) {
     const i = NEWS.indexOf(n), newer = NEWS[i - 1], older = NEWS[i + 1];
@@ -2040,21 +2053,45 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ================= routes (mirror the live site map) ================= */
+  // seoT: the page's own title for the tab and search results; desc: its own snippet (≤160 chars, facts from the site only)
   const ROUTES = {
-    "/": { tpl: "home" },
-    "/company/": { tpl: "company", title: "О компании", section: "company", side: true, crumbs: [["Компания", null]] },
-    "/company/staff/": { tpl: "staff", title: "Сотрудники", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
-    "/company/staff/roman-kovbasyuk/": { tpl: "kovbasyuk", title: "Роман Ковбасюк", section: "company", side: true, crumbs: [["Компания", "/company/"], ["Сотрудники", "/company/staff/"]] },
-    "/company/requisites/": { tpl: "requisites", title: "Реквизиты", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
-    "/company/docs/": { tpl: "docs", title: "Документы", section: "company", side: true, crumbs: [["Компания", "/company/"]] },
+    "/": { tpl: "home", seoT: "ИЦР — ИТ-решения для спецдепозитариев и участников финансового рынка",
+      desc: "Учёт, контроль, электронный документооборот и отчётность по требованиям Банка России. Четыре собственные программы для ЭВМ, резидент «Сколково»." },
+    "/company/": { tpl: "company", title: "О компании", section: "company", side: true, crumbs: [["Компания", null]],
+      seoT: "О компании ИЦР — разработчик ПО для финансового рынка",
+      desc: "Аккредитованная ИТ-компания и исследовательский центр «Сколково»: системы учёта, документооборота и обмена данными для финансового рынка." },
+    "/company/staff/": { tpl: "staff", title: "Сотрудники", section: "company", side: true, crumbs: [["Компания", "/company/"]],
+      seoT: "Руководство ИЦР — команда разработчиков ПО для финансового рынка",
+      desc: "Руководители ООО «Инновации и цифровое развитие»: многолетний опыт в ИТ и управлении проектами для инфраструктуры финансового рынка." },
+    "/company/staff/roman-kovbasyuk/": { tpl: "kovbasyuk", title: "Роман Ковбасюк", section: "company", side: true, crumbs: [["Компания", "/company/"], ["Сотрудники", "/company/staff/"]],
+      seoT: "Роман Ковбасюк — генеральный директор ИЦР",
+      desc: "Более 20 лет в ИТ, из них 12 — в управлении проектами и командами: от разработки до внедрения сложных ИТ-систем." },
+    "/company/requisites/": { tpl: "requisites", title: "Реквизиты", section: "company", side: true, crumbs: [["Компания", "/company/"]],
+      seoT: "Реквизиты ООО «Инновации и цифровое развитие»",
+      desc: "ИНН, КПП, ОГРН, юридический адрес и банковские реквизиты ООО «ИЦР»: скопируйте нужное поле или скачайте все реквизиты файлом." },
+    "/company/docs/": { tpl: "docs", title: "Документы", section: "company", side: true, crumbs: [["Компания", "/company/"]],
+      seoT: "Документы ИЦР: аккредитация, СОУТ, политика персональных данных",
+      desc: "Решение Минцифры об аккредитации, результаты специальной оценки условий труда и политика обработки персональных данных в PDF." },
     "/projects/": { tpl: "projects", title: "Продукты", section: "projects", lead: "Собственные программы для ЭВМ. Правообладатель исключительных прав на все программы — ООО «Инновации и цифровое развитие».",
-      desc: "Программы для ЭВМ ООО «Инновации и цифровое развитие»: «Цифровой депозитарий», «Цифровой документооборот НФО», «Цифровой инвестор», «Цифровая проверка»." },
-    "/news/": { tpl: "news", title: "Новости", section: "news" },
+      seoT: "Продукты ИЦР — программное обеспечение для финансового рынка",
+      desc: "«Цифровой депозитарий», «Цифровой документооборот НФО», «Цифровой инвестор» и «Цифровая проверка» — собственные программы для ЭВМ ИЦР." },
+    "/news/": { tpl: "news", title: "Новости", section: "news",
+      seoT: "Новости ИЦР — продукты, статусы и события компании",
+      desc: "Новости ООО «Инновации и цифровое развитие»: статус исследовательского центра «Сколково», аккредитация, развитие продуктов." },
     "/career/": { tpl: "career", title: "Карьера", section: "career",
-      desc: "Работа в ООО «Инновации и цифровое развитие»: условия, этапы отбора, ответы на вопросы и отправка резюме." },
-    "/career/vacancy/": { tpl: "vacancy", title: "Вакансии", section: "career", crumbs: [["Карьера", "/career/"]], lead: "Мы рады видеть в команде инициативных и вовлечённых сотрудников, готовых решать сложные задачи и реализовывать масштабные проекты." },
-    "/contacts/": { tpl: "contacts", title: "Контакты", section: "contacts" }
+      seoT: "Карьера в ИЦР — работа в ИТ для финансового рынка",
+      desc: "Гибридный формат, социальный пакет, обучение и задачи для крупнейших НПФ и управляющих компаний. Понятный отбор и обратная связь по итогам." },
+    "/career/vacancy/": { tpl: "vacancy", title: "Вакансии", section: "career", crumbs: [["Карьера", "/career/"]], lead: "Мы рады видеть в команде инициативных и вовлечённых сотрудников, готовых решать сложные задачи и реализовывать масштабные проекты.",
+      seoT: "Вакансии ИЦР — ML, .NET и техническая поддержка",
+      desc: "Открытые вакансии ИЦР: удалённо, гибрид или офис у м. Шаболовская. Одна встреча онлайн и ответ в течение 2–3 дней, без тестовых заданий." },
+    "/contacts/": { tpl: "contacts", title: "Контакты", section: "contacts",
+      seoT: "Контакты ИЦР — офис в Москве у м. Шаболовская",
+      desc: "Москва, ул. Шаболовка, д. 31, стр. Б — 5 минут от м. Шаболовская. +7 (495) 225-23-73, info@i-digitaldev.ru, пн–пт 08:00–21:00." }
   };
+  // what each product is for, in a few words — for its title in the browser tab and search results
+  const PTAG = { "digital-depo": "ПО для специализированных депозитариев", "digital-doc": "электронный документооборот для НФО",
+    "digital-investor": "сервис для владельцев паёв и управляющих компаний", "digital-check": "автоматическая проверка клиентов по ПОД/ФТ" };
+  const clip = (t, n = 160) => t.length <= n ? t : t.slice(0, t.lastIndexOf(" ", n - 1)).replace(/[,;:—–-]$/, "") + "…";
   // pages that moved keep working under their old addresses
   const MOVED = { "/company/vacancy/": "/career/vacancy/", "/info/faq/": "/career/", "/services/": "/projects/" };
   const tpl = id => document.getElementById("tpl-" + id).innerHTML;
@@ -2062,15 +2099,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (MOVED[p]) { history.replaceState(null, "", "#" + MOVED[p] + location.hash.replace(/^[^?]*/, "")); p = MOVED[p]; }
     if (ROUTES[p]) return { ...ROUTES[p], path: p };
     const m = p.match(/^\/news\/([^/]+)\/$/), n = m && NEWS.find(x => x.id === m[1]);
-    if (n) return { path: p, title: n.title, long: true, eyebrow: fmtDate(n.date), section: "news", crumbs: [["Новости", "/news/"]], crumbTitle: "Новость", render: () => newsArticle(n) };
+    if (n) return { path: p, title: n.title, long: true, eyebrow: fmtDate(n.date), section: "news", crumbs: [["Новости", "/news/"]], crumbTitle: "Новость", render: () => newsArticle(n),
+      seoT: `${n.title} | Новости ИЦР`, desc: clip(n.body.join(" ")) };
     // /projects/<product>/ and /projects/<product>/<module>/
     const pm = p.match(/^\/projects\/([\w-]+)\/(?:([\w-]+)\/)?$/);
     if (pm && PC[pm[1]] && !PC[pm[1]].parent) {
       const pid = pm[1], sub = pm[2], base = { section: "projects", long: true, render: () => productPage(sub || pid) };
       if (!sub) return { ...base, path: p, title: PC[pid].h1, eyebrow: "Программа для ЭВМ", crumbs: [["Продукты", "/projects/"]], crumbTitle: shortTitle(pid), image: PRODUCTS.find(x => x.id === pid).img,
-        seoTitle: `${shortTitle(pid)} — программа для ЭВМ`, desc: PC[pid].description };
+        seoT: `${shortTitle(pid)} — ${PTAG[pid]} | ИЦР`, desc: PC[pid].description };
       if (PC[sub] && PC[sub].parent === pid) return { ...base, path: p, title: PC[sub].h1, eyebrow: `${/^Адаптер/.test(shortTitle(sub)) ? "Адаптер" : "Модуль"} · ${shortTitle(pid)}`,
-        crumbs: [["Продукты", "/projects/"], [shortTitle(pid), `/projects/${pid}/`]], crumbTitle: shortTitle(sub), seoTitle: `${shortTitle(sub)} — ${shortTitle(pid)}`, desc: PC[sub].description };
+        crumbs: [["Продукты", "/projects/"], [shortTitle(pid), `/projects/${pid}/`]], crumbTitle: shortTitle(sub), seoT: `${shortTitle(sub)} — ${shortTitle(pid)} | ИЦР`, desc: PC[sub].description };
     }
     return { path: p, tpl: "404", title: "Страница не найдена" };
   }
@@ -2098,8 +2136,10 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollTop();
       mount(view, loc);
       setActive(r);
-      document.title = r.tpl === "home" ? SITE : `${(r.seoTitle || r.title).replace(/<[^>]+>/g, "")} — ${SITE}`;
+      document.title = r.seoT || `${r.title.replace(/<[^>]+>/g, "")} — ${SITE}`;
       metaDesc.setAttribute("content", r.desc || r.lead || DEFAULT_DESC);
+      $('meta[property="og:title"]').setAttribute("content", document.title);
+      $('meta[property="og:description"]').setAttribute("content", metaDesc.getAttribute("content"));
       if (!first) { const h1 = $("h1", view); h1 && h1.focus({ preventScroll: true }); }
       if (pending) { const f = pending; pending = null; setTimeout(f, 80); }
       // ?to=<id> lands on a section of the page (e.g. the FAQ inside «Карьера»)
@@ -2386,7 +2426,26 @@ document.addEventListener("DOMContentLoaded", () => {
     $$("[data-close]", d).forEach(b => b.addEventListener("click", () => d.close()));
   });
 
-  /* forms: inline validation, success state, file drop */
+  /* forms: inline validation, sending, success state, file drop */
+  // where the forms send: a multipart POST to a mail relay (FormSubmit / Web3Forms compatible) or the hosting's own
+  // handler. Empty — the mockup only shows the success state and sends nothing.
+  const FORM_ENDPOINT = "";
+  // the letter reads like the form: Russian labels, the vacancy by its name, the CV as an attachment
+  function packForm(form) {
+    const data = new FormData();
+    $$("input[name], select[name], textarea[name]", form).forEach(el => {
+      if (el.name === "agree" || (el.type === "file" ? !el.files.length : !el.value.trim())) return;
+      const lab = (el.id && $(`label[for="${el.id}"]`, form)) || (el.closest(".field") && $("label, .lbl", el.closest(".field")));
+      const key = lab ? lab.childNodes[0].textContent.trim() : el.name;
+      if (el.type === "file") data.append("attachment", el.files[0]);
+      else data.append(key, el.tagName === "SELECT" ? el.selectedOptions[0].text : el.value.trim());
+    });
+    data.append("Согласие на обработку персональных данных", "да");
+    data.append("Страница", location.href);
+    data.append("_subject", form.dataset.subject || "Сообщение с сайта i-digitaldev.ru");
+    data.append("_template", "table"); data.append("_captcha", "false");
+    return data;
+  }
   document.addEventListener("submit", e => {
     const form = e.target.closest("form.form"); if (!form) return;
     e.preventDefault(); let first = null;
@@ -2399,8 +2458,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const consent = $(".consent", form), agree = form.agree.checked;
     consent.classList.toggle("err", !agree); if (!agree && !first) first = form.agree;
     if (first) { first.focus(); return; }
-    form.closest("[data-formwrap]").classList.add("is-done"); form.reset();
-    const fn = $("[data-file-name]", form); if (fn) fn.textContent = "Перетащите файл или выберите на компьютере";
+    const done = () => {
+      form.closest("[data-formwrap]").classList.add("is-done"); form.reset();
+      const fn = $("[data-file-name]", form); if (fn) fn.textContent = "Перетащите файл или выберите на компьютере";
+    };
+    if (!FORM_ENDPOINT) return done();
+    const btn = $("button[type=submit]", form), label = btn.innerHTML;
+    btn.disabled = true; btn.textContent = "Отправляем…";
+    fetch(FORM_ENDPOINT, { method: "POST", body: packForm(form), headers: { Accept: "application/json" } })
+      .then(r => { if (!r.ok) throw new Error(r.status); done(); })
+      .catch(() => toast("Не удалось отправить. Попробуйте ещё раз или напишите на info@i-digitaldev.ru"))
+      .finally(() => { btn.disabled = false; btn.innerHTML = label; });
   });
   document.addEventListener("input", e => {
     const f = e.target.closest(".field");
@@ -2570,7 +2638,6 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(ROUTES).forEach(([p, r]) => { if (p !== "/") add({ g: "Разделы сайта", icon: ICONS.stack, t: r.title, path: "i-digitaldev.ru" + p, text: r.lead || "", route: p, boost: 1.15 }); });
     // actions
     [["Позвонить", "+7 (495) 225-23-73 · Пн–пт, 08:00–21:00", "телефон позвонить звонок", () => location.href = "tel:+74952252373"],
-     ["Заказать обратный звонок", "Перезвоним в рабочее время", "звонок перезвонить обратный", () => openDialog($("#callback"))],
      ["Задать вопрос", "Ответим по почте или перезвоним", "вопрос связаться написать", () => openDialog($("#order"))],
      ["Скопировать почту", "info@i-digitaldev.ru", "почта email e-mail написать", () => copy("info@i-digitaldev.ru", "Почта скопирована")]]
       .forEach(([t, s, k, run]) => add({ g: "Действия", icon: SI.pin, t, path: s, text: "", keys: k, run }));
@@ -2928,6 +2995,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
   addEventListener("scroll", requestScroll, { passive: true });
+  // liteWatch: the first scrolls are timed; if over a quarter of the frames miss (>25 ms), the device can't carry
+  // the parallax — switch to light mode for the session: no smooth-scroll inertia, no depth, still 3D plates
+  (function liteWatch() {
+    if (root.classList.contains("lite")) return;
+    let n = 0, slow = 0, last = 0, on = false;
+    const tick = t => {
+      const d = t - last; last = t;
+      if (d < 250) { n++; if (d > 25) slow++; }
+      if (n < 120) return requestAnimationFrame(tick);
+      if (slow / n > .25) {
+        root.classList.add("lite"); stopLenis();
+        try { sessionStorage.setItem("icr-lite", "1"); } catch (e) {}
+      }
+    };
+    addEventListener("scroll", () => { if (on) return; on = true; last = performance.now(); requestAnimationFrame(tick); }, { passive: true });
+  })();
   addEventListener("resize", requestScroll);
   totop.addEventListener("click", () => lenis ? lenis.scrollTo(0, { duration: 1.4 }) : scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" }));
 
@@ -2993,6 +3076,6 @@ document.addEventListener("DOMContentLoaded", () => {
 .review-pill button{border:0;background:rgba(255,255,255,.14);color:#fff;border-radius:999px;width:26px;height:26px;cursor:pointer;flex-shrink:0}
 @media (max-width:600px){.review-pill{left:12px;bottom:12px;font-size:12px}}
 </style>
-<div class="review-pill" role="note"><i></i><span>Макет редизайна от 28.10.2026 · формы не отправляют данные</span><button type="button" aria-label="Скрыть" onclick="this.parentElement.remove()">✕</button></div>
+<div class="review-pill" role="note"><i></i><span>Макет редизайна от 03.11.2026 · формы не отправляют данные</span><button type="button" aria-label="Скрыть" onclick="this.parentElement.remove()">✕</button></div>
 </body>
 </html>
