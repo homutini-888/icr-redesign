@@ -854,6 +854,7 @@ a.mod-card:hover{transform:translateY(-3px);background:#fff;box-shadow:var(--bev
 .consent.err input{border-color:var(--danger)}
 .consent a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 .form .btn{justify-self:start;margin-top:4px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}   /* bot trap: people never see or fill it */
 .sent{display:none;padding:clamp(28px,4vw,48px);align-content:center;gap:14px;background:rgba(255,255,255,.35)}
 .sent svg{width:44px;height:44px;color:var(--ok)}
 .is-done .form{display:none}
@@ -1235,7 +1236,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 <!-- ===================== dialogs ===================== -->
 <dialog class="modal" id="order" aria-labelledby="or-title">
   <div class="dlg glass" data-formwrap data-lenis-prevent>
-    <form class="form" novalidate data-subject="Вопрос с сайта i-digitaldev.ru">
+    <form class="form" novalidate data-subject="Вопрос с сайта i-digitaldev.ru"><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="dlg-head"><h2 id="or-title">Задать вопрос</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
       <p class="muted" style="font-size:15px">Ответим по почте или перезвоним в рабочее время: пн–пт, 08:00–21:00.</p>
       <div class="field"><label for="o-name">Имя</label><input id="o-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
@@ -1251,7 +1252,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
 
 <dialog class="modal" id="resume" aria-labelledby="rs-title">
   <div class="dlg glass" data-formwrap data-lenis-prevent>
-    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru">
+    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru"><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="dlg-head"><h2 id="rs-title">Отправить резюме</h2><button class="icon-btn" type="button" data-close aria-label="Закрыть"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div>
       <p class="muted" style="font-size:15px">Проводим одну встречу онлайн и даём обратную связь в течение 2–3 дней.</p>
       <div class="field"><label for="r-vac">Вакансия</label><select id="r-vac" name="vacancy"></select></div>
@@ -1501,7 +1502,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <h2>Расскажите о&nbsp;себе</h2>
       <p class="lead">Выберите вакансию или отправьте резюме на&nbsp;будущее — свяжемся, когда появится подходящая задача.</p>
     </div>
-    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru">
+    <form class="form" novalidate data-subject="Резюме с сайта i-digitaldev.ru"><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="field"><label for="ri-vac">Вакансия</label><select id="ri-vac" name="vacancy" data-vac-select></select></div>
       <div class="row2">
         <div class="field"><label for="ri-name">Имя</label><input id="ri-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
@@ -1559,7 +1560,7 @@ html.a11y .svc-stack .svc{position:relative;top:auto;transform:none!important;op
       <h2>Расскажите о&nbsp;задаче</h2>
       <p class="lead">Ответим на вопросы и подготовим индивидуальные условия сотрудничества.</p>
     </div>
-    <form class="form" novalidate data-subject="Сообщение с сайта i-digitaldev.ru">
+    <form class="form" novalidate data-subject="Сообщение с сайта i-digitaldev.ru"><input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <div class="row2">
         <div class="field"><label for="f-name">Имя</label><input id="f-name" name="name" autocomplete="name" required><span class="msg">Укажите имя</span></div>
         <div class="field"><label for="f-contact">Телефон или почта</label><input id="f-contact" name="contact" autocomplete="email" required><span class="msg">Оставьте телефон или почту для связи</span></div>
@@ -2419,7 +2420,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, { passive: true });
 
   /* dialogs */
-  function openDialog(d) { if (d.open) return; closeUI(); d.showModal(); if (lenis) lenis.stop(); const f = $("input:not([type=checkbox]):not([type=file]), textarea", d); f && setTimeout(() => f.focus(), 50); }
+  function openDialog(d) { if (d.open) return; closeUI(); d.showModal(); if (lenis) lenis.stop(); const f = $("input:not([type=checkbox]):not([type=file]):not(.hp), textarea", d); f && setTimeout(() => f.focus(), 50); }
   $$("dialog").forEach(d => {
     d.addEventListener("close", () => { if (lenis) lenis.start(); });
     d.addEventListener("click", e => { if (e.target === d) d.close(); });
@@ -2427,9 +2428,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* forms: inline validation, sending, success state, file drop */
-  // where the forms send: a multipart POST to a mail relay (FormSubmit / Web3Forms compatible) or the hosting's own
-  // handler. Empty — the mockup only shows the success state and sends nothing.
-  const FORM_ENDPOINT = "";
+  // where the forms send: send.php on the site's hosting (server/send.php, mails info@i-digitaldev.ru).
+  // The mockup on GitHub Pages, a local copy or the offline file have no PHP — there the forms only show the success state.
+  const FORM_ENDPOINT = /github\.io$|^(localhost|127\.0\.0\.1)?$/.test(location.hostname) ? "" : "send.php";
   // the letter reads like the form: Russian labels, the vacancy by its name, the CV as an attachment
   function packForm(form) {
     const data = new FormData();
@@ -2443,7 +2444,6 @@ document.addEventListener("DOMContentLoaded", () => {
     data.append("Согласие на обработку персональных данных", "да");
     data.append("Страница", location.href);
     data.append("_subject", form.dataset.subject || "Сообщение с сайта i-digitaldev.ru");
-    data.append("_template", "table"); data.append("_captcha", "false");
     return data;
   }
   document.addEventListener("submit", e => {
