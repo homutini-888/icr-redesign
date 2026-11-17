@@ -1671,7 +1671,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* products and their module pages come from the client's descriptions (Файлы для вставки на новый сайт/*.docx),
      converted verbatim by tools/import_products.py (content/products.json); editable in the panel as C.pages */
   const PC = C.pages;
-  const unhtml = h => { const d = document.createElement("div"); d.innerHTML = h; return d.textContent; };
+  // text of a product block; DOMParser builds an inert document — a detached <div> would still load <img onerror=…>
+  const unhtml = h => new DOMParser().parseFromString(String(h ?? ""), "text/html").body.textContent;
   // hub pages fork into module pages: [id, short name, name as the hub lists it]
   const MODS = {
     "digital-depo": [["MPK-PIF", "Модуль контролей ПИФ"], ["MPK-NPF", "Модуль контролей НПФ"], ["MDM", "Модуль МДМ"], ["infa", "Модуль аналитики НПФ"],
@@ -1691,22 +1692,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const shortTitle = id => (PRODUCTS.find(p => p.id === id) || {}).title || (modOf(id) || {}).short || id;
   const VAC = C.vacancies.items.map(v => ({ ...v, cols: (v.cols || []).map(c => [c.title, c.items || []]) }));
   const FMT = { remote: "Удалённо", hybrid: "Гибрид", office: "На месте работодателя" };
-  const VAC_OPTIONS = VAC.map(v => `<option value="${v.id}">${esc(v.title)}</option>`).join("") + '<option value="other">Нет подходящей — отправлю резюме на будущее</option>';
+  const VAC_OPTIONS = VAC.map(v => `<option value="${esc(v.id)}">${esc(v.title)}</option>`).join("") + '<option value="other">Нет подходящей — отправлю резюме на будущее</option>';
   const fmtDate = iso => new Date(iso + "T12:00:00").toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric" }).replace(" г.", "");
 
   /* ================= renderers ================= */
   const newsCard = (n, featured, d = 0) => `
-    <a class="news-card glass lit${featured ? " featured" : ""}" href="#/news/${n.id}/" data-reveal style="--d:${d}">
+    <a class="news-card glass lit${featured ? " featured" : ""}" href="#/news/${esc(n.id)}/" data-reveal style="--d:${d}">
       ${featured ? '<div class="matrix" aria-hidden="true" data-matrix></div>' : ""}
-      <span class="meta">${n.tag ? `<span class="badge plain">${n.tag}</span>` : ""}<time datetime="${n.date}">${fmtDate(n.date)}</time></span>
+      <span class="meta">${n.tag ? `<span class="badge plain">${esc(n.tag)}</span>` : ""}<time datetime="${esc(n.date)}">${fmtDate(n.date)}</time></span>
       <h3>${esc(n.title)}</h3>
       <span class="link-arrow">Читать ${ARROW}</span>
     </a>`;
   const productCard = (p, d) => `
-    <a class="prod glass lit" href="#/projects/${p.id}/" data-reveal style="--d:${d}">
+    <a class="prod glass lit" href="#/projects/${esc(p.id)}/" data-reveal style="--d:${d}">
       <div class="prod-img"><img src="${esc(assetUrl(p.img))}" alt="" width="1248" height="832" loading="lazy" decoding="async">${MODS[p.id] ? `<span class="chip">${MODS[p.id].length} ${modWord(MODS[p.id].length)}</span>` : ""}</div>
-      <span class="kind">Программное обеспечение</span>
-      <h3>${p.title}</h3><p>${esc(p.text)}</p>
+      <span class="kind">${esc(p.kind || "Программное обеспечение")}</span>
+      <h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>
       <div class="demo" aria-hidden="true">${p.demo()}</div>
       <span class="link-arrow">Подробнее ${ARROW}</span>
     </a>`;
@@ -1717,7 +1718,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---- product and module pages: H1, then each H2 of the description as its own glass section ---- */
   const LONG_LIST = 16;                                   // longer lists fold, with «Показать все»
-  const listHTML = items => items.map(it => `<li>${it.h}${it.sub && it.sub.length ? `<ul>${listHTML(it.sub)}</ul>` : ""}</li>`).join("");
+  // product texts keep only <b>: anything else in a saved or imported content file is cut out, never run
+  const safeHtml = h => String(h ?? "").replace(/<(?!\/?b>)[^>]*>?/g, "");
+  const listHTML = items => items.map(it => `<li>${safeHtml(it.h)}${it.sub && it.sub.length ? `<ul>${listHTML(it.sub)}</ul>` : ""}</li>`).join("");
   function tableHTML(b) {
     // the first column only repeats the product name the page is about
     const drop = /^Программа для ЭВМ$/.test(b.head[0]) ? 1 : 0;
@@ -1728,10 +1731,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   function richHTML(blocks) {
     return blocks.map(b => {
-      if (b.t === "p") return `<p>${b.h}</p>`;
-      if (b.t === "lead") return `<p class="lead-in">${b.h}</p>`;
-      if (b.t === "h3") return `<h3>${b.h}</h3>`;
-      if (b.t === "note") return `<p class="note">${b.h}</p>`;
+      if (b.t === "p") return `<p>${safeHtml(b.h)}</p>`;
+      if (b.t === "lead") return `<p class="lead-in">${safeHtml(b.h)}</p>`;
+      if (b.t === "h3") return `<h3>${safeHtml(b.h)}</h3>`;
+      if (b.t === "note") return `<p class="note">${safeHtml(b.h)}</p>`;
       if (b.t === "table") return tableHTML(b);
       if (b.t === "ul") {
         const n = b.items.length, ul = `<ul class="ticks${n > 8 ? " cols" : ""}">${listHTML(b.items)}</ul>`;
@@ -1754,7 +1757,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function modulesHTML(pid, blocks) {
     let out = "", dev = false;
     blocks.forEach(b => {
-      if (b.t === "p" && /этапе разработки/i.test(unhtml(b.h))) { dev = true; out += `<h3>${b.h.replace(/:\s*$/, "")}</h3>`; return; }
+      if (b.t === "p" && /этапе разработки/i.test(unhtml(b.h))) { dev = true; out += `<h3>${safeHtml(b.h).replace(/:\s*$/, "")}</h3>`; return; }
       if (b.t !== "ul") { out += richHTML([b]); return; }
       out += `<div class="mods${dev ? " dev" : ""}">${b.items.map((it, i) => {
         const [name, desc] = splitItem(it.h), m = MODS[pid].find(x => (x[2] || x[1]).toLowerCase() === name.toLowerCase());
@@ -1774,8 +1777,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (mod) {
       const sib = MODS[mod.parent].filter(m => m[0] !== id);
       return `${secs}
-        <div class="pd-foot"><a class="back" href="#/projects/${mod.parent}/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>${shortTitle(mod.parent)}: все модули</a></div>
-        <section class="pd-other" data-chapter="Другие модули"><h2 data-split>Другие модули продукта ${shortTitle(mod.parent)}</h2><div class="mods">${sib.map((m, i) => modCard(mod.parent, m, i % 3)).join("")}</div></section>`;
+        <div class="pd-foot"><a class="back" href="#/projects/${mod.parent}/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>${esc(shortTitle(mod.parent))}: все модули</a></div>
+        <section class="pd-other" data-chapter="Другие модули"><h2 data-split>Другие модули продукта ${esc(shortTitle(mod.parent))}</h2><div class="mods">${sib.map((m, i) => modCard(mod.parent, m, i % 3)).join("")}</div></section>`;
     }
     return `${secs}
       <div class="pd-foot"><a class="back" href="#/projects/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Все продукты</a></div>
@@ -1794,12 +1797,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function newsArticle(n) {
     const i = NEWS.indexOf(n), newer = NEWS[i - 1], older = NEWS[i + 1];
     const body = n.body.map(b => Array.isArray(b) ? `<ul>${b.map(x => `<li>${md(x)}</li>`).join("")}</ul>` : `<p>${md(b)}</p>`).join("");
-    const pn = (x, cls, label) => x ? `<a class="glass lit ${cls}" href="#/news/${x.id}/"><small>${label}</small><b>${esc(x.title)}</b></a>` : "<span></span>";
+    const pn = (x, cls, label) => x ? `<a class="glass lit ${cls}" href="#/news/${esc(x.id)}/"><small>${label}</small><b>${esc(x.title)}</b></a>` : "<span></span>";
     return `<div class="article">
-      <article class="article-body glass" data-reveal>${n.tag ? `<span class="badge plain">${n.tag}</span>` : ""}${body}
+      <article class="article-body glass" data-reveal>${n.tag ? `<span class="badge plain">${esc(n.tag)}</span>` : ""}${body}
         <div class="article-actions"><a class="back" href="#/news/"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Назад к списку</a><button class="chip-btn" type="button" data-action="copy-link">Скопировать ссылку</button></div>
       </article>
-      <aside class="article-aside glass" data-reveal style="--d:1"><h3>Другие новости</h3>${NEWS.filter(x => x !== n).slice(0, 4).map(x => `<a class="mini-news" href="#/news/${x.id}/"><time datetime="${x.date}">${fmtDate(x.date)}</time><span>${esc(x.title)}</span></a>`).join("")}</aside>
+      <aside class="article-aside glass" data-reveal style="--d:1"><h3>Другие новости</h3>${NEWS.filter(x => x !== n).slice(0, 4).map(x => `<a class="mini-news" href="#/news/${esc(x.id)}/"><time datetime="${esc(x.date)}">${fmtDate(x.date)}</time><span>${esc(x.title)}</span></a>`).join("")}</aside>
     </div>
     <nav class="pn" aria-label="Соседние новости">${pn(newer, "prev", "← Новее")}${pn(older, "next", "Раньше →")}</nav>`;
   }
@@ -2008,7 +2011,7 @@ ${q.lead ? `<p class="lead" data-reveal>${md(q.lead)}</p>` : ""}
     },
     // every page of the site, built from the content: what the panel adds shows up here by itself
     sitemap: () => {
-      const li = (p, t, sub = "", kids = "") => `<li><a href="#${p}">${esc(t)}${sub ? `<small>${esc(sub)}</small>` : ""}</a>${kids}</li>`;
+      const li = (p, t, sub = "", kids = "") => `<li><a href="#${esc(p)}">${esc(t)}${sub ? `<small>${esc(sub)}</small>` : ""}</a>${kids}</li>`;
       const group = (p, t, items) => `
 <div class="panel glass" data-reveal>
   <div class="panel-head"><h2><a href="#${p}">${esc(t)}</a></h2></div>
@@ -2141,7 +2144,7 @@ ${q.lead ? `<p class="lead" data-reveal>${md(q.lead)}</p>` : ""}
     const crumbs = [["Главная", "/"], ...(r.crumbs || [])].map(([t, p]) => p ? `<a href="#${p}">${esc(t)}</a>` : `<span>${esc(t)}</span>`).join("");
     return `<section class="page-hero">
       <div class="wrap">${r.image ? `<div class="page-visual" aria-hidden="true"><img src="${r.image}" alt="" width="1248" height="832" decoding="async"></div>` : `<div class="page-stack" aria-hidden="true" data-mini-stack></div>`}<nav class="crumbs" aria-label="Навигационная цепочка">${crumbs}<span aria-current="page">${r.crumbTitle ? esc(r.crumbTitle) : r.title}</span></nav>
-      ${r.eyebrow ? `<span class="eyebrow">${r.eyebrow}</span>` : ""}<h1 class="${r.long ? "long" : ""}" tabindex="-1" data-split>${r.title}</h1>${r.lead ? `<p class="lead">${r.lead}</p>` : ""}</div></section>
+      ${r.eyebrow ? `<span class="eyebrow">${esc(r.eyebrow)}</span>` : ""}<h1 class="${r.long ? "long" : ""}" tabindex="-1" data-split>${r.title}</h1>${r.lead ? `<p class="lead">${r.lead}</p>` : ""}</div></section>
       <div class="wrap page-body${r.side ? " with-side" : ""}">${r.side ? sideNav(r.path) : ""}<div class="page-main">${content}</div></div>`;
   }
   const parseLoc = () => {
@@ -2345,19 +2348,19 @@ ${q.lead ? `<p class="lead" data-reveal>${md(q.lead)}</p>` : ""}
       <div class="filters" role="group" aria-label="Фильтр по формату работы">${[["all", "Все", VAC.length], ...Object.keys(FMT).map(k => [k, FMT[k], VAC.filter(v => v.fmt.includes(k)).length])]
         .map(([v, l, c]) => `<button class="filter" type="button" data-fmt="${v}" aria-pressed="${v === "all"}">${l}<b>${c}</b></button>`).join("")}</div></div>
       <div class="vacs">${VAC.map((v, i) => `
-      <article class="vac glass lit" id="vac-${v.id}" data-fmt="${v.fmt.join(" ")}" data-reveal style="--d:${i}">
-        <button class="vac-top" type="button" aria-expanded="false" aria-controls="vb-${v.id}">
-          <span><h3>${esc(v.title)}</h3><span class="vac-tags"><span>${v.emp}</span>${v.fmt.map(f => `<span>${FMT[f]}</span>`).join("")}</span></span>
-          <span class="vac-exp">${v.exp}</span><span class="vac-tog" aria-hidden="true"></span>
+      <article class="vac glass lit" id="vac-${esc(v.id)}" data-fmt="${esc(v.fmt.join(" "))}" data-reveal style="--d:${i}">
+        <button class="vac-top" type="button" aria-expanded="false" aria-controls="vb-${esc(v.id)}">
+          <span><h3>${esc(v.title)}</h3><span class="vac-tags"><span>${esc(v.emp)}</span>${v.fmt.map(f => `<span>${esc(FMT[f] || f)}</span>`).join("")}</span></span>
+          <span class="vac-exp">${esc(v.exp)}</span><span class="vac-tog" aria-hidden="true"></span>
         </button>
-        <div class="vac-body" id="vb-${v.id}"><div><div class="vac-inner">
+        <div class="vac-body" id="vb-${esc(v.id)}"><div><div class="vac-inner">
           <p>${esc(v.intro)}</p>${v.team ? `<p class="muted" style="font-size:15.5px;max-width:78ch">${esc(v.team)}</p>` : ""}
-          <div class="vac-cols">${v.cols.map(([h, items]) => `<div><h4>${h}</h4><ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
+          <div class="vac-cols">${v.cols.map(([h, items]) => `<div><h4>${esc(h)}</h4><ul>${items.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`).join("")}</div>
           ${v.stack ? `<div class="stack-chips">${v.stack.split(", ").map(s => `<span>${esc(s)}</span>`).join("")}</div>` : ""}
-          <div class="vac-foot"><button class="btn btn-primary" type="button" data-open="resume" data-vacancy="${v.id}" data-magnetic>Отправить резюме ${ARROW}</button><button class="chip-btn" type="button" data-vac-link="${v.id}">Скопировать ссылку</button></div>
+          <div class="vac-foot"><button class="btn btn-primary" type="button" data-open="resume" data-vacancy="${esc(v.id)}" data-magnetic>Отправить резюме ${ARROW}</button><button class="chip-btn" type="button" data-vac-link="${esc(v.id)}">Скопировать ссылку</button></div>
         </div></div></div>
       </article>`).join("")}</div>`;
-    if (openId) pending = pending || (() => { const v = $("#vac-" + openId); if (v) { toggleVac(v, true); scrollToEl(v); } });
+    if (openId) pending = pending || (() => { const v = $("#vac-" + CSS.escape(openId)); if (v) { toggleVac(v, true); scrollToEl(v); } });
   }
   const toggleVac = (vac, open) => { vac.classList.toggle("open", open); $(".vac-top", vac).setAttribute("aria-expanded", open); };
 
